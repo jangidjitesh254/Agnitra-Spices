@@ -46,7 +46,7 @@ function About({ navigateTo }) {
           {/* Cold ground */}
           <div className="comparison-box traditional">
             <h3 className="comparison-title text-gold">
-              <span>🌟</span> Agnitra Traditional Cold Grinding
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5.5Z"/><path d="M19 17l1 2.5 2.5.5-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1Z"/></svg> Agnitra Traditional Cold Grinding
             </h3>
             <ul className="comparison-list">
               <li><strong>Friction Temp:</strong> Stays strictly under 38°C, keeping essential oils intact.</li>
@@ -60,7 +60,7 @@ function About({ navigateTo }) {
           {/* Industrial heat */}
           <div className="comparison-box industrial">
             <h3 className="comparison-title text-red">
-              <span>⚠️</span> Industrial High-Speed Milling
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-alert-triangle"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg> Industrial High-Speed Milling
             </h3>
             <ul className="comparison-list">
               <li><strong>Friction Temp:</strong> Exceeds 80°C, burning away flavor and natural scent.</li>

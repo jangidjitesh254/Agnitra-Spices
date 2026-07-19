@@ -6,12 +6,13 @@ function Home({ products, navigateTo, addToCart, loading }) {
   return (
     <div className="home-page">
       {/* Decorative Drifting Spices & Leaves (from user screenshot) */}
-      <div className="floating-leaf leaf-1" aria-hidden="true">🍃</div>
-      <div className="floating-leaf leaf-2" aria-hidden="true">🍃</div>
-      <div className="floating-leaf leaf-3" aria-hidden="true">🍃</div>
-      <div className="floating-leaf leaf-4" aria-hidden="true">🌿</div>
-      <div className="floating-leaf chilli-drift" aria-hidden="true">🌶️</div>
-      <div className="floating-leaf peppercorns-drift" aria-hidden="true">⚫⚫</div>
+      {/* Decorative Drifting Spices & Leaves (from user screenshot) */}
+      <img src="/images/mint_leaf_icon.jpg" className="floating-leaf leaf-1" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.jpg" className="floating-leaf leaf-2" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.jpg" className="floating-leaf leaf-3" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/turmeric_icon.jpg" className="floating-leaf leaf-4" aria-hidden="true" alt="Floating turmeric root" />
+      <img src="/images/chilli_icon.jpg" className="floating-leaf chilli-drift" aria-hidden="true" alt="Floating red chilli" />
+      <img src="/images/coriander_icon.jpg" className="floating-leaf peppercorns-drift" aria-hidden="true" alt="Floating coriander seeds" />
 
       {/* Hero Section - Overhauled to match screenshot */}
       <section className="hero">
@@ -58,9 +59,12 @@ function Home({ products, navigateTo, addToCart, loading }) {
               </div>
 
               {/* Overlapping floating red chilli underlay */}
-              <div className="hero-chilli-underlay" aria-hidden="true">
-                🌶️
-              </div>
+              <img 
+                src="/images/chilli_icon.jpg" 
+                className="hero-chilli-underlay" 
+                aria-hidden="true" 
+                alt="Floating Chilli Accent"
+              />
             </div>
           </div>
         </div>
@@ -71,21 +75,27 @@ function Home({ products, navigateTo, addToCart, loading }) {
         <div className="container">
           <div className="grid-3">
             <div className="feature-badge-card">
-              <div className="feature-icon-wrapper">🌡️</div>
+              <div className="feature-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-thermometer-snowflake"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/><path d="M2 12h3"/><path d="M19 12h3"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/><path d="m6.34 17.66-1.41 1.41"/></svg>
+              </div>
               <div>
                 <h4 className="feature-badge-title">Cold-Ground Purity</h4>
                 <p className="feature-badge-desc">Stays strictly under 38°C to retain essential volatile oils.</p>
               </div>
             </div>
             <div className="feature-badge-card">
-              <div className="feature-icon-wrapper">☀️</div>
+              <div className="feature-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+              </div>
               <div>
                 <h4 className="feature-badge-title">Naturally Sun Dried</h4>
                 <p className="feature-badge-desc">Dehydrated in solar racks to capture rich natural taste.</p>
               </div>
             </div>
             <div className="feature-badge-card">
-              <div className="feature-icon-wrapper">🌱</div>
+              <div className="feature-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sprout"><path d="M7 20h10"/><path d="M10 20c5.5-2.5 8-6.4 8-12c-5.5 2.5-8 6.4-8 12Z"/><path d="M14 20c-5.5-2.5-8-6.4-8-12c5.5 2.5 8 6.4 8 12Z"/></svg>
+              </div>
               <div>
                 <h4 className="feature-badge-title">100% Organic Sourcing</h4>
                 <p className="feature-badge-desc">Directly harvested from certified local farm families.</p>

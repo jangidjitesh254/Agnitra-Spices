@@ -170,34 +170,35 @@ img {
   pointer-events: none;
   z-index: 10;
   user-select: none;
-  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.06));
+  mix-blend-mode: multiply; /* Make white backgrounds transparent */
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.03));
 }
 
 .leaf-1 {
   top: 12%;
   left: 6%;
-  font-size: 2.8rem;
+  width: 80px;
   animation: drift-slow-1 8s ease-in-out infinite;
 }
 
 .leaf-2 {
   top: 40%;
   left: 10%;
-  font-size: 2.4rem;
+  width: 60px;
   animation: drift-slow-2 10s ease-in-out infinite;
 }
 
 .leaf-3 {
   bottom: 15%;
   left: 22%;
-  font-size: 2.2rem;
+  width: 70px;
   animation: drift-slow-1 9s ease-in-out infinite;
 }
 
 .leaf-4 {
   top: 25%;
   right: 6%;
-  font-size: 2rem;
+  width: 55px;
   animation: drift-slow-2 7s ease-in-out infinite;
   opacity: 0.75;
 }
@@ -205,14 +206,14 @@ img {
 .chilli-drift {
   bottom: 8%;
   left: 11%;
-  font-size: 3.5rem;
+  width: 110px;
   animation: drift-slow-2 12s ease-in-out infinite;
 }
 
 .peppercorns-drift {
   bottom: 4%;
   right: 38%;
-  font-size: 1.5rem;
+  width: 90px;
   animation: drift-slow-1 6s ease-in-out infinite;
   opacity: 0.8;
 }
@@ -669,7 +670,7 @@ img {
   pointer-events: none;
   opacity: 0.95;
   z-index: 2;
-  filter: drop-shadow(0 15px 25px rgba(139, 38, 26, 0.15));
+  mix-blend-mode: multiply;
   animation: drift-slow-2 8s ease-in-out infinite;
 }
 
