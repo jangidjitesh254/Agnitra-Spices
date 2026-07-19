@@ -1,0 +1,86 @@
+[
+  {
+    "_id": "65f8a2f1c8e8d2a1b9e00001",
+    "name": "Traditional Kashmiri Chilli Powder",
+    "description": "Sun-dried Kashmiri chillies ground in slow-rotating stone chakkis. This keeps the grinding temperature low, locking in the natural red pigment and the volatile capsaicin oils. Offers a mild heat with a vibrant, deep red color and a sweet, smoky aroma.",
+    "price": 180,
+    "unit": "250g",
+    "category": "Chilli",
+    "traditionalMethod": "Low-temperature Stone-ground (Stone Chakki)",
+    "benefits": [
+      "Rich in Vitamin C and antioxidants",
+      "Boosts metabolism and aids digestion",
+      "Locks natural oils without artificial colors or preservatives"
+    ],
+    "specifications": {
+      "essentialOils": "1.5% Essential Capsaicin Oils preserved",
+      "moisture": "Under 8% (Max Aroma Lock)",
+      "origin": "Byadgi region, Karnataka",
+      "grindingTemp": "Below 38°C (Industrial grinders exceed 80°C)"
+    },
+    "usage": "Perfect for curries, tandoori marinades, stews, and soups where a rich red color is desired with a gentle warmth.",
+    "recipes": [
+      "Add 1 tsp to tandoori marinades for natural coloring.",
+      "Stir into slow-cooked gravies at the end to lock in the aroma."
+    ],
+    "rating": 4.9,
+    "image": "/images/chilli.jpeg",
+    "stock": 120
+  },
+  {
+    "_id": "65f8a2f1c8e8d2a1b9e00002",
+    "name": "High-Curcumin Hand-Pounded Turmeric Powder",
+    "description": "Premium turmeric rhizomes sun-dehydrated and hand-pounded in traditional wooden and stone mortar-pestles (Okhli). Hand-pounding prevents thermal degradation, preserving the active compound Curcumin (exceeding 5.2%) and natural turmeric oils.",
+    "price": 140,
+    "unit": "250g",
+    "category": "Turmeric",
+    "traditionalMethod": "Hand-Pounded (Okhli-Musar)",
+    "benefits": [
+      "Super-high Curcumin content (>5.2%) for powerful anti-inflammatory support",
+      "Natural immunity booster with strong antimicrobial properties",
+      "Pure yellow golden texture without lead chromate or starch fillers"
+    ],
+    "specifications": {
+      "essentialOils": "2.8% Curcuma oils retained",
+      "moisture": "Under 7.5%",
+      "origin": "Lakadong region, Meghalaya",
+      "grindingTemp": "Zero friction heat (Cold process)"
+    },
+    "usage": "Use in daily cooking, traditional milk elixirs (Golden Milk), skincare masks, or natural wellness shots.",
+    "recipes": [
+      "Golden Milk: Whisk 1/2 tsp turmeric in hot milk with black pepper and honey.",
+      "Daily Tadka: Add 1/2 tsp to heated ghee/oil to activate curcumin with fat."
+    ],
+    "rating": 4.95,
+    "image": "/images/turmeric.jpeg",
+    "stock": 85
+  },
+  {
+    "_id": "65f8a2f1c8e8d2a1b9e00003",
+    "name": "Stone-Ground Coriander Powder",
+    "description": "Freshly selected coriander seeds (Dhania) dry-roasted in sun-baked clay pans, then stone-ground in traditional rotating hand-mills. Retains high concentrations of Linalool, the volatile compound responsible for the citrusy, herbal fragrance.",
+    "price": 110,
+    "unit": "250g",
+    "category": "Coriander",
+    "traditionalMethod": "Clay-Roasted & Stone-Ground",
+    "benefits": [
+      "Excellent source of dietary fiber and minerals",
+      "Helps regulate blood sugar and digestion",
+      "Fresh, cooling digestive spice with zero metal dust contamination"
+    ],
+    "specifications": {
+      "essentialOils": "0.9% Linalool oils retained",
+      "moisture": "Under 9%",
+      "origin": "Ramganj Mandi, Rajasthan",
+      "grindingTemp": "Below 35°C (Slow hand-rotation)"
+    },
+    "usage": "A cooling base spice for gravies, vegetable stir-fries, lentil dal, and traditional spice rubs.",
+    "recipes": [
+      "Stir 1 tbsp into dals and curries along with cumin for a balanced earthiness.",
+      "Blend with cumin and black pepper for a homemade garam masala."
+    ],
+    "rating": 4.8,
+    "image": "/images/corainder.jpeg",
+    "stock": 150
+  }
+]
