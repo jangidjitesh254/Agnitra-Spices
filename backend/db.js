@@ -12,15 +12,32 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DATA_DIR = path.join(__dirname, 'data');
 
-// Create Postgres connection pool
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false // Required for Neon serverless postgres ssl
-  }
-});
+// Declared let, initialized in connectDB to handle environment configurations gracefully
+let pool;
 
 export const connectDB = async () => {
+  const connectionString = process.env.DATABASE_URL;
+  
+  if (!connectionString) {
+    console.error('\n========================================================================');
+    console.error('❌ ERROR: DATABASE_URL environment variable is missing!');
+    console.error('========================================================================');
+    console.error('👉 The application is running in an environment where the ".env" file is');
+    console.error('   missing (or has not been created in the "backend" folder).');
+    console.error('   Please create a ".env" file in the "backend" directory containing:');
+    console.error('   DATABASE_URL=postgresql://neondb_owner:npg_ngAR1mvjeH5z@ep-small-bread-avn3zsc2-pooler.c-11.us-east-1.aws.neon.tech/neondb?sslmode=require');
+    console.error('   or configure DATABASE_URL in your server system environment.');
+    console.error('========================================================================\n');
+    throw new Error('DATABASE_URL environment variable is not defined.');
+  }
+
+  pool = new Pool({
+    connectionString,
+    ssl: {
+      rejectUnauthorized: false // Required for Neon serverless postgres ssl
+    }
+  });
+
   try {
     // Test database connection
     const client = await pool.connect();
