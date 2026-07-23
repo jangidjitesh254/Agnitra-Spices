@@ -1634,3 +1634,249 @@ img {
   animation: spin-slow 1s linear infinite;
   margin: 50px auto;
 }
+
+/* ==========================================================================
+   Connect / Social Hub Linktree-style Page
+   ========================================================================== */
+.connect-page {
+  padding: 40px 0 80px 0;
+  position: relative;
+}
+
+.connect-header-card {
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 35px 25px;
+  margin-bottom: 24px;
+  box-shadow: var(--card-shadow);
+  position: relative;
+}
+
+.connect-avatar-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 16px auto;
+}
+
+.connect-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-orange);
+  box-shadow: 0 6px 16px rgba(189, 89, 60, 0.18);
+}
+
+.connect-verified-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background-color: var(--accent-orange);
+  color: #ffffff;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+}
+
+.connect-brand-title {
+  font-family: var(--font-title);
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.connect-brand-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.connect-tags-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.connect-tag {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: var(--border-radius-round);
+  font-weight: 600;
+}
+
+/* QR URL Copy Box */
+.connect-qr-box {
+  background-color: #ffffff;
+  border: 1px dashed var(--accent-orange);
+  border-radius: var(--border-radius-md);
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: var(--card-shadow);
+}
+
+.qr-box-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.qr-box-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.qr-box-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.qr-url-display {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  border-radius: var(--border-radius-sm);
+  font-family: monospace;
+  font-size: 0.82rem;
+  color: var(--accent-red);
+  word-break: break-all;
+}
+
+/* Connect Link Cards */
+.connect-links-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.connect-link-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 18px 22px;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: var(--transition-normal);
+  box-shadow: var(--card-shadow);
+  position: relative;
+}
+
+.connect-link-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-orange);
+  box-shadow: 0 10px 25px rgba(31, 25, 22, 0.08);
+}
+
+.connect-link-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.instagram-icon-bg {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.facebook-icon-bg {
+  background: #1877f2;
+}
+
+.whatsapp-icon-bg {
+  background: #25d366;
+}
+
+.phone-icon-bg {
+  background: var(--accent-red);
+}
+
+.store-icon-bg {
+  background: #171210;
+}
+
+.story-icon-bg {
+  background: var(--accent-orange);
+}
+
+.connect-link-content {
+  flex-grow: 1;
+}
+
+.connect-link-title {
+  display: block;
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 2px;
+}
+
+.connect-link-sub {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.connect-link-arrow {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  transition: var(--transition-fast);
+}
+
+.connect-link-card:hover .connect-link-arrow {
+  color: var(--accent-orange);
+  transform: translateX(4px);
+}
+
+.connect-link-badge {
+  background-color: rgba(37, 211, 102, 0.12);
+  color: #128c7e;
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--border-radius-round);
+  letter-spacing: 0.05em;
+}
+
+.copy-phone-btn {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--border-radius-round);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.copy-phone-btn:hover {
+  background-color: var(--accent-orange);
+  color: #ffffff;
+  border-color: var(--accent-orange);
+}

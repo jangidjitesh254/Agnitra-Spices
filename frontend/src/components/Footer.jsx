@@ -53,6 +53,11 @@ function Footer({ navigateTo }) {
                   Reach Our Experts
                 </a>
               </li>
+              <li>
+                <a href="#connect" onClick={(e) => handleLinkClick(e, 'connect')}>
+                  Follow & Connect (QR Page)
+                </a>
+              </li>
             </ul>
           </div>
 
