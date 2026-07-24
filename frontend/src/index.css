@@ -1880,3 +1880,373 @@ img {
   color: #ffffff;
   border-color: var(--accent-orange);
 }
+
+/* ==========================================================================
+   QR Route Landing Page Design (Screenshot Reproduction)
+   ========================================================================== */
+.qr-landing-page {
+  background-color: #f7f3ea; /* Warm parchment organic background */
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(189, 89, 60, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(62, 80, 37, 0.03) 0%, transparent 40%);
+  min-height: 100vh;
+  padding: 40px 0 100px 0;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.qr-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Corner Spice Bowls Decorative Imagery */
+.qr-corner-spice {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  border: 4px solid #ffffff;
+}
+
+.corner-top-left {
+  top: -20px;
+  left: -40px;
+  width: 170px;
+  height: 170px;
+  transform: rotate(-15deg);
+}
+
+.corner-top-right {
+  top: -20px;
+  right: -40px;
+  width: 180px;
+  height: 180px;
+  transform: rotate(15deg);
+}
+
+.corner-spice-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .qr-corner-spice {
+    display: none; /* Hide heavy corner dishes on narrow phone screens to maximize card space */
+  }
+}
+
+/* Header Section */
+.qr-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.qr-logo-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.qr-brand-logo-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid var(--accent-orange);
+  object-fit: cover;
+  box-shadow: 0 4px 14px rgba(189, 89, 60, 0.2);
+}
+
+.qr-brand-name-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.qr-brand-name {
+  font-family: var(--font-title);
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  color: #382417; /* Deep earthy spice brown */
+}
+
+.qr-brand-subname {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  color: var(--accent-orange);
+}
+
+.qr-divider-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.divider-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c7b8a7, transparent);
+}
+
+.divider-leaf {
+  font-size: 0.9rem;
+  color: var(--accent-orange);
+}
+
+.qr-main-tagline {
+  font-family: var(--font-title);
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #2b1d14;
+  margin: 10px 0;
+}
+
+.qr-welcome-text {
+  font-size: 1.05rem;
+  color: #63554a;
+  max-width: 520px;
+  margin: 16px auto 24px auto;
+  line-height: 1.5;
+}
+
+/* QR URL Copy Bar */
+.qr-copy-url-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #ffffff;
+  border: 1px dashed var(--accent-orange);
+  padding: 8px 16px;
+  border-radius: var(--border-radius-round);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.qr-copy-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.qr-copy-url-code {
+  font-family: monospace;
+  font-size: 0.82rem;
+  color: var(--accent-red);
+  font-weight: 600;
+}
+
+.qr-copy-btn {
+  background-color: var(--accent-orange);
+  color: #ffffff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: var(--border-radius-round);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.qr-copy-btn:hover {
+  background-color: var(--accent-red);
+}
+
+/* ==========================================================================
+   6 Action Cards Responsive Grid Layout
+   ========================================================================== */
+.qr-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 50px;
+}
+
+@media (max-width: 680px) {
+  .qr-cards-grid {
+    grid-template-columns: 1fr; /* Single column layout on phone screens */
+    gap: 16px;
+  }
+}
+
+.qr-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 22px 24px;
+  text-decoration: none;
+  color: var(--text-primary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  cursor: pointer;
+}
+
+.qr-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.09);
+}
+
+/* Card Icon Circles (Exact color palette matching screenshot) */
+.qr-card-icon-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.icon-website {
+  background-color: #3e5025; /* Dark Olive Green */
+}
+
+.icon-instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.icon-facebook {
+  background-color: #1877f2; /* Facebook Royal Blue */
+}
+
+.icon-whatsapp {
+  background-color: #25d366; /* WhatsApp Green */
+}
+
+.icon-email {
+  background-color: #c83e2d; /* Terracotta Red */
+}
+
+.icon-feedback {
+  background-color: #d4902b; /* Warm Gold Amber */
+}
+
+/* Individual Card Accent Glow Borders */
+.card-website:hover { border-color: #3e5025; }
+.card-instagram:hover { border-color: #dc2743; }
+.card-facebook:hover { border-color: #1877f2; }
+.card-whatsapp:hover { border-color: #25d366; }
+.card-email:hover { border-color: #c83e2d; }
+.card-feedback:hover { border-color: #d4902b; }
+
+.qr-card-info {
+  flex-grow: 1;
+}
+
+.qr-card-title {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #251d18;
+  margin-bottom: 4px;
+}
+
+.qr-card-desc {
+  font-size: 0.85rem;
+  color: #6e6157;
+  line-height: 1.4;
+}
+
+.qr-card-chevron {
+  color: #a89a8c;
+  transition: var(--transition-fast);
+}
+
+.qr-card:hover .qr-card-chevron {
+  color: #251d18;
+  transform: translateX(4px);
+}
+
+/* Footer Section */
+.qr-footer-thankyou {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.qr-thank-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.qr-thank-title {
+  font-family: var(--font-cursive);
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--accent-red);
+}
+
+.qr-thank-sub {
+  font-size: 0.95rem;
+  color: #5c4e43;
+  font-weight: 500;
+}
+
+/* Bottom Forest Green Wavy Banner Bar */
+.qr-bottom-bar-banner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #24351a; /* Dark Forest Green */
+  color: #f7f3ea;
+  padding: 16px 20px;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -6px 20px rgba(0,0,0,0.1);
+  z-index: 20;
+}
+
+.qr-bottom-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  flex-wrap: wrap;
+}
+
+.bar-icon {
+  font-size: 1rem;
+}
+
+.bar-text-main {
+  font-family: var(--font-title);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.bar-text-sub {
+  color: #d1c6b6;
+  font-weight: 400;
+}
+
+.bar-separator {
+  color: #4b5e3e;
+}
+

@@ -8,12 +8,12 @@ import Cart from './pages/Cart';
 import Orders from './pages/Orders';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Connect from './pages/Connect';
+import QRPage from './pages/QRPage';
 
 export const API_BASE_URL = 'http://localhost:5000/api';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home'); // home, shop, product/:id, cart, orders, about, contact, connect
+  const [currentPage, setCurrentPage] = useState('home'); // home, shop, product/:id, cart, orders, about, contact, connect, qr
   const [activeProductId, setActiveProductId] = useState(null);
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
@@ -22,24 +22,34 @@ function App() {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Handle URL Hash navigation on load and on hash change (e.g. #connect, #shop)
+  // Handle URL Hash & Path navigation on load and on route change (e.g. /qr, #qr, #connect)
   useEffect(() => {
-    const handleHash = () => {
-      const hash = window.location.hash.replace('#', '');
-      if (hash) {
-        if (hash.startsWith('product/')) {
-          const id = hash.split('/')[1];
-          setActiveProductId(id);
-          setCurrentPage('product');
-        } else if (['home', 'shop', 'about', 'contact', 'connect', 'orders', 'cart'].includes(hash)) {
-          setCurrentPage(hash);
-        }
+    const handleRouting = () => {
+      const path = window.location.pathname.replace(/^\//, '').toLowerCase();
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      const route = hash || path;
+
+      if (route === 'qr' || route === 'connect') {
+        setCurrentPage('qr');
+        return;
+      }
+
+      if (route.startsWith('product/')) {
+        const id = route.split('/')[1];
+        setActiveProductId(id);
+        setCurrentPage('product');
+      } else if (['home', 'shop', 'about', 'contact', 'orders', 'cart'].includes(route)) {
+        setCurrentPage(route);
       }
     };
 
-    handleHash();
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+    handleRouting();
+    window.addEventListener('hashchange', handleRouting);
+    window.addEventListener('popstate', handleRouting);
+    return () => {
+      window.removeEventListener('hashchange', handleRouting);
+      window.removeEventListener('popstate', handleRouting);
+    };
   }, []);
 
   // Load products from backend API
@@ -187,7 +197,8 @@ function App() {
       case 'contact':
         return <Contact />;
       case 'connect':
-        return <Connect navigateTo={navigateTo} />;
+      case 'qr':
+        return <QRPage navigateTo={navigateTo} />;
       default:
         return (
           <div className="container empty-state">
