@@ -21,10 +21,8 @@ function Home({ products, navigateTo, addToCart, loading }) {
             {/* Left side: Headline & Call To Action */}
             <div className="hero-content-col animate-fade-in">
               <h1 className="designer-hero-title">
-                From <span className="highlight-green-line">Nature</span><br />
-                To Your <span className="highlight-green-line">Kitchen</span>
+                From Nature<br />To Your Kitchen
               </h1>
-              <div className="authenticity-line-divider" title="100% Guaranteed Authenticity"></div>
               <p className="designer-hero-subtitle">
                 100% natural spices for a healthy and happy life.
               </p>
