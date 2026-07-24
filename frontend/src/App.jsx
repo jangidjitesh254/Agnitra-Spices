@@ -13,7 +13,7 @@ import QRPage from './pages/QRPage';
 export const API_BASE_URL = 'http://localhost:5000/api';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home'); // home, shop, product/:id, cart, orders, about, contact, connect, qr
+  const [currentPage, setCurrentPage] = useState('home'); // home, shop, product/:id, cart, orders, about, contact, qr
   const [activeProductId, setActiveProductId] = useState(null);
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
@@ -22,34 +22,30 @@ function App() {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Handle URL Path & Hash navigation on load and route changes (e.g. /qr, /connect, #qr)
+  // Handle URL Path & Hash navigation on load and route changes (e.g. /qr)
   useEffect(() => {
     const handleRouting = () => {
       const path = window.location.pathname.replace(/^\//, '').toLowerCase();
-      const hash = window.location.hash.replace('#', '').toLowerCase();
 
-      if (path === 'qr' || path === 'connect' || hash === 'qr' || hash === 'connect') {
+      if (path === 'qr') {
         setCurrentPage('qr');
         return;
       }
 
-      const route = path || hash;
-      if (route.startsWith('product/')) {
-        const id = route.split('/')[1];
+      if (path.startsWith('product/')) {
+        const id = path.split('/')[1];
         setActiveProductId(id);
         setCurrentPage('product');
-      } else if (['home', 'shop', 'about', 'contact', 'orders', 'cart'].includes(route)) {
-        setCurrentPage(route);
+      } else if (['home', 'shop', 'about', 'contact', 'orders', 'cart'].includes(path)) {
+        setCurrentPage(path);
       } else if (path === '') {
         setCurrentPage('home');
       }
     };
 
     handleRouting();
-    window.addEventListener('hashchange', handleRouting);
     window.addEventListener('popstate', handleRouting);
     return () => {
-      window.removeEventListener('hashchange', handleRouting);
       window.removeEventListener('popstate', handleRouting);
     };
   }, []);
@@ -136,7 +132,7 @@ function App() {
       setActiveProductId(params.id);
       setCurrentPage('product');
       window.history.pushState({}, '', `/product/${params.id}`);
-    } else if (page === 'qr' || page === 'connect') {
+    } else if (page === 'qr') {
       setCurrentPage('qr');
       window.history.pushState({}, '', '/qr');
     } else if (page === 'home') {
@@ -204,7 +200,6 @@ function App() {
         return <About navigateTo={navigateTo} />;
       case 'contact':
         return <Contact />;
-      case 'connect':
       case 'qr':
         return <QRPage navigateTo={navigateTo} />;
       default:
@@ -219,7 +214,7 @@ function App() {
     }
   };
 
-  const isStandalonePage = currentPage === 'qr' || currentPage === 'connect';
+  const isStandalonePage = currentPage === 'qr';
 
   if (isStandalonePage) {
     return (
