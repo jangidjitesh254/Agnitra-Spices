@@ -2550,57 +2550,70 @@ img {
 /* Products Grid Layout (Screen 2) */
 .designer-products-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
   margin-bottom: 40px;
 }
 
-@media (max-width: 1100px) {
-  .designer-products-grid { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 992px) {
+  .designer-products-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 650px) {
-  .designer-products-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 580px) {
+  .designer-products-grid { grid-template-columns: 1fr; }
 }
 
 .designer-product-card {
   background-color: #ffffff;
-  border: 1px solid var(--border-color);
+  border: 1.5px solid var(--border-color);
   border-radius: var(--border-radius-lg);
-  padding: 20px;
+  padding: 22px;
   text-align: center;
   transition: var(--transition-normal);
   box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .designer-product-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   box-shadow: var(--heavy-shadow);
   border-color: var(--accent-green);
 }
 
 .designer-product-img-box {
-  width: 130px;
-  height: 130px;
-  border-radius: 24px; /* Stylish rounded squircle frame */
+  width: 100%;
+  height: 220px;
+  border-radius: 18px; /* Stylish rounded rectangle frame */
   overflow: hidden;
   margin: 0 auto 16px auto;
-  border: 4px solid #ffffff;
-  box-shadow: 0 8px 20px rgba(37, 29, 24, 0.06);
+  background-color: #f8f4ec;
+  border: 3px solid #ffffff;
+  box-shadow: inset 0 0 12px rgba(0,0,0,0.03), 0 8px 20px rgba(37, 29, 24, 0.06);
   outline: 1.5px solid var(--border-color);
   cursor: pointer;
   transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
 }
 
 .designer-product-card:hover .designer-product-img-box {
   outline-color: var(--accent-green);
-  transform: scale(1.04);
+  background-color: #f4eee2;
 }
 
 .designer-product-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* Shows full product box image completely without cropping */
+  transition: var(--transition-normal);
+}
+
+.designer-product-card:hover .designer-product-img {
+  transform: scale(1.06);
 }
 
 .designer-product-name {
