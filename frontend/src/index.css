@@ -417,21 +417,36 @@ img {
 }
 
 /* Header & Navbar Styling */
+/* Floating Rounded Lucid Glassmorphism Navbar */
 .header {
-  height: var(--header-height);
-  background-color: rgba(250, 248, 245, 0.95);
-  backdrop-filter: blur(8px);
   position: sticky;
-  top: 0;
-  z-index: 100;
-  border-bottom: 1px solid var(--border-color);
+  top: 16px;
+  z-index: 1000;
+  padding: 0 20px;
+  background: transparent;
+  border-bottom: none;
 }
 
 .header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
+  height: 68px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1.5px solid rgba(229, 223, 210, 0.9);
+  border-radius: var(--border-radius-round); /* Rounded Pill Navbar */
+  padding: 0 28px;
+  box-shadow: 0 12px 35px rgba(37, 29, 24, 0.07);
+  transition: var(--transition-normal);
+  max-width: 1220px;
+  margin: 0 auto;
+}
+
+.header-container:hover {
+  box-shadow: 0 16px 40px rgba(37, 29, 24, 0.12);
+  border-color: rgba(53, 74, 29, 0.3);
 }
 
 /* Navbar Search Box (Left align) */
