@@ -1090,19 +1090,20 @@ img {
 }
 
 .detail-img-card {
-  border-radius: var(--border-radius-lg);
+  border-radius: 200px 200px 32px 32px; /* Arch Showcase Frame */
   overflow: hidden;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--card-shadow);
+  border: 8px solid #ffffff;
+  outline: 2px dashed rgba(189, 89, 60, 0.35);
+  outline-offset: 8px;
+  box-shadow: 0 20px 45px rgba(37, 29, 24, 0.12);
   background-color: #ffffff;
-  padding: 12px;
 }
 
 .detail-img {
   width: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
-  border-radius: calc(var(--border-radius-lg) - 12px);
+  border-radius: 192px 192px 24px 24px;
 }
 
 .detail-title {
@@ -2462,11 +2463,14 @@ img {
 .hero-dish-frame {
   width: 100%;
   max-width: 480px;
-  border-radius: 50%;
+  border-radius: 220px 220px 32px 32px; /* Premium Arch Frame */
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(37, 29, 24, 0.12);
+  box-shadow: 0 24px 50px rgba(37, 29, 24, 0.14);
   border: 8px solid #ffffff;
+  outline: 2px dashed rgba(189, 89, 60, 0.35);
+  outline-offset: 8px;
   margin: 0 auto;
+  transition: var(--transition-slow);
 }
 
 .hero-main-dish-img {
@@ -2576,13 +2580,21 @@ img {
 }
 
 .designer-product-img-box {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  border-radius: 24px; /* Stylish rounded squircle frame */
   overflow: hidden;
   margin: 0 auto 16px auto;
-  border: 3px solid var(--bg-primary);
+  border: 4px solid #ffffff;
+  box-shadow: 0 8px 20px rgba(37, 29, 24, 0.06);
+  outline: 1.5px solid var(--border-color);
   cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.designer-product-card:hover .designer-product-img-box {
+  outline-color: var(--accent-green);
+  transform: scale(1.04);
 }
 
 .designer-product-img {
