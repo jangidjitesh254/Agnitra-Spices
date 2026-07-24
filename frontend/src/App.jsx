@@ -22,24 +22,26 @@ function App() {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Handle URL Hash & Path navigation on load and on route change (e.g. /qr, #qr, #connect)
+  // Handle URL Path & Hash navigation on load and route changes (e.g. /qr, /connect, #qr)
   useEffect(() => {
     const handleRouting = () => {
       const path = window.location.pathname.replace(/^\//, '').toLowerCase();
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      const route = hash || path;
 
-      if (route === 'qr' || route === 'connect') {
+      if (path === 'qr' || path === 'connect' || hash === 'qr' || hash === 'connect') {
         setCurrentPage('qr');
         return;
       }
 
+      const route = path || hash;
       if (route.startsWith('product/')) {
         const id = route.split('/')[1];
         setActiveProductId(id);
         setCurrentPage('product');
       } else if (['home', 'shop', 'about', 'contact', 'orders', 'cart'].includes(route)) {
         setCurrentPage(route);
+      } else if (path === '') {
+        setCurrentPage('home');
       }
     };
 
@@ -133,10 +135,16 @@ function App() {
     if (page === 'product' && params) {
       setActiveProductId(params.id);
       setCurrentPage('product');
-      window.location.hash = `product/${params.id}`;
+      window.history.pushState({}, '', `/product/${params.id}`);
+    } else if (page === 'qr' || page === 'connect') {
+      setCurrentPage('qr');
+      window.history.pushState({}, '', '/qr');
+    } else if (page === 'home') {
+      setCurrentPage('home');
+      window.history.pushState({}, '', '/');
     } else {
       setCurrentPage(page);
-      window.location.hash = page;
+      window.history.pushState({}, '', `/${page}`);
     }
   };
 

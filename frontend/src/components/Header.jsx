@@ -92,9 +92,12 @@ function Header({ currentPage, navigateTo, cartItemCount, searchQuery, setSearch
             </li>
             <li>
               <a 
-                href="#connect" 
-                className={`nav-link ${currentPage === 'connect' ? 'active' : ''}`}
-                onClick={() => handleNavClick('connect')}
+                href="/qr" 
+                className={`nav-link ${currentPage === 'qr' || currentPage === 'connect' ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick('qr');
+                }}
               >
                 Follow & Connect
               </a>
