@@ -24,8 +24,8 @@
   --text-muted: #998a7d;        /* Muted earthy text */
   --border-color: #e5dfd2;      /* Warm border */
   
-  /* Fonts */
-  --font-title: 'Cinzel', 'Playfair Display', Georgia, serif;
+  /* Fonts (Matching modern bold geometric screenshot) */
+  --font-title: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-cursive: 'Alex Brush', cursive;
   
@@ -59,20 +59,20 @@ html {
 
 body {
   background-color: var(--bg-primary);
-  color: var(--text-primary);
+  color: #384233;
   font-family: var(--font-body);
-  line-height: 1.6;
+  line-height: 1.65;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Typography */
+/* Typography (Bold Geometric Screenshot Style) */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-title);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--text-primary);
-  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: #1a2813;
+  line-height: 1.15;
 }
 
 a {
@@ -2428,16 +2428,20 @@ img {
   font-family: var(--font-title);
   font-size: 3.8rem;
   font-weight: 800;
-  line-height: 1.1;
-  color: #261d17;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #1a2813;
   margin-bottom: 18px;
 }
 
 .designer-hero-subtitle {
+  font-family: var(--font-body);
   font-size: 1.15rem;
-  color: var(--text-secondary);
+  font-weight: 700;
+  color: #232c1e;
+  line-height: 1.45;
   margin-bottom: 28px;
-  max-width: 460px;
+  max-width: 480px;
 }
 
 .hero-dish-frame {
