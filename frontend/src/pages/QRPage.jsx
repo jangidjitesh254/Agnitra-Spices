@@ -51,8 +51,6 @@ function QRPage({ navigateTo }) {
               <span className="qr-brand-subname">SPICES</span>
             </div>
           </div>
-
-          <h1 className="qr-main-tagline">Pure Spices. Pure Love.</h1>
         </header>
 
         {/* 6 Action Cards Responsive Grid (Exact Layout from Screenshot) */}

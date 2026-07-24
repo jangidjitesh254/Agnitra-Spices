@@ -2234,13 +2234,13 @@ img {
   display: flex;
   align-items: center;
   gap: 16px;
-  background-color: #233418; /* Dark Olive Forest Green matching screenshot */
+  background-color: #365227; /* Lighter rich forest green */
   border-radius: 20px;
   padding: 22px 24px;
   text-decoration: none;
   color: #ffffff;
-  box-shadow: 0 8px 25px rgba(35, 52, 24, 0.2);
-  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 25px rgba(54, 82, 39, 0.22);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
   cursor: pointer;
@@ -2248,9 +2248,9 @@ img {
 
 .qr-card:hover {
   transform: translateY(-4px);
-  background-color: #1b2a12;
-  box-shadow: 0 14px 35px rgba(35, 52, 24, 0.35);
-  border-color: rgba(255, 255, 255, 0.3);
+  background-color: #2a421d;
+  box-shadow: 0 14px 35px rgba(54, 82, 39, 0.35);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 /* Card Icon Circles */
