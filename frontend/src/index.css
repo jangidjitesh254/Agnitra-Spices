@@ -613,7 +613,15 @@ img {
     display: none;
   }
   .mobile-menu-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
   }
   .nav-menu {
     display: none;
@@ -622,15 +630,19 @@ img {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: var(--header-height);
-    left: 0;
-    width: 100%;
-    background-color: var(--bg-primary);
-    padding: 30px;
-    border-bottom: 1px solid var(--border-color);
-    gap: 20px;
-    box-shadow: var(--card-shadow);
-    z-index: 99;
+    top: 74px;
+    left: 10px;
+    right: 10px;
+    width: calc(100% - 20px);
+    background-color: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 24px;
+    border-radius: 24px;
+    border: 1.5px solid rgba(229, 223, 210, 0.9);
+    gap: 16px;
+    box-shadow: 0 16px 40px rgba(37, 29, 24, 0.12);
+    z-index: 1000;
   }
 }
 
@@ -2882,6 +2894,172 @@ img {
   text-align: center;
   font-size: 0.8rem;
   color: #a39886;
+}
+
+/* ==========================================================================
+   Mobile Optimization System (320px - 768px Smartphones)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Prevent horizontal scrolling & body clipping */
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  /* Header Container on Mobile */
+  .header {
+    top: 8px;
+    padding: 0 10px;
+  }
+
+  .header-container {
+    height: 60px;
+    padding: 0 16px;
+  }
+
+  .logo-text {
+    font-size: 1.15rem;
+  }
+
+  .logo-subtext {
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+  }
+
+  /* Designer Hero Section on Mobile */
+  .designer-hero {
+    padding: 30px 0 25px 0;
+  }
+
+  .hero-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .designer-hero-title {
+    font-size: clamp(2.1rem, 7.5vw, 3rem);
+    line-height: 1.12;
+    margin-bottom: 14px;
+  }
+
+  .designer-hero-subtitle {
+    font-size: 1rem;
+    margin: 0 auto 20px auto;
+  }
+
+  .hero-dish-frame {
+    max-width: 280px;
+    border-radius: 140px 140px 24px 24px;
+    border: 5px solid #ffffff;
+    outline-offset: 4px;
+  }
+
+  /* Products Grid Layout */
+  .designer-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .designer-product-card {
+    padding: 14px 10px;
+  }
+
+  .designer-product-img-box {
+    height: 150px;
+    padding: 8px;
+    border-radius: 14px;
+  }
+
+  .designer-product-name {
+    font-size: 0.88rem;
+  }
+
+  .price-tag-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .designer-product-price {
+    font-size: 1rem;
+  }
+
+  .add-to-cart-btn {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
+
+  /* Authentic Technology Section */
+  .tech-toggle-buttons {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .btn-brand-tab {
+    font-size: 0.8rem;
+    padding: 8px 14px;
+  }
+
+  .tech-content-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .tech-img-col {
+    order: -1;
+  }
+
+  .tech-img-frame {
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  /* Process Flow */
+  .process-section .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  /* Footer */
+  .footer-grid-4 {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .footer-bottom-flex {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  /* Recipes / Blog Page */
+  .recipes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Cart & Checkout Layout */
+  .cart-grid, .checkout-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .designer-products-grid {
+    grid-template-columns: 1fr; /* Single column on narrow phone screens */
+    gap: 16px;
+  }
+
+  .process-section .grid-4 {
+    grid-template-columns: 1fr;
+  }
 }
 
 
