@@ -2429,7 +2429,7 @@ img {
 
 /* Hero Section (Screen 1) */
 .designer-hero {
-  padding: 60px 0 40px 0;
+  padding: 85px 0 65px 0; /* Expanded top & bottom spacing */
   position: relative;
 }
 
@@ -2444,10 +2444,37 @@ img {
   font-family: var(--font-title);
   font-size: 3.8rem;
   font-weight: 800;
-  line-height: 1.08;
+  line-height: 1.2;
   letter-spacing: -0.035em;
   color: #1a2813;
-  margin-bottom: 18px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+/* Green Solid Line Authenticity Highlight */
+.highlight-green-line {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.highlight-green-line::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: var(--accent-green); /* #354a1d Solid Green Line */
+  border-radius: 4px;
+}
+
+.authenticity-line-divider {
+  width: 110px;
+  height: 5px;
+  background-color: var(--accent-green);
+  border-radius: 4px;
+  margin: 18px 0 24px 0;
 }
 
 .designer-hero-subtitle {
