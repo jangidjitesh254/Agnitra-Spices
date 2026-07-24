@@ -69,18 +69,6 @@ function QRPage({ navigateTo }) {
             Thank you for choosing Agnitra Spices.<br />
             Connect with us through the options below.
           </p>
-
-          {/* Quick Copy Link Bar for QR Generator */}
-          <div className="qr-copy-url-bar">
-            <span className="qr-copy-label">QR Code Target URL:</span>
-            <code className="qr-copy-url-code">{currentUrl}</code>
-            <button 
-              className="qr-copy-btn" 
-              onClick={() => copyToClipboard(currentUrl)}
-            >
-              {copied ? '✓ Copied' : '📋 Copy Link'}
-            </button>
-          </div>
         </header>
 
         {/* 6 Action Cards Responsive Grid (Exact Layout from Screenshot) */}
