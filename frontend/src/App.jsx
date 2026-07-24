@@ -211,6 +211,16 @@ function App() {
     }
   };
 
+  const isStandalonePage = currentPage === 'qr' || currentPage === 'connect';
+
+  if (isStandalonePage) {
+    return (
+      <main className="main-content">
+        {renderPage()}
+      </main>
+    );
+  }
+
   return (
     <div className="app-layout">
       <Header 
