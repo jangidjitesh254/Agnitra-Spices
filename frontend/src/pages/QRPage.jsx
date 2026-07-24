@@ -23,7 +23,6 @@ function QRPage({ navigateTo }) {
     <div className="qr-landing-page">
       {/* Decorative Drifting Floating 3D Spice Icons */}
       <img src="/images/mint_leaf_icon.png" className="floating-leaf leaf-1" aria-hidden="true" alt="" />
-      <img src="/images/chilli_icon.png" className="floating-leaf chilli-drift" aria-hidden="true" alt="" />
       <img src="/images/turmeric_icon.png" className="floating-leaf leaf-4" aria-hidden="true" alt="" />
 
       {/* Decorative Corner Raw Spice Dishes & Artwork Elements */}
