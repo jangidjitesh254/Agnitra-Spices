@@ -229,33 +229,81 @@ img {
   filter: drop-shadow(0 6px 12px rgba(37, 29, 24, 0.08));
 }
 
-.leaf-1 {
-  top: 12%;
-  left: 6%;
-  width: 80px;
-  animation: drift-slow-1 8s ease-in-out infinite;
+/* Section Floating Spices System */
+.floating-section-spice {
+  position: absolute;
+  pointer-events: none;
+  z-index: 5;
+  user-select: none;
+  filter: drop-shadow(0 8px 16px rgba(37, 29, 24, 0.08));
 }
 
-.leaf-2 {
-  top: 40%;
-  left: 10%;
-  width: 60px;
-  animation: drift-slow-2 10s ease-in-out infinite;
-}
-
-.leaf-3 {
-  bottom: 15%;
-  left: 22%;
-  width: 70px;
+/* 1. Hero Section Spices */
+.spice-hero-mint {
+  top: 14%;
+  left: 3%;
+  width: 75px;
+  transform: rotate(-15deg);
   animation: drift-slow-1 9s ease-in-out infinite;
 }
 
-.leaf-4 {
-  top: 25%;
-  right: 6%;
-  width: 55px;
-  animation: drift-slow-2 7s ease-in-out infinite;
-  opacity: 0.75;
+.spice-hero-chilli {
+  top: 18%;
+  right: 3%;
+  width: 95px;
+  transform: rotate(20deg);
+  animation: drift-slow-2 8s ease-in-out infinite;
+}
+
+/* 2. Body / Tech Section Spices */
+.spice-body-turmeric {
+  top: 15%;
+  left: 2%;
+  width: 75px;
+  transform: rotate(25deg);
+  animation: drift-slow-1 10s ease-in-out infinite;
+}
+
+.spice-body-coriander {
+  top: 20%;
+  right: 2%;
+  width: 70px;
+  transform: rotate(-20deg);
+  animation: drift-slow-2 9s ease-in-out infinite;
+}
+
+/* 3. Three Pillars / Cards Section Spices */
+.spice-cards-chilli {
+  top: 10%;
+  left: 2%;
+  width: 85px;
+  transform: rotate(-30deg);
+  animation: drift-slow-2 8s ease-in-out infinite;
+}
+
+.spice-cards-mint {
+  top: 15%;
+  right: 3%;
+  width: 65px;
+  transform: rotate(15deg);
+  animation: drift-slow-1 9s ease-in-out infinite;
+}
+
+/* 4. Review Section Spices */
+.spice-reviews-mint {
+  top: 12%;
+  left: 3%;
+  width: 70px;
+  transform: rotate(-18deg);
+  animation: drift-slow-1 11s ease-in-out infinite;
+}
+
+.spice-reviews-turmeric {
+  top: 18%;
+  right: 3%;
+  width: 72px;
+  transform: rotate(30deg);
+  animation: drift-slow-2 10s ease-in-out infinite;
 }
 
 .chilli-drift {

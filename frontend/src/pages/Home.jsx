@@ -5,16 +5,11 @@ function Home({ products, navigateTo, addToCart, loading }) {
 
   return (
     <div className="home-page">
-      {/* Decorative Drifting Spices & Leaves */}
-      <img src="/images/mint_leaf_icon.png" className="floating-leaf leaf-1" aria-hidden="true" alt="Floating mint leaf" />
-      <img src="/images/mint_leaf_icon.png" className="floating-leaf leaf-2" aria-hidden="true" alt="Floating mint leaf" />
-      <img src="/images/turmeric_icon.png" className="floating-leaf leaf-4" aria-hidden="true" alt="Floating turmeric root" />
-      <img src="/images/chilli_icon.png" className="floating-leaf chilli-drift" aria-hidden="true" alt="Floating red chilli left" />
-      <img src="/images/chilli_icon.png" className="floating-leaf chilli-right-1" aria-hidden="true" alt="Floating red chilli right top" />
-      <img src="/images/chilli_icon.png" className="floating-leaf chilli-right-2" aria-hidden="true" alt="Floating red chilli right mid" />
-
-      {/* Hero Section - Matching Designer Screen 1 */}
-      <section className="designer-hero">
+      {/* 1. HERO SECTION (Screen 1) with Floating Spices */}
+      <section className="designer-hero" style={{ position: 'relative' }}>
+        <img src="/images/mint_leaf_icon.png" className="floating-section-spice spice-hero-mint" aria-hidden="true" alt="" />
+        <img src="/images/chilli_icon.png" className="floating-section-spice spice-hero-chilli" aria-hidden="true" alt="" />
+        
         <div className="container">
           <div className="hero-grid-2">
             
@@ -40,114 +35,123 @@ function Home({ products, navigateTo, addToCart, loading }) {
             <div className="hero-visual-col animate-fade-in">
               <div className="hero-dish-frame">
                 <img 
-                  src="/images/turmeric.jpeg" 
-                  alt="Nature pure Indian spices" 
-                  className="hero-main-dish-img"
-                  onClick={() => navigateTo('shop')}
+                  src="/images/Agnitra bowl of curry.jpg" 
+                  alt="Agnitra Spices Authentic Dish" 
+                  className="hero-main-dish-img" 
                 />
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* Feature Badges Green Ribbon (Matching Designer Screen 1) */}
-      <section className="hero-feature-ribbon">
-        <div className="container">
-          <div className="ribbon-grid-4">
-            <div className="ribbon-card">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>100% Natural</span>
-            </div>
-            <div className="ribbon-card">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>
-              <span>No Additives</span>
-            </div>
-            <div className="ribbon-card">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              <span>Rich in Aroma</span>
-            </div>
-            <div className="ribbon-card">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-              <span>Hygienically Packed</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 2. BODY SECTION: Authentic Technology Showcase (Screen 4 & 5) with Floating Spices */}
+      <section className="section authentic-tech-section" style={{ position: 'relative' }}>
+        <img src="/images/turmeric_icon.png" className="floating-section-spice spice-body-turmeric" aria-hidden="true" alt="" />
+        <img src="/images/coriander_icon.png" className="floating-section-spice spice-body-coriander" aria-hidden="true" alt="" />
 
-      {/* Traditional Technology Showcase Tabs */}
-      <section className="section" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
         <div className="container">
           <div className="section-title-wrapper">
             <span className="section-subtitle">Authentic Technology</span>
-            <h2 className="section-title">Why Low-Temp Grinding Matters</h2>
+            <h2 className="section-title">Why Low-Temperature Grinding Matters</h2>
+            <p style={{ maxWidth: '680px', margin: '10px auto 0 auto', color: '#554a3d', fontSize: '1rem' }}>
+              Commercial high-speed steel mills heat spices up to 90°C, burning away precious essential oils. Agnitra preserves 100% natural aroma and medicinal curcumin values.
+            </p>
           </div>
-          <div style={{ maxWidth: '850px', margin: '0 auto' }}>
-            <div className="brand-tab-group">
-              <button 
-                className={`btn-brand-tab ${activeTab === 'chakki' ? 'active' : ''}`}
-                onClick={() => setActiveTab('chakki')}
-              >
-                <span>⚙️ Stone Chakki (Mills)</span>
-              </button>
-              <button 
-                className={`btn-brand-tab ${activeTab === 'okhli' ? 'active' : ''}`}
-                onClick={() => setActiveTab('okhli')}
-              >
-                <span>🪵 Okhli (Hand Pounded)</span>
-              </button>
-              <button 
-                className={`btn-brand-tab ${activeTab === 'sundried' ? 'active' : ''}`}
-                onClick={() => setActiveTab('sundried')}
-              >
-                <span>☀️ Sun Drying</span>
-              </button>
-            </div>
 
-            <div className="about-heritage-card" style={{ marginTop: 0, padding: '40px' }}>
-              {activeTab === 'chakki' && (
-                <div>
-                  <h3 style={{ color: 'var(--accent-red)', marginBottom: '16px', fontFamily: 'var(--font-title)', fontSize: '1.5rem' }}>Slow Rotating Stone Mills</h3>
-                  <p className="about-text">
-                    Industrial steel pulverizers spin at up to 10,000 RPM, creating extreme friction temperatures (75°C - 90°C). This heat literally burns off volatile essential oils, destroying flavor, medicinal curcumin, and natural color.
-                  </p>
-                  <p className="about-text">
-                    Agnitra uses heavy stone-wheels (Chakki) that rotate slowly under 45 RPM. The natural grinding stones absorb excess temperature, ensuring the spice stays cool (under 38°C) and locks in all aromatic oils.
-                  </p>
-                </div>
-              )}
+          <div className="tech-toggle-buttons">
+            <button 
+              className={`btn-brand-tab ${activeTab === 'chakki' ? 'active' : ''}`}
+              onClick={() => setActiveTab('chakki')}
+            >
+              ⚙️ Stone Chakki (Mills)
+            </button>
+            <button 
+              className={`btn-brand-tab ${activeTab === 'okhli' ? 'active' : ''}`}
+              onClick={() => setActiveTab('okhli')}
+            >
+              🪵 Okhli (Hand Pounded)
+            </button>
+            <button 
+              className={`btn-brand-tab ${activeTab === 'sundrying' ? 'active' : ''}`}
+              onClick={() => setActiveTab('sundrying')}
+            >
+              ☀️ Sun Drying
+            </button>
+          </div>
 
-              {activeTab === 'okhli' && (
-                <div>
-                  <h3 style={{ color: 'var(--accent-red)', marginBottom: '16px', fontFamily: 'var(--font-title)', fontSize: '1.5rem' }}>Hand-Pounding (Okhli-Musar)</h3>
-                  <p className="about-text">
-                    Pounding is an ancient technique of crushing spices with blunt impact rather than slicing. Slicing spices with high-speed blades ruptures cell walls aggressively, leading to quick oxidation and flavor degradation.
+          <div className="tech-detail-card">
+            {activeTab === 'chakki' && (
+              <div className="tech-content-grid animate-fade-in">
+                <div className="tech-text-col">
+                  <h3 className="tech-card-title">Traditional Slow Stone Mill (Chakki)</h3>
+                  <p className="tech-card-desc">
+                    Our natural granite stone chakkis operate at low RPM (less than 40 RPM). This low friction ensures spices stay cool below 35°C, sealing in volatile aromatic oils like piperine and curcumin.
                   </p>
-                  <p className="about-text">
-                    Our hand-pounding method gently crushes raw turmeric rhizomes and pods. This preserves the internal cellular structure of the spices, keeping health curcumin nodes intact and unlocking a multi-layered flavor profile.
-                  </p>
+                  <ul className="tech-feature-list">
+                    <li>✓ Zero heat damage to natural volatile oils</li>
+                    <li>✓ Natural coarse & rich grain texture</li>
+                    <li>✓ 100% pure stone-ground taste</li>
+                  </ul>
                 </div>
-              )}
+                <div className="tech-img-col">
+                  <div className="tech-img-frame">
+                    <img src="/images/Stone Chakki.jpg" alt="Stone Chakki Method" className="tech-img" />
+                  </div>
+                </div>
+              </div>
+            )}
 
-              {activeTab === 'sundried' && (
-                <div>
-                  <h3 style={{ color: 'var(--accent-red)', marginBottom: '16px', fontFamily: 'var(--font-title)', fontSize: '1.5rem' }}>Natural Solar Dehydration</h3>
-                  <p className="about-text">
-                    Commercial brands dry spices in high-temperature diesel ovens. This exposes spice leaves and roots to fuel fumes and severe temperature shocks, making spices dry, stiff, and carbon-polluted.
+            {activeTab === 'okhli' && (
+              <div className="tech-content-grid animate-fade-in">
+                <div className="tech-text-col">
+                  <h3 className="tech-card-title">Wooden Okhli & Musal (Hand Pounding)</h3>
+                  <p className="tech-card-desc">
+                    Hand pounding in seasoned wooden mortars creates an unbeatable coarse texture. This ancient method releases full essential flavor compounds that machine blades slice and lose.
                   </p>
-                  <p className="about-text">
-                    Agnitra sun-dries all spices in dust-free solar racks before grinding, preserving raw immunity enzymes and organic taste profiles.
-                  </p>
+                  <ul className="tech-feature-list">
+                    <li>✓ Authentic heritage mortar rhythm</li>
+                    <li>✓ Retains maximum oil cells unbroken until cooking</li>
+                    <li>✓ Recommended by Ayurveda practitioners</li>
+                  </ul>
                 </div>
-              )}
-            </div>
+                <div className="tech-img-col">
+                  <div className="tech-img-frame">
+                    <img src="/images/Okhli.jpg" alt="Okhli Hand Pounded Method" className="tech-img" />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'sundrying' && (
+              <div className="tech-content-grid animate-fade-in">
+                <div className="tech-text-col">
+                  <h3 className="tech-card-title">Natural Solar Sun Drying</h3>
+                  <p className="tech-card-desc">
+                    Before grinding, raw whole spices are solar-dried on clean canvas trays under natural sunlight. This removes moisture naturally without artificial heat ovens or chemical preservatives.
+                  </p>
+                  <ul className="tech-feature-list">
+                    <li>✓ 100% Solar dehydrated purity</li>
+                    <li>✓ Natural vibrant color preservation</li>
+                    <li>✓ Longer natural shelf-life without additives</li>
+                  </ul>
+                </div>
+                <div className="tech-img-col">
+                  <div className="tech-img-frame">
+                    <img src="/images/Sun Drying.jpg" alt="Sun Drying Method" className="tech-img" />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Featured Spices Section */}
-      <section className="section">
+      {/* 3. THREE PILLARS / CARDS SECTION with Floating Spices */}
+      <section className="section" style={{ position: 'relative' }}>
+        <img src="/images/chilli_icon.png" className="floating-section-spice spice-cards-chilli" aria-hidden="true" alt="" />
+        <img src="/images/mint_leaf_icon.png" className="floating-section-spice spice-cards-mint" aria-hidden="true" alt="" />
+
         <div className="container">
           <div className="section-title-wrapper">
             <span className="section-subtitle">Our Signature Collection</span>
@@ -214,7 +218,55 @@ function Home({ products, navigateTo, addToCart, loading }) {
         </div>
       </section>
 
-      {/* Process Flow Showcase */}
+      {/* 4. CUSTOMER REVIEWS SECTION with Floating Spices */}
+      <section className="section reviews-section" style={{ position: 'relative', background: '#fbf9f4', borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)' }}>
+        <img src="/images/mint_leaf_icon.png" className="floating-section-spice spice-reviews-mint" aria-hidden="true" alt="" />
+        <img src="/images/turmeric_icon.png" className="floating-section-spice spice-reviews-turmeric" aria-hidden="true" alt="" />
+
+        <div className="container">
+          <div className="section-title-wrapper">
+            <span className="section-subtitle">Real Kitchen Testimonials</span>
+            <h2 className="section-title">What Our Customers Say</h2>
+          </div>
+
+          <div className="grid-3" style={{ maxWidth: '1050px', margin: '0 auto' }}>
+            <div className="designer-product-card" style={{ textAlign: 'left', padding: '24px' }}>
+              <div style={{ color: '#d97706', fontSize: '1.2rem', marginBottom: '10px' }}>★★★★★</div>
+              <p style={{ fontStyle: 'italic', fontSize: '0.95rem', color: '#443b31', marginBottom: '16px', lineHeight: '1.6' }}>
+                "The aroma when opening Agnitra's hand-pounded red chilli powder is incredible! You only need half a spoon compared to market brands."
+              </p>
+              <div>
+                <strong style={{ display: 'block', color: '#1a2813', fontSize: '0.95rem' }}>Ananya Sharma</strong>
+                <span style={{ fontSize: '0.78rem', color: '#7a7365' }}>Verified Buyer • Jaipur</span>
+              </div>
+            </div>
+
+            <div className="designer-product-card" style={{ textAlign: 'left', padding: '24px' }}>
+              <div style={{ color: '#d97706', fontSize: '1.2rem', marginBottom: '10px' }}>★★★★★</div>
+              <p style={{ fontStyle: 'italic', fontSize: '0.95rem', color: '#443b31', marginBottom: '16px', lineHeight: '1.6' }}>
+                "You can actually feel the natural oil richness in their Lakadong Turmeric. The stone-ground quality makes a huge difference in daily cooking."
+              </p>
+              <div>
+                <strong style={{ display: 'block', color: '#1a2813', fontSize: '0.95rem' }}>Rajesh Verma</strong>
+                <span style={{ fontSize: '0.78rem', color: '#7a7365' }}>Verified Buyer • Delhi</span>
+              </div>
+            </div>
+
+            <div className="designer-product-card" style={{ textAlign: 'left', padding: '24px' }}>
+              <div style={{ color: '#d97706', fontSize: '1.2rem', marginBottom: '10px' }}>★★★★★</div>
+              <p style={{ fontStyle: 'italic', fontSize: '0.95rem', color: '#443b31', marginBottom: '16px', lineHeight: '1.6' }}>
+                "Fast delivery, beautiful packaging, and 100% natural flavor. Agnitra has replaced all machine-made spices in our home."
+              </p>
+              <div>
+                <strong style={{ display: 'block', color: '#1a2813', fontSize: '0.95rem' }}>Pooja Mehta</strong>
+                <span style={{ fontSize: '0.78rem', color: '#7a7365' }}>Verified Buyer • Ahmedabad</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. PROCESS FLOW SHOWCASE */}
       <section className="section process-section" style={{ borderTop: '1px solid var(--border-color)' }}>
         <div className="container">
           <div className="section-title-wrapper">
@@ -247,7 +299,7 @@ function Home({ products, navigateTo, addToCart, loading }) {
         </div>
       </section>
 
-      {/* Storytelling & Call to Action */}
+      {/* 6. STORYTELLING & CALL TO ACTION */}
       <section className="section" style={{ background: 'var(--bg-secondary)', textAlign: 'center' }}>
         <div className="container" style={{ maxWidth: '800px' }}>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '20px', fontFamily: 'var(--font-title)' }}>Experience Real Heritage Flavor</h2>
