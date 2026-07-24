@@ -23,13 +23,17 @@ function App() {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Handle URL Path & Hash navigation on load and route changes (e.g. /qr, /recipes)
+  // Handle URL Path & Hash navigation on load and route changes (e.g. /qr, /QR, #qr)
   useEffect(() => {
     const handleRouting = () => {
       const path = window.location.pathname.replace(/^\//, '').toLowerCase();
+      const hash = window.location.hash.replace(/^#/, '').toLowerCase();
 
-      if (path === 'qr') {
+      if (path === 'qr' || hash === 'qr') {
         setCurrentPage('qr');
+        if (window.location.pathname !== '/QR') {
+          window.history.replaceState({}, '', '/QR');
+        }
         return;
       }
 
@@ -133,9 +137,9 @@ function App() {
       setActiveProductId(params.id);
       setCurrentPage('product');
       window.history.pushState({}, '', `/product/${params.id}`);
-    } else if (page === 'qr') {
+    } else if (page === 'qr' || page === 'QR') {
       setCurrentPage('qr');
-      window.history.pushState({}, '', '/qr');
+      window.history.pushState({}, '', '/QR');
     } else if (page === 'home') {
       setCurrentPage('home');
       window.history.pushState({}, '', '/');
