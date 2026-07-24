@@ -9,7 +9,9 @@ function Home({ products, navigateTo, addToCart, loading }) {
       <img src="/images/mint_leaf_icon.png" className="floating-leaf leaf-1" aria-hidden="true" alt="Floating mint leaf" />
       <img src="/images/mint_leaf_icon.png" className="floating-leaf leaf-2" aria-hidden="true" alt="Floating mint leaf" />
       <img src="/images/turmeric_icon.png" className="floating-leaf leaf-4" aria-hidden="true" alt="Floating turmeric root" />
-      <img src="/images/chilli_icon.png" className="floating-leaf chilli-drift" aria-hidden="true" alt="Floating red chilli" />
+      <img src="/images/chilli_icon.png" className="floating-leaf chilli-drift" aria-hidden="true" alt="Floating red chilli left" />
+      <img src="/images/chilli_icon.png" className="floating-leaf chilli-right-1" aria-hidden="true" alt="Floating red chilli right top" />
+      <img src="/images/chilli_icon.png" className="floating-leaf chilli-right-2" aria-hidden="true" alt="Floating red chilli right mid" />
 
       {/* Hero Section - Matching Designer Screen 1 */}
       <section className="designer-hero">

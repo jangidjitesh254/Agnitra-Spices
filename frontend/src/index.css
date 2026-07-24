@@ -222,6 +222,22 @@ img {
   opacity: 0.9;
 }
 
+.chilli-right-1 {
+  top: 14%;
+  right: 3%;
+  width: 80px;
+  animation: drift-slow-1 9s ease-in-out infinite;
+  opacity: 0.85;
+}
+
+.chilli-right-2 {
+  top: 48%;
+  right: 6%;
+  width: 70px;
+  animation: drift-slow-2 11s ease-in-out infinite;
+  opacity: 0.8;
+}
+
 .peppercorns-drift {
   bottom: 4%;
   right: 38%;
