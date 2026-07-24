@@ -215,10 +215,11 @@ img {
 }
 
 .chilli-drift {
-  bottom: 8%;
-  left: 11%;
-  width: 110px;
-  animation: drift-slow-2 12s ease-in-out infinite;
+  top: 15%;
+  left: 2%;
+  width: 90px;
+  animation: drift-slow-2 10s ease-in-out infinite;
+  opacity: 0.9;
 }
 
 .peppercorns-drift {
