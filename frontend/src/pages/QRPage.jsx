@@ -52,24 +52,7 @@ function QRPage({ navigateTo }) {
             </div>
           </div>
 
-          <div className="qr-divider-line">
-            <span className="divider-leaf">🍂</span>
-            <span className="divider-line"></span>
-            <span className="divider-leaf">🌱</span>
-          </div>
-
           <h1 className="qr-main-tagline">Pure Spices. Pure Love.</h1>
-
-          <div className="qr-divider-line">
-            <span className="divider-leaf">🌱</span>
-            <span className="divider-line"></span>
-            <span className="divider-leaf">🍂</span>
-          </div>
-
-          <p className="qr-welcome-text">
-            Thank you for choosing Agnitra Spices.<br />
-            Explore our traditional cold-ground purity or connect with us below.
-          </p>
         </header>
 
         {/* 6 Action Cards Responsive Grid (Exact Layout from Screenshot) */}
@@ -218,18 +201,6 @@ function QRPage({ navigateTo }) {
           </div>
 
         </div>
-
-        {/* Footer Thank You Note Section */}
-        <footer className="qr-footer-thankyou animate-fade-in">
-          <div className="qr-thank-title-row">
-            <span className="qr-thank-leaf">🌿</span>
-            <h3 className="qr-thank-title">Thank you! ❤️</h3>
-            <span className="qr-thank-leaf">🌿</span>
-          </div>
-          <p className="qr-thank-sub">
-            Your support inspires us to bring the best spices to your kitchen.
-          </p>
-        </footer>
 
       </div>
 
