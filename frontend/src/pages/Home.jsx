@@ -157,43 +157,44 @@ function Home({ products, navigateTo, addToCart, loading }) {
           {loading ? (
             <div className="loading-spinner"></div>
           ) : (
-            <div className="grid-3">
+            <div className="designer-products-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', maxWidth: '1000px', margin: '0 auto' }}>
               {products.slice(0, 3).map((product) => (
-                <div key={product._id} className="product-card">
-                  <div className="product-img-wrapper">
-                    <span className="product-tag">{product.category}</span>
+                <div key={product._id} className="designer-product-card animate-fade-in">
+                  <div 
+                    className="designer-product-img-box"
+                    onClick={() => navigateTo('product', { id: product._id })}
+                  >
                     <img 
-                      src={product.image} 
+                      src={product.image || product.imageUrl} 
                       alt={product.name} 
-                      className="product-img" 
-                      onClick={() => navigateTo('product', { id: product._id })}
-                      style={{ cursor: 'pointer' }}
+                      className="designer-product-img" 
                     />
                   </div>
-                  <div className="product-info">
+                  
+                  <div className="designer-product-info">
                     <h3 
-                      className="product-title"
+                      className="designer-product-name"
                       onClick={() => navigateTo('product', { id: product._id })}
-                      style={{ cursor: 'pointer' }}
                     >
                       {product.name}
                     </h3>
-                    <span className="product-tech-badge">{product.traditionalMethod}</span>
-                    <p className="product-desc">{product.description}</p>
-                    <div className="product-footer">
-                      <div className="product-price-wrapper">
-                        <span className="product-price">₹{product.price}</span>
-                        <span className="product-unit">per {product.unit}</span>
+
+                    <div style={{ marginBottom: '12px' }}>
+                      <span className="product-tech-badge">{product.traditionalMethod}</span>
+                    </div>
+
+                    <div className="designer-product-bottom-row">
+                      <div className="price-tag-group">
+                        <span className="designer-product-price">₹{product.price}</span>
+                        <span className="designer-product-unit">/ {product.unit || '250g'}</span>
                       </div>
                       <button 
                         className="add-to-cart-btn"
-                        onClick={() => {
-                          addToCart(product, 1);
-                        }}
+                        onClick={() => addToCart(product, 1)}
                         aria-label={`Add ${product.name} to Cart`}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-                        Add to Cart
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                        <span>Add</span>
                       </button>
                     </div>
                   </div>
