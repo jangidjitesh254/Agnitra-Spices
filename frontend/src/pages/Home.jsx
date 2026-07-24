@@ -5,14 +5,13 @@ function Home({ products, navigateTo, addToCart, loading }) {
 
   return (
     <div className="home-page">
-      {/* Decorative Drifting Spices & Leaves (from user screenshot) */}
-      {/* Decorative Drifting Spices & Leaves (from user screenshot) */}
-      <img src="/images/mint_leaf_icon.jpg" className="floating-leaf leaf-1" aria-hidden="true" alt="Floating mint leaf" />
-      <img src="/images/mint_leaf_icon.jpg" className="floating-leaf leaf-2" aria-hidden="true" alt="Floating mint leaf" />
-      <img src="/images/mint_leaf_icon.jpg" className="floating-leaf leaf-3" aria-hidden="true" alt="Floating mint leaf" />
-      <img src="/images/turmeric_icon.jpg" className="floating-leaf leaf-4" aria-hidden="true" alt="Floating turmeric root" />
-      <img src="/images/chilli_icon.jpg" className="floating-leaf chilli-drift" aria-hidden="true" alt="Floating red chilli" />
-      <img src="/images/coriander_icon.jpg" className="floating-leaf peppercorns-drift" aria-hidden="true" alt="Floating coriander seeds" />
+      {/* Decorative Drifting Spices & Leaves */}
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf leaf-1" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf leaf-2" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf leaf-3" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/turmeric_icon.png" className="floating-leaf leaf-4" aria-hidden="true" alt="Floating turmeric root" />
+      <img src="/images/chilli_icon.png" className="floating-leaf chilli-drift" aria-hidden="true" alt="Floating red chilli" />
+      <img src="/images/coriander_icon.png" className="floating-leaf peppercorns-drift" aria-hidden="true" alt="Floating coriander seeds" />
 
       {/* Hero Section - Matching Designer Screen 1 */}
       <section className="designer-hero">

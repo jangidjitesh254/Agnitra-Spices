@@ -181,8 +181,8 @@ img {
   pointer-events: none;
   z-index: 10;
   user-select: none;
-  mix-blend-mode: multiply; /* Make white backgrounds transparent */
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.03));
+  background-color: transparent;
+  filter: drop-shadow(0 6px 12px rgba(37, 29, 24, 0.08));
 }
 
 .leaf-1 {
