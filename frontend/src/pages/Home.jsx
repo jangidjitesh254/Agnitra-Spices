@@ -14,92 +14,64 @@ function Home({ products, navigateTo, addToCart, loading }) {
       <img src="/images/chilli_icon.jpg" className="floating-leaf chilli-drift" aria-hidden="true" alt="Floating red chilli" />
       <img src="/images/coriander_icon.jpg" className="floating-leaf peppercorns-drift" aria-hidden="true" alt="Floating coriander seeds" />
 
-      {/* Hero Section - Overhauled to match screenshot */}
-      <section className="hero">
-        {/* Large red curve shape on the right */}
-        <div className="hero-curve-backdrop"></div>
-
+      {/* Hero Section - Matching Designer Screen 1 */}
+      <section className="designer-hero">
         <div className="container">
-          <div className="grid-2" style={{ alignItems: 'center', minHeight: '65vh' }}>
-            {/* Left side: Text content */}
-            <div className="hero-text-col">
-              <span className="hero-tag">Natural & Organic</span>
-              <h1 className="hero-title">
-                Spices <span className="cursive">Powder</span>
+          <div className="hero-grid-2">
+            
+            {/* Left side: Headline & Call To Action */}
+            <div className="hero-content-col animate-fade-in">
+              <h1 className="designer-hero-title">
+                From Nature<br />To Your Kitchen
               </h1>
-              <p className="hero-desc">
-                Agnitra Spices makes available the protein-rich pure traditional spices and herbs directly sourced from finest organic farms of Rajasthan, Karnataka, and Meghalaya. Ground at low speed without thermal loss.
+              <p className="designer-hero-subtitle">
+                100% natural spices for a healthy and happy life.
               </p>
-              <div style={{ display: 'flex', gap: '16px' }}>
+              <div>
                 <button 
-                  className="btn btn-primary"
+                  className="btn btn-designer-green"
                   onClick={() => navigateTo('shop')}
                 >
-                  Read More
-                </button>
-                <button 
-                  className="btn btn-secondary"
-                  onClick={() => navigateTo('about')}
-                >
-                  Our Process
+                  Shop Now →
                 </button>
               </div>
             </div>
             
-            {/* Right side: Circular overlapping spice image */}
-            <div className="hero-showcase-col">
-              <div className="hero-circle-frame">
+            {/* Right side: Hero Visual Bowl Composition */}
+            <div className="hero-visual-col animate-fade-in">
+              <div className="hero-dish-frame">
                 <img 
                   src="/images/turmeric.jpeg" 
-                  alt="Turmeric powder stone grinding mixtures" 
-                  className="hero-circle-img"
+                  alt="Nature pure Indian spices" 
+                  className="hero-main-dish-img"
                   onClick={() => navigateTo('shop')}
-                  style={{ cursor: 'pointer' }}
                 />
               </div>
-
-              {/* Overlapping floating red chilli underlay */}
-              <img 
-                src="/images/chilli_icon.jpg" 
-                className="hero-chilli-underlay" 
-                aria-hidden="true" 
-                alt="Floating Chilli Accent"
-              />
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* Feature Badges Section */}
-      <section className="features-section">
+      {/* Feature Badges Green Ribbon (Matching Designer Screen 1) */}
+      <section className="hero-feature-ribbon">
         <div className="container">
-          <div className="grid-3">
-            <div className="feature-badge-card">
-              <div className="feature-icon-wrapper">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-thermometer-snowflake"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/><path d="M2 12h3"/><path d="M19 12h3"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/><path d="m6.34 17.66-1.41 1.41"/></svg>
-              </div>
-              <div>
-                <h4 className="feature-badge-title">Cold-Ground Purity</h4>
-                <p className="feature-badge-desc">Stays strictly under 38°C to retain essential volatile oils.</p>
-              </div>
+          <div className="ribbon-grid-4">
+            <div className="ribbon-card">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>100% Natural</span>
             </div>
-            <div className="feature-badge-card">
-              <div className="feature-icon-wrapper">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-              </div>
-              <div>
-                <h4 className="feature-badge-title">Naturally Sun Dried</h4>
-                <p className="feature-badge-desc">Dehydrated in solar racks to capture rich natural taste.</p>
-              </div>
+            <div className="ribbon-card">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>
+              <span>No Additives</span>
             </div>
-            <div className="feature-badge-card">
-              <div className="feature-icon-wrapper">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sprout"><path d="M7 20h10"/><path d="M10 20c5.5-2.5 8-6.4 8-12c-5.5 2.5-8 6.4-8 12Z"/><path d="M14 20c-5.5-2.5-8-6.4-8-12c5.5 2.5 8 6.4 8 12Z"/></svg>
-              </div>
-              <div>
-                <h4 className="feature-badge-title">100% Organic Sourcing</h4>
-                <p className="feature-badge-desc">Directly harvested from certified local farm families.</p>
-              </div>
+            <div className="ribbon-card">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span>Rich in Aroma</span>
+            </div>
+            <div className="ribbon-card">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              <span>Hygienically Packed</span>
             </div>
           </div>
         </div>

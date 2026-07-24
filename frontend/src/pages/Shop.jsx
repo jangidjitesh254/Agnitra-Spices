@@ -3,47 +3,49 @@ import { useState } from 'react';
 function Shop({ products, navigateTo, addToCart, error, searchQuery, setSearchQuery }) {
   const [filterCategory, setFilterCategory] = useState('All');
 
-  const categories = ['All', 'Chilli', 'Turmeric', 'Coriander'];
+  const categories = ['All', 'Powder', 'Whole', 'Blends', 'Seeds'];
 
   // Filter products by BOTH category and search query
   const filteredProducts = products.filter(product => {
-    const matchesCategory = filterCategory === 'All' || product.category === filterCategory;
+    const matchesCategory = filterCategory === 'All' || 
+      (product.category && product.category.toLowerCase().includes(filterCategory.toLowerCase())) ||
+      (filterCategory === 'Powder' && product.name.toLowerCase().includes('powder')) ||
+      (filterCategory === 'Whole' && product.name.toLowerCase().includes('seeds')) ||
+      (filterCategory === 'Blends' && product.name.toLowerCase().includes('masala'));
     const matchesSearch = searchQuery === '' || 
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-      product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.traditionalMethod.toLowerCase().includes(searchQuery.toLowerCase());
+      product.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
   const handleAddToCart = (product) => {
     addToCart(product, 1);
-    alert(`${product.name} added to cart!`);
   };
 
   return (
     <div className="shop-page section">
       <div className="container">
-        {/* Title */}
-        <div className="section-title-wrapper">
-          <span className="section-subtitle">Pure Heritage Collection</span>
-          <h2 className="section-title">Shop Our Traditional Spices</h2>
+        
+        {/* Title (Matching Screen 2) */}
+        <div className="section-title-wrapper text-center" style={{ marginBottom: '30px' }}>
+          <h1 className="main-headline-title">Our Products</h1>
+          <p className="main-headline-sub">Pure. Natural. Full of Flavor.</p>
         </div>
 
         {error && (
           <div style={{ textAlign: 'center', color: 'var(--accent-red)', margin: '20px 0' }}>
             <p>⚠️ Error loading products: {error}</p>
-            <p>Please check database connection settings.</p>
           </div>
         )}
 
-        {/* Search Results Summary & Reset */}
+        {/* Search Results Summary */}
         {searchQuery && (
-          <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem' }}>
-              Showing results for "<strong>{searchQuery}</strong>" ({filteredProducts.length} found)
+          <div style={{ textAlign: 'center', marginBottom: '25px' }}>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
+              Showing results for "<strong>{searchQuery}</strong>" ({filteredProducts.length} items found)
             </p>
             <button 
-              className="btn btn-secondary" 
+              className="btn btn-designer-outline" 
               onClick={() => setSearchQuery('')}
               style={{ padding: '6px 16px', fontSize: '0.75rem', marginTop: '10px' }}
             >
@@ -52,79 +54,67 @@ function Shop({ products, navigateTo, addToCart, error, searchQuery, setSearchQu
           </div>
         )}
 
-        {/* Category Filters */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginBottom: '50px', flexWrap: 'wrap' }}>
+        {/* Category Filter Pills (Matching Screen 2) */}
+        <div className="category-filter-pills">
           {categories.map((cat) => (
             <button
               key={cat}
-              className={`btn ${filterCategory === cat ? 'btn-primary' : 'btn-secondary'}`}
+              className={`filter-pill ${filterCategory === cat ? 'active' : ''}`}
               onClick={() => setFilterCategory(cat)}
-              style={{ padding: '8px 20px', fontSize: '0.8rem' }}
             >
-              {cat} Spices
+              {cat}
             </button>
           ))}
         </div>
 
-        {/* Product Grid */}
-        {filteredProducts.length === 0 ? (
-          <div className="empty-state">
-            <span className="empty-icon">🫙</span>
-            <h3 className="empty-title">No spices found</h3>
-            <p className="empty-desc">We couldn't find any spices matching your criteria. Try searching for other terms like "Chilli", "Curcumin", or "Chakki".</p>
-          </div>
-        ) : (
-          <div className="grid-3">
-            {filteredProducts.map((product) => (
-              <div key={product._id} className="product-card animate-fade-in">
-                <div className="product-img-wrapper">
-                  <span className="product-tag">{product.category}</span>
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    className="product-img" 
-                    onClick={() => navigateTo('product', { id: product._id })}
-                    style={{ cursor: 'pointer' }}
-                  />
-                </div>
-                <div className="product-info">
-                  <h3 
-                    className="product-title"
-                    onClick={() => navigateTo('product', { id: product._id })}
-                    style={{ cursor: 'pointer' }}
+        {/* Products Grid (Matching Screen 2) */}
+        <div className="designer-products-grid">
+          {filteredProducts.map((product) => (
+            <div key={product._id} className="designer-product-card animate-fade-in">
+              <div 
+                className="designer-product-img-box"
+                onClick={() => navigateTo('product', { id: product._id })}
+              >
+                <img 
+                  src={product.imageUrl} 
+                  alt={product.name} 
+                  className="designer-product-img" 
+                />
+              </div>
+              
+              <div className="designer-product-info">
+                <h3 
+                  className="designer-product-name"
+                  onClick={() => navigateTo('product', { id: product._id })}
+                >
+                  {product.name}
+                </h3>
+                
+                <div className="designer-product-bottom-row">
+                  <span className="designer-product-price">₹{product.price}</span>
+                  <button 
+                    className="designer-add-cart-btn"
+                    onClick={() => handleAddToCart(product)}
+                    aria-label={`Add ${product.name} to cart`}
+                    title="Add to Cart"
                   >
-                    {product.name}
-                  </h3>
-                  <span className="product-tech-badge">{product.traditionalMethod}</span>
-                  <p className="product-desc">{product.description}</p>
-                  
-                  {/* Highlights checklist */}
-                  <div style={{ margin: '12px 0 20px 0', fontSize: '0.85rem', borderTop: '1px dashed var(--border-color)', paddingTop: '12px' }}>
-                    <p style={{ color: 'var(--accent-orange)', fontWeight: 700, marginBottom: '6px' }}>Key Highlights:</p>
-                    <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-                      <li style={{ color: 'var(--text-secondary)', marginBottom: '3px', fontWeight: 500 }}>✓ {product.specifications.essentialOils}</li>
-                      <li style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>✓ Ground {product.specifications.grindingTemp}</li>
-                    </ul>
-                  </div>
-
-                  <div className="product-footer">
-                    <div className="product-price-wrapper">
-                      <span className="product-price">₹{product.price}</span>
-                      <span className="product-unit">per {product.unit}</span>
-                    </div>
-                    <button 
-                      className="add-to-cart-btn"
-                      onClick={() => handleAddToCart(product)}
-                      aria-label={`Add ${product.name} to Cart`}
-                    >
-                      +
-                    </button>
-                  </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                  </button>
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
+        </div>
+
+        {filteredProducts.length === 0 && (
+          <div className="empty-state">
+            <p className="empty-title">No spices found matching your criteria</p>
+            <button className="btn btn-designer-green" onClick={() => { setFilterCategory('All'); setSearchQuery(''); }}>
+              Reset All Filters
+            </button>
           </div>
         )}
+
       </div>
     </div>
   );

@@ -3,22 +3,26 @@
    ========================================================================== */
 
 :root {
-  /* Colors - Light Organic Warm Palette */
-  --bg-primary: #faf8f5;        /* Linen warm light background */
-  --bg-secondary: #f4f0e6;      /* Slightly darker cream card backdrop */
-  --bg-tertiary: #ebe5d7;       /* Warm input / search background */
+  /* Colors - Designer Theme (Deep Forest Olive Green & Warm Parchment Linen) */
+  --bg-primary: #f6f2e9;        /* Warm parchment light background */
+  --bg-secondary: #eee9dc;      /* Card backdrop */
+  --bg-tertiary: #e3dccf;       /* Input & filter pill background */
+  --bg-dark-green: #2b3e1b;     /* Deep forest olive green footer & banners */
+  --bg-dark-green-hover: #1e2c13;
   
+  --accent-green: #354a1d;      /* Primary button & active pill green */
+  --accent-green-rgb: 53, 74, 29;
   --accent-gold: #d4902b;       /* Turmeric Gold */
   --accent-gold-rgb: 212, 144, 43;
-  --accent-red: #8b261a;        /* Chilli Maroon Red (Screenshot curve color) */
+  --accent-red: #8b261a;        /* Chilli Red */
   --accent-red-rgb: 139, 38, 26;
-  --accent-orange: #bd593c;     /* Peach Terracotta (Screenshot subtitle color) */
+  --accent-orange: #bd593c;     /* Terracotta */
   --accent-orange-rgb: 189, 89, 60;
   
-  --text-primary: #1f1916;      /* Dark Espresso/Charcoal text */
-  --text-secondary: #6e625b;    /* Warm Taupe / Body text */
-  --text-muted: #9c8e86;        /* Muted earthy grey-brown */
-  --border-color: #e4ddcf;      /* Soft warm border */
+  --text-primary: #251d18;      /* Deep espresso text */
+  --text-secondary: #63574d;    /* Warm taupe body text */
+  --text-muted: #998a7d;        /* Muted earthy text */
+  --border-color: #e5dfd2;      /* Warm border */
   
   /* Fonts */
   --font-title: 'Playfair Display', Georgia, serif;
@@ -26,22 +30,20 @@
   --font-cursive: 'Alex Brush', cursive;
   
   /* Layout & Spacing */
-  --container-width: 1200px;
-  --header-height: 100px; /* Taller header for split layout */
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
-  --border-radius-lg: 24px;
+  --container-width: 1240px;
+  --header-height: 80px;
+  --border-radius-sm: 6px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
   --border-radius-round: 50px;
   
-  /* Animations */
+  /* Animations & Shadows */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   --transition-slow: 0.6s ease;
   
-  --gold-glow: 0 4px 15px rgba(212, 144, 43, 0.15);
-  --red-glow: 0 4px 15px rgba(139, 38, 26, 0.15);
-  --card-shadow: 0 6px 20px rgba(31, 25, 22, 0.05);
-  --heavy-shadow: 0 15px 40px rgba(31, 25, 22, 0.12);
+  --card-shadow: 0 6px 20px rgba(37, 29, 24, 0.04);
+  --heavy-shadow: 0 15px 40px rgba(37, 29, 24, 0.1);
 }
 
 /* Reset & Base Styles */
@@ -106,45 +108,54 @@ img {
 .bg-red { background-color: var(--accent-red); }
 .bg-orange { background-color: var(--accent-orange); }
 
-/* Buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 32px;
-  font-weight: 600;
-  border-radius: var(--border-radius-round); /* Pill shaped rounded buttons */
+/* Designer Buttons */
+.btn-designer-green {
+  background-color: var(--accent-green);
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: var(--border-radius-round);
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: none;
   cursor: pointer;
-  transition: var(--transition-normal);
-  border: 1px solid transparent;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.8rem;
+  transition: var(--transition-fast);
+  box-shadow: 0 4px 12px rgba(43, 62, 27, 0.2);
 }
 
-.btn-primary {
-  background-color: #000000; /* Solid black buttons from screenshot */
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.btn-primary:hover {
+.btn-designer-green:hover {
+  background-color: var(--bg-dark-green-hover);
   transform: translateY(-2px);
-  background-color: var(--accent-red);
-  box-shadow: 0 6px 18px rgba(139, 38, 26, 0.25);
 }
 
-.btn-secondary {
-  background: transparent;
+.btn-designer-outline {
+  background-color: transparent;
+  color: var(--accent-green);
+  border: 1px solid var(--accent-green);
+  padding: 10px 24px;
+  border-radius: var(--border-radius-round);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-designer-outline:hover {
+  background-color: var(--accent-green);
+  color: #ffffff;
+}
+
+/* Typography & Titles */
+.main-headline-title {
+  font-family: var(--font-title);
+  font-size: 2.5rem;
+  font-weight: 800;
   color: var(--text-primary);
-  border: 1px solid var(--text-primary);
+  margin-bottom: 6px;
 }
 
-.btn-secondary:hover {
-  border-color: var(--accent-orange);
-  color: #ffffff;
-  background-color: var(--accent-orange);
-  transform: translateY(-2px);
+.main-headline-sub {
+  font-size: 1rem;
+  color: var(--text-secondary);
 }
 
 /* Floating Decorative Elements Animations */
@@ -2249,4 +2260,478 @@ img {
 .bar-separator {
   color: #4b5e3e;
 }
+
+/* ==========================================================================
+   Designer Overhaul Components (Screens 1 - 9)
+   ========================================================================== */
+
+/* Designer Header Logo & Navigation */
+.logo-text-group {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.logo-text {
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.logo-subtext {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--accent-orange);
+  letter-spacing: 0.25em;
+}
+
+.header-icon-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.header-icon-btn:hover {
+  background-color: var(--accent-green);
+  color: #ffffff;
+  border-color: var(--accent-green);
+}
+
+/* Hero Section (Screen 1) */
+.designer-hero {
+  padding: 60px 0 40px 0;
+  position: relative;
+}
+
+.hero-grid-2 {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.designer-hero-title {
+  font-family: var(--font-title);
+  font-size: 3.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #261d17;
+  margin-bottom: 18px;
+}
+
+.designer-hero-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+  max-width: 460px;
+}
+
+.hero-dish-frame {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(37, 29, 24, 0.12);
+  border: 8px solid #ffffff;
+  margin: 0 auto;
+}
+
+.hero-main-dish-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-slow);
+}
+
+.hero-dish-frame:hover .hero-main-dish-img {
+  transform: scale(1.04);
+}
+
+/* Hero Feature Green Ribbon (Screen 1 & Footer) */
+.hero-feature-ribbon {
+  background-color: var(--bg-dark-green);
+  color: #ffffff;
+  padding: 22px 0;
+  margin-top: 30px;
+}
+
+.ribbon-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+
+.ribbon-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 768px) {
+  .hero-grid-2 { grid-template-columns: 1fr; }
+  .ribbon-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .designer-hero-title { font-size: 2.6rem; }
+}
+
+/* Category Filter Pills (Screen 2 & Screen 5) */
+.category-filter-pills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.filter-pill {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 8px 24px;
+  border-radius: var(--border-radius-round);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.filter-pill:hover {
+  background-color: #d8cfbe;
+}
+
+.filter-pill.active {
+  background-color: var(--accent-green);
+  color: #ffffff;
+  border-color: var(--accent-green);
+}
+
+/* Products Grid Layout (Screen 2) */
+.designer-products-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 1100px) {
+  .designer-products-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 650px) {
+  .designer-products-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.designer-product-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 20px;
+  text-align: center;
+  transition: var(--transition-normal);
+  box-shadow: var(--card-shadow);
+}
+
+.designer-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--heavy-shadow);
+  border-color: var(--accent-green);
+}
+
+.designer-product-img-box {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 16px auto;
+  border: 3px solid var(--bg-primary);
+  cursor: pointer;
+}
+
+.designer-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.designer-product-name {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.designer-product-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px dashed var(--border-color);
+  padding-top: 10px;
+}
+
+.designer-product-price {
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.designer-add-cart-btn {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.designer-add-cart-btn:hover {
+  background-color: var(--accent-green);
+  color: #ffffff;
+}
+
+/* Recipes & Blog Page Grid (Screen 5) */
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 992px) {
+  .recipes-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 550px) {
+  .recipes-grid { grid-template-columns: 1fr; }
+}
+
+.recipe-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition-normal);
+}
+
+.recipe-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--heavy-shadow);
+}
+
+.recipe-img-box {
+  position: relative;
+  height: 180px;
+}
+
+.recipe-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipe-cat-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: var(--accent-green);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--border-radius-round);
+}
+
+.recipe-time-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background-color: rgba(0,0,0,0.65);
+  color: #ffffff;
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: var(--border-radius-round);
+}
+
+.recipe-card-content {
+  padding: 18px;
+}
+
+.recipe-card-title {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.recipe-card-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+
+.btn-recipe-link {
+  background: transparent;
+  border: none;
+  color: var(--accent-green);
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Designer 4-Column Footer (Screen 9) */
+.designer-footer {
+  background-color: var(--bg-dark-green);
+  color: #f6f2e9;
+  padding: 60px 0 20px 0;
+  margin-top: 80px;
+}
+
+.footer-grid-4 {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr 0.9fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 900px) {
+  .footer-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+}
+
+@media (max-width: 550px) {
+  .footer-grid-4 { grid-template-columns: 1fr; }
+}
+
+.footer-logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.footer-logo-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-gold);
+}
+
+.footer-logo-title {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.footer-logo-subtitle {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--accent-gold);
+}
+
+.footer-tagline-text {
+  font-size: 0.9rem;
+  color: #d3cbbd;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.footer-social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.footer-social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: var(--transition-fast);
+}
+
+.footer-social-btn:hover {
+  background-color: var(--accent-gold);
+  color: #2b3e1b;
+}
+
+.footer-col-title {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 18px;
+}
+
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links-list li {
+  margin-bottom: 10px;
+}
+
+.footer-links-list a {
+  color: #c9c0b1;
+  font-size: 0.88rem;
+  transition: var(--transition-fast);
+}
+
+.footer-links-list a:hover {
+  color: #ffffff;
+  padding-left: 4px;
+}
+
+.footer-ribbon-bar {
+  border-top: 1px solid rgba(255,255,255,0.12);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.ribbon-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #e5ded2;
+}
+
+.footer-copyright-text {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #a39886;
+}
+
 
