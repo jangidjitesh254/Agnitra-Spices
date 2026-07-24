@@ -83,26 +83,25 @@ function Home({ products, navigateTo, addToCart, loading }) {
             <span className="section-subtitle">Authentic Technology</span>
             <h2 className="section-title">Why Low-Temp Grinding Matters</h2>
           </div>
-
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '40px', flexWrap: 'wrap' }}>
+          <div style={{ maxWidth: '850px', margin: '0 auto' }}>
+            <div className="brand-tab-group">
               <button 
-                className={`btn ${activeTab === 'chakki' ? 'btn-primary' : 'btn-secondary'}`}
+                className={`btn-brand-tab ${activeTab === 'chakki' ? 'active' : ''}`}
                 onClick={() => setActiveTab('chakki')}
               >
-                Stone Chakki (Mills)
+                <span>⚙️ Stone Chakki (Mills)</span>
               </button>
               <button 
-                className={`btn ${activeTab === 'okhli' ? 'btn-primary' : 'btn-secondary'}`}
+                className={`btn-brand-tab ${activeTab === 'okhli' ? 'active' : ''}`}
                 onClick={() => setActiveTab('okhli')}
               >
-                Okhli (Hand Pounded)
+                <span>🪵 Okhli (Hand Pounded)</span>
               </button>
               <button 
-                className={`btn ${activeTab === 'sundried' ? 'btn-primary' : 'btn-secondary'}`}
+                className={`btn-brand-tab ${activeTab === 'sundried' ? 'active' : ''}`}
                 onClick={() => setActiveTab('sundried')}
               >
-                Sun Drying
+                <span>☀️ Sun Drying</span>
               </button>
             </div>
 
@@ -138,7 +137,7 @@ function Home({ products, navigateTo, addToCart, loading }) {
                     Commercial brands dry spices in high-temperature diesel ovens. This exposes spice leaves and roots to fuel fumes and severe temperature shocks, making spices dry, stiff, and carbon-polluted.
                   </p>
                   <p className="about-text">
-                    We dry all our chillies, turmeric roots, and coriander seeds naturally under direct sunlight in clean, open-air racks. The solar rays gently extract moisture while sealing the vital therapeutic minerals inside the crop.
+                    Agnitra sun-dries all spices in dust-free solar racks before grinding, preserving raw immunity enzymes and organic taste profiles.
                   </p>
                 </div>
               )}
@@ -190,11 +189,11 @@ function Home({ products, navigateTo, addToCart, loading }) {
                         className="add-to-cart-btn"
                         onClick={() => {
                           addToCart(product, 1);
-                          alert(`${product.name} added to cart!`);
                         }}
                         aria-label={`Add ${product.name} to Cart`}
                       >
-                        +
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                        Add to Cart
                       </button>
                     </div>
                   </div>

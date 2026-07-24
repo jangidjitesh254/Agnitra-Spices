@@ -25,7 +25,7 @@
   --border-color: #e5dfd2;      /* Warm border */
   
   /* Fonts */
-  --font-title: 'Playfair Display', Georgia, serif;
+  --font-title: 'Cinzel', 'Playfair Display', Georgia, serif;
   --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-cursive: 'Alex Brush', cursive;
   
@@ -108,6 +108,50 @@ img {
 .bg-red { background-color: var(--accent-red); }
 .bg-orange { background-color: var(--accent-orange); }
 
+/* Branded Global Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 30px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: var(--border-radius-round);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  border: 1.5px solid transparent;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.btn-primary {
+  background-color: var(--bg-dark-green);
+  color: #ffffff;
+  border-color: var(--bg-dark-green);
+  box-shadow: 0 4px 14px rgba(43, 62, 27, 0.22);
+}
+
+.btn-primary:hover {
+  background-color: var(--bg-dark-green-hover);
+  border-color: var(--bg-dark-green-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(43, 62, 27, 0.32);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--accent-green);
+  border-color: var(--accent-green);
+}
+
+.btn-secondary:hover {
+  background-color: var(--accent-green);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
 /* Designer Buttons */
 .btn-designer-green {
   background-color: var(--accent-green);
@@ -130,7 +174,7 @@ img {
 .btn-designer-outline {
   background-color: transparent;
   color: var(--accent-green);
-  border: 1px solid var(--accent-green);
+  border: 1.5px solid var(--accent-green);
   padding: 10px 24px;
   border-radius: var(--border-radius-round);
   font-weight: 700;
@@ -948,24 +992,67 @@ img {
 }
 
 .add-to-cart-btn {
-  background-color: #000000;
+  background-color: var(--accent-green);
   color: #ffffff;
   border: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
+  padding: 10px 20px;
+  border-radius: var(--border-radius-round);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   cursor: pointer;
   transition: var(--transition-fast);
-  font-size: 1.2rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  box-shadow: 0 4px 14px rgba(53, 74, 29, 0.22);
 }
 
 .add-to-cart-btn:hover {
-  background-color: var(--accent-orange);
-  transform: scale(1.1);
+  background-color: var(--bg-dark-green-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(53, 74, 29, 0.32);
+}
+
+.brand-tab-group {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.btn-brand-tab {
+  background-color: #ffffff;
+  color: var(--accent-green);
+  border: 1.5px solid var(--accent-green);
+  padding: 12px 28px;
+  border-radius: var(--border-radius-round);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-brand-tab:hover {
+  background-color: #f0e9dc;
+  border-color: var(--accent-green);
+  transform: translateY(-2px);
+}
+
+.btn-brand-tab.active {
+  background-color: var(--bg-dark-green);
+  color: #ffffff;
+  border-color: var(--bg-dark-green);
+  box-shadow: 0 6px 18px rgba(43, 62, 27, 0.28);
 }
 
 /* Product Detail Page */
