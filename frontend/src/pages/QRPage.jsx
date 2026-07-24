@@ -40,7 +40,7 @@ function QRPage({ navigateTo }) {
         
         {/* Top Header Branding Section */}
         <header className="qr-header animate-fade-in">
-          <div className="qr-logo-wrapper">
+          <div className="qr-logo-wrapper" onClick={() => navigateTo('home')} style={{ cursor: 'pointer' }}>
             <img 
               src="/images/Agnitra logo.jpg" 
               alt="Agnitra Spices Brand Logo" 
@@ -68,7 +68,7 @@ function QRPage({ navigateTo }) {
 
           <p className="qr-welcome-text">
             Thank you for choosing Agnitra Spices.<br />
-            Connect with us through the options below.
+            Explore our traditional cold-ground purity or connect with us below.
           </p>
         </header>
 

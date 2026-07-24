@@ -2103,12 +2103,12 @@ img {
 }
 
 .qr-brand-name {
-  font-family: var(--font-title);
+  font-family: 'Cinzel', serif;
   font-size: 2.8rem;
   font-weight: 800;
   line-height: 0.9;
-  letter-spacing: -0.01em;
-  color: #382417; /* Deep earthy spice brown */
+  letter-spacing: 0.05em;
+  color: #1a2813;
 }
 
 .qr-brand-subname {
@@ -2117,6 +2117,7 @@ img {
   font-weight: 800;
   letter-spacing: 0.35em;
   color: var(--accent-orange);
+  text-transform: uppercase;
 }
 
 .qr-divider-line {
@@ -2140,9 +2141,10 @@ img {
 
 .qr-main-tagline {
   font-family: var(--font-title);
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: #2b1d14;
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #1a2813;
   margin: 10px 0;
 }
 
