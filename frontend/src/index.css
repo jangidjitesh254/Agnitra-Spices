@@ -229,21 +229,34 @@ img {
   filter: drop-shadow(0 6px 12px rgba(37, 29, 24, 0.08));
 }
 
-/* 14 Scattered Mint Leaves Across Whole Page */
-.mint-leaf-1  { top: 3%;   left: 3%;  width: 75px; transform: rotate(-15deg); animation: drift-slow-1 9s ease-in-out infinite; }
-.mint-leaf-2  { top: 10%;  right: 4%; width: 60px; transform: rotate(25deg);  animation: drift-slow-2 8s ease-in-out infinite; }
-.mint-leaf-3  { top: 18%;  left: 2%;  width: 68px; transform: rotate(10deg);  animation: drift-slow-1 10s ease-in-out infinite; }
-.mint-leaf-4  { top: 26%;  right: 3%; width: 55px; transform: rotate(-30deg); animation: drift-slow-2 7s ease-in-out infinite; }
-.mint-leaf-5  { top: 34%;  left: 4%;  width: 65px; transform: rotate(18deg);  animation: drift-slow-1 9s ease-in-out infinite; }
-.mint-leaf-6  { top: 42%;  right: 4%; width: 78px; transform: rotate(-12deg); animation: drift-slow-2 11s ease-in-out infinite; }
-.mint-leaf-7  { top: 50%;  left: 3%;  width: 58px; transform: rotate(35deg);  animation: drift-slow-1 8s ease-in-out infinite; }
-.mint-leaf-8  { top: 58%;  right: 3%; width: 72px; transform: rotate(-20deg); animation: drift-slow-2 10s ease-in-out infinite; }
-.mint-leaf-9  { top: 66%;  left: 4%;  width: 64px; transform: rotate(15deg);  animation: drift-slow-1 9s ease-in-out infinite; }
-.mint-leaf-10 { top: 74%;  right: 4%; width: 54px; transform: rotate(-25deg); animation: drift-slow-2 8s ease-in-out infinite; }
-.mint-leaf-11 { top: 82%;  left: 3%;  width: 74px; transform: rotate(20deg);  animation: drift-slow-1 11s ease-in-out infinite; }
-.mint-leaf-12 { top: 90%;  right: 5%; width: 60px; transform: rotate(-10deg); animation: drift-slow-2 9s ease-in-out infinite; }
-.mint-leaf-13 { top: 15%;  right: 12%; width: 48px; transform: rotate(40deg); animation: drift-slow-1 7s ease-in-out infinite; opacity: 0.75; }
-.mint-leaf-14 { top: 62%;  left: 10%;  width: 50px; transform: rotate(-35deg); animation: drift-slow-2 10s ease-in-out infinite; opacity: 0.75; }
+.leaf-1 {
+  top: 12%;
+  left: 6%;
+  width: 80px;
+  animation: drift-slow-1 8s ease-in-out infinite;
+}
+
+.leaf-2 {
+  top: 40%;
+  left: 10%;
+  width: 60px;
+  animation: drift-slow-2 10s ease-in-out infinite;
+}
+
+.leaf-3 {
+  bottom: 15%;
+  left: 22%;
+  width: 70px;
+  animation: drift-slow-1 9s ease-in-out infinite;
+}
+
+.leaf-4 {
+  top: 25%;
+  right: 6%;
+  width: 55px;
+  animation: drift-slow-2 7s ease-in-out infinite;
+  opacity: 0.75;
+}
 
 .chilli-drift {
   top: 15%;
