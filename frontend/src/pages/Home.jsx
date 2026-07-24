@@ -5,9 +5,23 @@ function Home({ products, navigateTo, addToCart, loading }) {
 
   return (
     <div className="home-page">
-      {/* Decorative Drifting Spices & Leaves */}
-      <img src="/images/mint_leaf_icon.png" className="floating-leaf leaf-1" aria-hidden="true" alt="Floating mint leaf" />
-      <img src="/images/mint_leaf_icon.png" className="floating-leaf leaf-2" aria-hidden="true" alt="Floating mint leaf" />
+      {/* 14 Floating Mint Leaves Scattered Down the Whole Page */}
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-1" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-2" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-3" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-4" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-5" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-6" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-7" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-8" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-9" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-10" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-11" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-12" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-13" aria-hidden="true" alt="Floating mint leaf" />
+      <img src="/images/mint_leaf_icon.png" className="floating-leaf mint-leaf-14" aria-hidden="true" alt="Floating mint leaf" />
+
+      {/* Decorative Drifting Turmeric & Chilli Spices */}
       <img src="/images/turmeric_icon.png" className="floating-leaf leaf-4" aria-hidden="true" alt="Floating turmeric root" />
       <img src="/images/chilli_icon.png" className="floating-leaf chilli-drift" aria-hidden="true" alt="Floating red chilli left" />
       <img src="/images/chilli_icon.png" className="floating-leaf chilli-right-1" aria-hidden="true" alt="Floating red chilli right top" />
