@@ -2028,10 +2028,7 @@ img {
    QR Route Landing Page Design (Screenshot Reproduction)
    ========================================================================== */
 .qr-landing-page {
-  background-color: #f7f3ea; /* Warm parchment organic background */
-  background-image: 
-    radial-gradient(circle at 10% 10%, rgba(189, 89, 60, 0.03) 0%, transparent 40%),
-    radial-gradient(circle at 90% 90%, rgba(62, 80, 37, 0.03) 0%, transparent 40%);
+  background-color: #ffffff; /* Clean pure white background */
   min-height: 100vh;
   padding: 24px 0 60px 0;
   position: relative;
@@ -2082,7 +2079,7 @@ img {
 
 @media (max-width: 768px) {
   .qr-corner-spice {
-    display: none; /* Hide heavy corner dishes on narrow phone screens to maximize card space */
+    display: none;
   }
 }
 
@@ -2214,19 +2211,22 @@ img {
 }
 
 /* ==========================================================================
-   6 Action Cards Responsive Grid Layout
+   6 Action Cards Responsive Grid Layout (Dark Green Card Boxes)
    ========================================================================== */
 .qr-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  margin-bottom: 50px;
+  gap: 16px;
+  margin-bottom: 30px;
 }
 
 @media (max-width: 680px) {
+  .qr-landing-page {
+    padding: 16px 0 40px 0;
+  }
   .qr-cards-grid {
-    grid-template-columns: 1fr; /* Single column layout on phone screens */
-    gap: 16px;
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 }
 
@@ -2234,13 +2234,13 @@ img {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: #ffffff;
+  background-color: #233418; /* Dark Olive Forest Green matching screenshot */
   border-radius: 20px;
   padding: 22px 24px;
   text-decoration: none;
-  color: var(--text-primary);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  color: #ffffff;
+  box-shadow: 0 8px 25px rgba(35, 52, 24, 0.2);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
   cursor: pointer;
@@ -2248,20 +2248,22 @@ img {
 
 .qr-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.09);
+  background-color: #1b2a12;
+  box-shadow: 0 14px 35px rgba(35, 52, 24, 0.35);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Card Icon Circles (Exact color palette matching screenshot) */
+/* Card Icon Circles */
 .qr-card-icon-circle {
-  width: 60px;
-  height: 60px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .icon-website {
@@ -2288,14 +2290,6 @@ img {
   background-color: #d4902b; /* Warm Gold Amber */
 }
 
-/* Individual Card Accent Glow Borders */
-.card-website:hover { border-color: #3e5025; }
-.card-instagram:hover { border-color: #dc2743; }
-.card-facebook:hover { border-color: #1877f2; }
-.card-whatsapp:hover { border-color: #25d366; }
-.card-email:hover { border-color: #c83e2d; }
-.card-feedback:hover { border-color: #d4902b; }
-
 .qr-card-info {
   flex-grow: 1;
 }
@@ -2304,23 +2298,23 @@ img {
   font-family: var(--font-body);
   font-size: 1.15rem;
   font-weight: 700;
-  color: #251d18;
+  color: #ffffff; /* Crisp white text on dark green card */
   margin-bottom: 4px;
 }
 
 .qr-card-desc {
   font-size: 0.85rem;
-  color: #6e6157;
+  color: #d8d2c5; /* Soft white/parchment description text */
   line-height: 1.4;
 }
 
 .qr-card-chevron {
-  color: #a89a8c;
+  color: rgba(255, 255, 255, 0.7);
   transition: var(--transition-fast);
 }
 
 .qr-card:hover .qr-card-chevron {
-  color: #251d18;
+  color: #ffffff;
   transform: translateX(4px);
 }
 
