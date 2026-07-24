@@ -76,9 +76,13 @@ function QRPage({ navigateTo }) {
         <div className="qr-cards-grid">
           
           {/* Card 1: Visit Our Website */}
-          <div 
+          <a 
+            href="/"
             className="qr-card card-website animate-fade-in"
-            onClick={() => navigateTo('shop')}
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo('home');
+            }}
           >
             <div className="qr-card-icon-circle icon-website">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -96,7 +100,7 @@ function QRPage({ navigateTo }) {
                 <polyline points="9 18 15 12 9 6"/>
               </svg>
             </div>
-          </div>
+          </a>
 
           {/* Card 2: Instagram */}
           <a 
