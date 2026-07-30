@@ -1,7 +1,4 @@
-import { useState } from 'react';
-
 function Home({ products, navigateTo, addToCart, loading }) {
-  const [activeTab, setActiveTab] = useState('chakki');
 
   return (
     <div className="home-page">
@@ -71,76 +68,6 @@ function Home({ products, navigateTo, addToCart, loading }) {
             <div className="ribbon-card">
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
               <span>Hygienically Packed</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Traditional Technology Showcase Tabs */}
-      <section className="section" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
-        <div className="container">
-          <div className="section-title-wrapper">
-            <span className="section-subtitle">Authentic Technology</span>
-            <h2 className="section-title">Why Low-Temp Grinding Matters</h2>
-          </div>
-          <div style={{ maxWidth: '850px', margin: '0 auto' }}>
-            <div className="brand-tab-group">
-              <button 
-                className={`btn-brand-tab ${activeTab === 'chakki' ? 'active' : ''}`}
-                onClick={() => setActiveTab('chakki')}
-              >
-                <span>⚙️ Stone Chakki (Mills)</span>
-              </button>
-              <button 
-                className={`btn-brand-tab ${activeTab === 'okhli' ? 'active' : ''}`}
-                onClick={() => setActiveTab('okhli')}
-              >
-                <span>🪵 Okhli (Hand Pounded)</span>
-              </button>
-              <button 
-                className={`btn-brand-tab ${activeTab === 'sundried' ? 'active' : ''}`}
-                onClick={() => setActiveTab('sundried')}
-              >
-                <span>☀️ Sun Drying</span>
-              </button>
-            </div>
-
-            <div className="about-heritage-card" style={{ marginTop: 0, padding: '40px' }}>
-              {activeTab === 'chakki' && (
-                <div>
-                  <h3 style={{ color: 'var(--accent-red)', marginBottom: '16px', fontFamily: 'var(--font-title)', fontSize: '1.5rem' }}>Slow Rotating Stone Mills</h3>
-                  <p className="about-text">
-                    Industrial steel pulverizers spin at up to 10,000 RPM, creating extreme friction temperatures (75°C - 90°C). This heat literally burns off volatile essential oils, destroying flavor, medicinal curcumin, and natural color.
-                  </p>
-                  <p className="about-text">
-                    Agnitra uses heavy stone-wheels (Chakki) that rotate slowly under 45 RPM. The natural grinding stones absorb excess temperature, ensuring the spice stays cool (under 38°C) and locks in all aromatic oils.
-                  </p>
-                </div>
-              )}
-
-              {activeTab === 'okhli' && (
-                <div>
-                  <h3 style={{ color: 'var(--accent-red)', marginBottom: '16px', fontFamily: 'var(--font-title)', fontSize: '1.5rem' }}>Hand-Pounding (Okhli-Musar)</h3>
-                  <p className="about-text">
-                    Pounding is an ancient technique of crushing spices with blunt impact rather than slicing. Slicing spices with high-speed blades ruptures cell walls aggressively, leading to quick oxidation and flavor degradation.
-                  </p>
-                  <p className="about-text">
-                    Our hand-pounding method gently crushes raw turmeric rhizomes and pods. This preserves the internal cellular structure of the spices, keeping health curcumin nodes intact and unlocking a multi-layered flavor profile.
-                  </p>
-                </div>
-              )}
-
-              {activeTab === 'sundried' && (
-                <div>
-                  <h3 style={{ color: 'var(--accent-red)', marginBottom: '16px', fontFamily: 'var(--font-title)', fontSize: '1.5rem' }}>Natural Solar Dehydration</h3>
-                  <p className="about-text">
-                    Commercial brands dry spices in high-temperature diesel ovens. This exposes spice leaves and roots to fuel fumes and severe temperature shocks, making spices dry, stiff, and carbon-polluted.
-                  </p>
-                  <p className="about-text">
-                    Agnitra sun-dries all spices in dust-free solar racks before grinding, preserving raw immunity enzymes and organic taste profiles.
-                  </p>
-                </div>
-              )}
             </div>
           </div>
         </div>
