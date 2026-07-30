@@ -11,7 +11,7 @@ function Footer({ navigateTo }) {
           
           {/* Column 1: Brand & Tagline */}
           <div className="footer-col-brand">
-            <a href="#home" className="footer-logo-link" onClick={(e) => handleLinkClick(e, 'home')}>
+            <a href="/" className="footer-logo-link" onClick={(e) => handleLinkClick(e, 'home')}>
               <img 
                 src="/images/Agnitra logo.jpg" 
                 alt="Agnitra Spices Logo" 
@@ -47,10 +47,10 @@ function Footer({ navigateTo }) {
           <div className="footer-col">
             <h4 className="footer-col-title">Quick Links</h4>
             <ul className="footer-links-list">
-              <li><a href="#home" onClick={(e) => handleLinkClick(e, 'home')}>Home</a></li>
-              <li><a href="#shop" onClick={(e) => handleLinkClick(e, 'shop')}>Products</a></li>
-              <li><a href="#about" onClick={(e) => handleLinkClick(e, 'about')}>About Us</a></li>
-              <li><a href="#contact" onClick={(e) => handleLinkClick(e, 'contact')}>Contact Us</a></li>
+              <li><a href="/" onClick={(e) => handleLinkClick(e, 'home')}>Home</a></li>
+              <li><a href="/shop" onClick={(e) => handleLinkClick(e, 'shop')}>Products</a></li>
+              <li><a href="/about" onClick={(e) => handleLinkClick(e, 'about')}>About Us</a></li>
+              <li><a href="/contact" onClick={(e) => handleLinkClick(e, 'contact')}>Contact Us</a></li>
             </ul>
           </div>
 
@@ -58,12 +58,12 @@ function Footer({ navigateTo }) {
           <div className="footer-col">
             <h4 className="footer-col-title">Customer Care</h4>
             <ul className="footer-links-list">
-              <li><a href="#orders" onClick={(e) => handleLinkClick(e, 'orders')}>My Account</a></li>
-              <li><a href="#orders" onClick={(e) => handleLinkClick(e, 'orders')}>Track Order</a></li>
-              <li><a href="#about" onClick={(e) => handleLinkClick(e, 'about')}>Shipping & Delivery</a></li>
-              <li><a href="#about" onClick={(e) => handleLinkClick(e, 'about')}>Returns & Refunds</a></li>
-              <li><a href="#contact" onClick={(e) => handleLinkClick(e, 'contact')}>FAQ's</a></li>
-              <li><a href="#about" onClick={(e) => handleLinkClick(e, 'about')}>Privacy Policy</a></li>
+              <li><a href="/account" onClick={(e) => handleLinkClick(e, 'account')}>My Account</a></li>
+              <li><a href="/account" onClick={(e) => handleLinkClick(e, 'account')}>Track Order</a></li>
+              <li><a href="/about" onClick={(e) => handleLinkClick(e, 'about')}>Shipping & Delivery</a></li>
+              <li><a href="/about" onClick={(e) => handleLinkClick(e, 'about')}>Returns & Refunds</a></li>
+              <li><a href="/contact" onClick={(e) => handleLinkClick(e, 'contact')}>FAQ's</a></li>
+              <li><a href="/about" onClick={(e) => handleLinkClick(e, 'about')}>Privacy Policy</a></li>
             </ul>
           </div>
 
@@ -71,11 +71,11 @@ function Footer({ navigateTo }) {
           <div className="footer-col">
             <h4 className="footer-col-title">Our Categories</h4>
             <ul className="footer-links-list">
-              <li><a href="#shop" onClick={(e) => handleLinkClick(e, 'shop')}>Spices Powders</a></li>
-              <li><a href="#shop" onClick={(e) => handleLinkClick(e, 'shop')}>Whole Spices</a></li>
-              <li><a href="#shop" onClick={(e) => handleLinkClick(e, 'shop')}>Spice Blends</a></li>
-              <li><a href="#shop" onClick={(e) => handleLinkClick(e, 'shop')}>Seeds</a></li>
-              <li><a href="#shop" onClick={(e) => handleLinkClick(e, 'shop')}>Masalas</a></li>
+              <li><a href="/shop" onClick={(e) => handleLinkClick(e, 'shop')}>Spices Powders</a></li>
+              <li><a href="/shop" onClick={(e) => handleLinkClick(e, 'shop')}>Whole Spices</a></li>
+              <li><a href="/shop" onClick={(e) => handleLinkClick(e, 'shop')}>Spice Blends</a></li>
+              <li><a href="/shop" onClick={(e) => handleLinkClick(e, 'shop')}>Seeds</a></li>
+              <li><a href="/shop" onClick={(e) => handleLinkClick(e, 'shop')}>Masalas</a></li>
             </ul>
           </div>
 
