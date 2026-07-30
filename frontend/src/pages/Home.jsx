@@ -142,9 +142,14 @@ function Home({ products, navigateTo, addToCart, loading }) {
         </div>
       </section>
 
-      {/* Authentic Vision & Journey Banner */}
-      <section className="section vision-banner-section" style={{ padding: '50px 0', background: '#faf6ee', borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)' }}>
-        <div className="container">
+      {/* Official Agnitra Vision - From Nature to Nurture */}
+      <section className="section vision-banner-section">
+        <div className="container" style={{ maxWidth: '1240px' }}>
+          <div className="section-title-wrapper text-center" style={{ marginBottom: '25px' }}>
+            <span className="section-subtitle">Our Authentic Journey</span>
+            <h2 className="section-title">From Nature to Nurture</h2>
+          </div>
+          
           <div className="vision-banner-frame animate-fade-in">
             <img 
               src="/images/agnitra_vision_banner.png" 
