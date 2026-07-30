@@ -142,91 +142,16 @@ function Home({ products, navigateTo, addToCart, loading }) {
         </div>
       </section>
 
-      {/* Vision & Authentic Process Flow Pipeline */}
-      <section className="section process-section" style={{ borderTop: '1px solid var(--border-color)', background: '#faf6ee' }}>
+      {/* Authentic Vision & Journey Banner */}
+      <section className="section vision-banner-section" style={{ padding: '50px 0', background: '#faf6ee', borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)' }}>
         <div className="container">
-          <div className="section-title-wrapper text-center">
-            <span className="section-subtitle">Purity Vision Journey</span>
-            <h2 className="section-title">From Raw Material to Healthy Customers</h2>
-            
-            {/* Vision Pipeline Banner */}
-            <div className="vision-pipeline-banner">
-              <span className="pipeline-pill">🌱 Raw Material</span>
-              <span className="pipeline-arrow">➔</span>
-              <span className="pipeline-pill">⚙️ Cold Grinding</span>
-              <span className="pipeline-arrow">➔</span>
-              <span className="pipeline-pill">📦 Aroma-Lock Packing</span>
-              <span className="pipeline-arrow">➔</span>
-              <span className="pipeline-pill">💚 Healthy Customers</span>
-            </div>
+          <div className="vision-banner-frame animate-fade-in">
+            <img 
+              src="/images/agnitra_vision_banner.png" 
+              alt="Agnitra Spices - From Nature to Nurture Vision Flow: Raw Material -> Grinding -> Packing -> Healthy Customers" 
+              className="vision-banner-img"
+            />
           </div>
-
-          {/* Connected 4-Step Flow Grid */}
-          <div className="process-flow-container">
-            {/* Step 1 */}
-            <div className="process-flow-step animate-fade-in">
-              <div className="process-card">
-                <span className="process-num">1</span>
-                <div className="process-icon-box">🌱</div>
-                <h3 className="process-title">Raw Material</h3>
-                <p className="process-desc">
-                  Directly harvested organic raw spices sun-dehydrated over clean canvas racks in Meghalaya, Rajasthan & Karnataka.
-                </p>
-              </div>
-            </div>
-
-            {/* Flow Arrow 1 */}
-            <div className="process-flow-arrow" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </div>
-
-            {/* Step 2 */}
-            <div className="process-flow-step animate-fade-in">
-              <div className="process-card highlighted">
-                <span className="process-num">2</span>
-                <div className="process-icon-box">⚙️</div>
-                <h3 className="process-title">Cold Grinding</h3>
-                <p className="process-desc">
-                  Slow-rotated stone chakkis & wooden mortars grinding below 38°C to lock in all natural essential oils & Curcumin.
-                </p>
-              </div>
-            </div>
-
-            {/* Flow Arrow 2 */}
-            <div className="process-flow-arrow" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </div>
-
-            {/* Step 3 */}
-            <div className="process-flow-step animate-fade-in">
-              <div className="process-card">
-                <span className="process-num">3</span>
-                <div className="process-icon-box">📦</div>
-                <h3 className="process-title">Aroma-Lock Packing</h3>
-                <p className="process-desc">
-                  Sealed immediately in triple-layer nitrogen-flushed packages to block humidity, air oxidation & dust contamination.
-                </p>
-              </div>
-            </div>
-
-            {/* Flow Arrow 3 */}
-            <div className="process-flow-arrow" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </div>
-
-            {/* Step 4 */}
-            <div className="process-flow-step animate-fade-in">
-              <div className="process-card victory">
-                <span className="process-num">4</span>
-                <div className="process-icon-box">💚</div>
-                <h3 className="process-title">Healthy Customers</h3>
-                <p className="process-desc">
-                  100% natural, chemical-free spices delivered to your home for vibrant taste, rich aroma & family wellness.
-                </p>
-              </div>
-            </div>
-          </div>
-
         </div>
       </section>
 
