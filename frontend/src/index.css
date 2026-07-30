@@ -3668,6 +3668,169 @@ img {
   .account-tab-pills {
     flex-direction: column;
   }
+/* ==========================================================================
+   Vision & Authentic Process Flow Pipeline
+   ========================================================================== */
+.vision-pipeline-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.pipeline-pill {
+  background: #ffffff;
+  border: 1.5px solid rgba(189, 89, 60, 0.25);
+  color: var(--accent-orange);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(37, 29, 24, 0.05);
+  transition: var(--transition-fast);
+}
+
+.pipeline-pill:hover {
+  background: var(--accent-orange);
+  color: #ffffff;
+  border-color: var(--accent-orange);
+}
+
+.pipeline-arrow {
+  color: var(--accent-orange);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.process-flow-container {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.process-flow-step {
+  height: 100%;
+}
+
+.process-card {
+  background-color: #ffffff;
+  border: 1.5px solid rgba(229, 223, 210, 0.95);
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 8px 24px rgba(37, 29, 24, 0.05);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.process-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 36px rgba(37, 29, 24, 0.12);
+  border-color: var(--accent-orange);
+}
+
+.process-card.highlighted {
+  border-color: var(--accent-orange);
+  box-shadow: 0 10px 30px rgba(189, 89, 60, 0.12);
+}
+
+.process-card.victory {
+  border-color: var(--accent-green);
+  background: linear-gradient(145deg, #ffffff 0%, #f4f8f3 100%);
+}
+
+.process-num {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-red) 100%);
+  color: #ffffff;
+  font-family: var(--font-title);
+  font-size: 1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 10px rgba(189, 89, 60, 0.3);
+}
+
+.process-card.victory .process-num {
+  background: linear-gradient(135deg, #365227 0%, #1e3314 100%);
+  box-shadow: 0 4px 10px rgba(54, 82, 39, 0.3);
+}
+
+.process-icon-box {
+  font-size: 2.2rem;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+.process-title {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #1a2813;
+  margin-bottom: 10px;
+}
+
+.process-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Connecting Arrow Styling */
+.process-flow-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-orange);
+  animation: pulseArrow 2s infinite ease-in-out;
+}
+
+@keyframes pulseArrow {
+  0%, 100% { transform: translateX(0); opacity: 0.75; }
+  50% { transform: translateX(4px); opacity: 1; }
+}
+
+@media (max-width: 1024px) {
+  .process-flow-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .process-flow-arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .process-flow-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .vision-pipeline-banner {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .pipeline-arrow {
+    transform: rotate(90deg);
+  }
 }
 
 
