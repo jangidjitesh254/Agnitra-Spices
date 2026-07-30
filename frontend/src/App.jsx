@@ -10,13 +10,14 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Recipes from './pages/Recipes';
 import QRPage from './pages/QRPage';
+import Account from './pages/Account';
 
 export const API_BASE_URL = typeof window !== 'undefined' 
   ? `http://${window.location.hostname}:5000/api`
   : 'http://localhost:5000/api';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home'); // home, shop, product/:id, cart, orders, about, contact, recipes, qr
+  const [currentPage, setCurrentPage] = useState('home'); // home, shop, product/:id, cart, orders, account, about, contact, recipes, qr
   const [activeProductId, setActiveProductId] = useState(null);
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
@@ -43,7 +44,7 @@ function App() {
         const id = path.split('/')[1];
         setActiveProductId(id);
         setCurrentPage('product');
-      } else if (['home', 'shop', 'about', 'contact', 'recipes', 'blog', 'orders', 'cart'].includes(path)) {
+      } else if (['home', 'shop', 'about', 'contact', 'recipes', 'blog', 'orders', 'account', 'cart'].includes(path)) {
         setCurrentPage(path === 'blog' ? 'recipes' : path);
       } else if (path === '') {
         setCurrentPage('home');
@@ -201,8 +202,9 @@ function App() {
             onOrderPlaced={fetchOrders}
           />
         );
+      case 'account':
       case 'orders':
-        return <Orders orders={orders} navigateTo={navigateTo} />;
+        return <Account orders={orders} navigateTo={navigateTo} />;
       case 'about':
         return <About navigateTo={navigateTo} />;
       case 'contact':
