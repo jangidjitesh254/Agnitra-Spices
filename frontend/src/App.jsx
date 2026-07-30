@@ -11,7 +11,9 @@ import Contact from './pages/Contact';
 import Recipes from './pages/Recipes';
 import QRPage from './pages/QRPage';
 
-export const API_BASE_URL = 'http://localhost:5000/api';
+export const API_BASE_URL = typeof window !== 'undefined' 
+  ? `http://${window.location.hostname}:5000/api`
+  : 'http://localhost:5000/api';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home'); // home, shop, product/:id, cart, orders, about, contact, recipes, qr

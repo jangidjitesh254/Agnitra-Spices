@@ -48,8 +48,8 @@ app.get('*', (req, res, next) => {
 const startServer = async () => {
   try {
     await connectDB();
-    app.listen(PORT, () => {
-      console.log(`🚀 Agnitra Server listening on port ${PORT}`);
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`🚀 Agnitra Server listening on http://0.0.0.0:${PORT}`);
     });
   } catch (error) {
     console.error('Server startup error:', error);
