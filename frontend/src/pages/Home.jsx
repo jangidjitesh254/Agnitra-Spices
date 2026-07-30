@@ -164,6 +164,7 @@ function Home({ products, navigateTo, addToCart, loading }) {
                     className="designer-product-img-box"
                     onClick={() => navigateTo('product', { id: product._id })}
                   >
+                    <span className="product-badge-overlay">{product.unit || '100g'} Pure</span>
                     <img 
                       src={product.image || product.imageUrl} 
                       alt={product.name} 
