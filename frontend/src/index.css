@@ -449,39 +449,91 @@ img {
   border-color: rgba(53, 74, 29, 0.3);
 }
 
-/* Navbar Search Box (Left align) */
-.header-search-form {
-  position: relative;
-  width: 220px;
+/* Navbar Search Box & Floating Overlay Drawer */
+.header-search-overlay-bar {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 650px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1.5px solid rgba(229, 223, 210, 0.95);
+  border-radius: var(--border-radius-round);
+  padding: 10px 16px;
+  box-shadow: 0 16px 40px rgba(37, 29, 24, 0.14);
+  z-index: 1001;
 }
 
-.header-search-input {
+.header-search-overlay-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
   width: 100%;
-  background-color: #ffffff;
-  border: 1px solid var(--border-color);
+}
+
+.header-search-overlay-input {
+  flex: 1;
+  background-color: #f7f3ea;
+  border: 1.5px solid rgba(229, 223, 210, 0.9);
   border-radius: var(--border-radius-round);
-  padding: 10px 40px 10px 18px;
-  font-size: 0.85rem;
+  padding: 12px 50px 12px 20px;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
   color: var(--text-primary);
+  outline: none;
   transition: var(--transition-fast);
 }
 
-.header-search-input:focus {
-  outline: none;
-  width: 250px;
+.header-search-overlay-input:focus {
   border-color: var(--accent-orange);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(189, 89, 60, 0.15);
 }
 
-.header-search-btn {
+.header-search-overlay-btn {
   position: absolute;
-  right: 14px;
+  right: 50px;
   top: 50%;
   transform: translateY(-50%);
-  background: none;
+  background: var(--accent-orange);
   border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
   cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.header-search-overlay-btn:hover {
+  background-color: var(--accent-red);
+}
+
+.header-search-close-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.header-search-close-btn:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+  color: var(--text-primary);
 }
 
 /* Central Branding & Links */
