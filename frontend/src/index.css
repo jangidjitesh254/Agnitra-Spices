@@ -3680,26 +3680,27 @@ img {
 
 .vision-banner-frame {
   width: 100%;
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 16px 45px rgba(37, 29, 24, 0.12);
-  border: 4px solid #ffffff;
+  border: 3px solid #ffffff;
   outline: 1.5px solid rgba(189, 89, 60, 0.22);
-  background-color: #273b22;
+  background-color: #f7f3ea;
   transition: var(--transition-normal);
 }
 
 .vision-banner-frame:hover {
   transform: translateY(-4px);
-  box-shadow: 0 22px 55px rgba(37, 29, 24, 0.18);
-  outline-color: var(--accent-green);
+  box-shadow: 0 24px 60px rgba(37, 29, 24, 0.18);
+  outline-color: var(--accent-orange);
 }
 
 .vision-banner-img {
   width: 100%;
   height: auto;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: 17px;
 }
 
 @media (max-width: 768px) {

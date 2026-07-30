@@ -142,18 +142,13 @@ function Home({ products, navigateTo, addToCart, loading }) {
         </div>
       </section>
 
-      {/* Official Agnitra Vision - From Nature to Nurture */}
+      {/* Official Agnitra Vision Photo Banner */}
       <section className="section vision-banner-section">
-        <div className="container" style={{ maxWidth: '1240px' }}>
-          <div className="section-title-wrapper text-center" style={{ marginBottom: '25px' }}>
-            <span className="section-subtitle">Our Authentic Journey</span>
-            <h2 className="section-title">From Nature to Nurture</h2>
-          </div>
-          
+        <div className="container" style={{ maxWidth: '1280px' }}>
           <div className="vision-banner-frame animate-fade-in">
             <img 
               src="/images/agnitra_vision_banner.png" 
-              alt="Agnitra Spices - From Nature to Nurture Vision Flow: Raw Material -> Grinding -> Packing -> Healthy Customers" 
+              alt="Agnitra Spices - From Nature to Nurture" 
               className="vision-banner-img"
             />
           </div>
