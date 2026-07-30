@@ -142,15 +142,38 @@ function Home({ products, navigateTo, addToCart, loading }) {
         </div>
       </section>
 
-      {/* Official Agnitra Vision Photo Banner */}
-      <section className="section vision-banner-section">
-        <div className="container" style={{ maxWidth: '1280px' }}>
-          <div className="vision-banner-frame animate-fade-in">
-            <img 
-              src="/images/agnitra_vision_banner.png" 
-              alt="Agnitra Spices - From Nature to Nurture" 
-              className="vision-banner-img"
-            />
+      {/* Clean Vision Pipeline Flow */}
+      <section className="section vision-pipeline-section" style={{ padding: '45px 0', background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)' }}>
+        <div className="container" style={{ maxWidth: '1000px', textAlign: 'center' }}>
+          <span className="section-subtitle">Our Heritage Journey</span>
+          <h2 className="section-title" style={{ marginBottom: '30px' }}>From Nature to Nurture</h2>
+          
+          <div className="clean-vision-flow animate-fade-in">
+            <div className="flow-step-pill">
+              <span className="flow-step-icon">🌱</span>
+              <span className="flow-step-text">RAW MATERIAL</span>
+            </div>
+            
+            <div className="flow-chevron">➔</div>
+            
+            <div className="flow-step-pill">
+              <span className="flow-step-icon">⚙️</span>
+              <span className="flow-step-text">GRINDING</span>
+            </div>
+            
+            <div className="flow-chevron">➔</div>
+            
+            <div className="flow-step-pill">
+              <span className="flow-step-icon">📦</span>
+              <span className="flow-step-text">PACKING</span>
+            </div>
+            
+            <div className="flow-chevron">➔</div>
+            
+            <div className="flow-step-pill active-pill">
+              <span className="flow-step-icon">💚</span>
+              <span className="flow-step-text">HEALTHY CUSTOMERS</span>
+            </div>
           </div>
         </div>
       </section>

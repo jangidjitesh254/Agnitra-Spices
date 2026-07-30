@@ -3669,47 +3669,81 @@ img {
     flex-direction: column;
   }
 /* ==========================================================================
-   Vision & Authentic Journey Banner Section
+   Clean Vision Pipeline Flow (RAW MATERIAL > GRINDING > PACKING > HEALTHY CUSTOMERS)
    ========================================================================== */
-.vision-banner-section {
-  padding: 40px 0 60px 0;
-  background: var(--bg-primary);
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
+.clean-vision-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 24px 32px;
+  background: #ffffff;
+  border: 1.5px solid rgba(229, 223, 210, 0.95);
+  border-radius: 50px;
+  box-shadow: 0 10px 30px rgba(37, 29, 24, 0.05);
 }
 
-.vision-banner-frame {
-  width: 100%;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 16px 45px rgba(37, 29, 24, 0.12);
-  border: 3px solid #ffffff;
-  outline: 1.5px solid rgba(189, 89, 60, 0.22);
-  background-color: #f7f3ea;
-  transition: var(--transition-normal);
+.flow-step-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 50px;
+  background: #f8f4ec;
+  border: 1.5px solid rgba(229, 223, 210, 0.9);
+  transition: var(--transition-fast);
 }
 
-.vision-banner-frame:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 24px 60px rgba(37, 29, 24, 0.18);
-  outline-color: var(--accent-orange);
+.flow-step-pill:hover {
+  transform: translateY(-3px);
+  background: #ffffff;
+  border-color: var(--accent-orange);
+  box-shadow: 0 6px 16px rgba(189, 89, 60, 0.15);
 }
 
-.vision-banner-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  border-radius: 17px;
+.flow-step-pill.active-pill {
+  background: var(--accent-green);
+  color: #ffffff;
+  border-color: var(--accent-green);
+  box-shadow: 0 6px 18px rgba(54, 82, 39, 0.25);
+}
+
+.flow-step-icon {
+  font-size: 1.25rem;
+}
+
+.flow-step-text {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.flow-chevron {
+  color: var(--accent-orange);
+  font-size: 1.25rem;
+  font-weight: 900;
 }
 
 @media (max-width: 768px) {
-  .vision-banner-section {
-    padding: 30px 0 45px 0;
+  .clean-vision-flow {
+    border-radius: 24px;
+    padding: 20px 14px;
+    gap: 10px;
+    flex-direction: column;
   }
-  .vision-banner-frame {
-    border-radius: 14px;
-    border-width: 2px;
+  .flow-chevron {
+    transform: rotate(90deg);
+    margin: 2px 0;
+  }
+  .flow-step-pill {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 18px;
+  }
+  .flow-step-text {
+    font-size: 0.85rem;
   }
 }
 
