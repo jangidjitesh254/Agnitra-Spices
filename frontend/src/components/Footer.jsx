@@ -50,8 +50,6 @@ function Footer({ navigateTo }) {
               <li><a href="#home" onClick={(e) => handleLinkClick(e, 'home')}>Home</a></li>
               <li><a href="#shop" onClick={(e) => handleLinkClick(e, 'shop')}>Products</a></li>
               <li><a href="#about" onClick={(e) => handleLinkClick(e, 'about')}>About Us</a></li>
-              <li><a href="#recipes" onClick={(e) => handleLinkClick(e, 'recipes')}>Recipes</a></li>
-              <li><a href="#recipes" onClick={(e) => handleLinkClick(e, 'recipes')}>Blog</a></li>
               <li><a href="#contact" onClick={(e) => handleLinkClick(e, 'contact')}>Contact Us</a></li>
             </ul>
           </div>

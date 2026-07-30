@@ -8,7 +8,6 @@ import Cart from './pages/Cart';
 import Orders from './pages/Orders';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Recipes from './pages/Recipes';
 import QRPage from './pages/QRPage';
 import Account from './pages/Account';
 
@@ -17,7 +16,7 @@ export const API_BASE_URL = typeof window !== 'undefined'
   : 'http://localhost:5000/api';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home'); // home, shop, product/:id, cart, orders, account, about, contact, recipes, qr
+  const [currentPage, setCurrentPage] = useState('home'); // home, shop, product/:id, cart, orders, account, about, contact, qr
   const [activeProductId, setActiveProductId] = useState(null);
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
@@ -44,8 +43,8 @@ function App() {
         const id = path.split('/')[1];
         setActiveProductId(id);
         setCurrentPage('product');
-      } else if (['home', 'shop', 'about', 'contact', 'recipes', 'blog', 'orders', 'account', 'cart'].includes(path)) {
-        setCurrentPage(path === 'blog' ? 'recipes' : path);
+      } else if (['home', 'shop', 'about', 'contact', 'orders', 'account', 'cart'].includes(path)) {
+        setCurrentPage(path);
       } else if (path === '') {
         setCurrentPage('home');
       }
@@ -209,9 +208,6 @@ function App() {
         return <About navigateTo={navigateTo} />;
       case 'contact':
         return <Contact />;
-      case 'recipes':
-      case 'blog':
-        return <Recipes navigateTo={navigateTo} />;
       case 'qr':
         return <QRPage navigateTo={navigateTo} />;
       default:

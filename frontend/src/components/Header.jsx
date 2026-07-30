@@ -86,24 +86,6 @@ function Header({ currentPage, navigateTo, cartItemCount, searchQuery, setSearch
             </li>
             <li>
               <a 
-                href="#recipes" 
-                className={`nav-link ${currentPage === 'recipes' ? 'active' : ''}`}
-                onClick={() => handleNavClick('recipes')}
-              >
-                Recipes
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#recipes" 
-                className={`nav-link ${currentPage === 'blog' ? 'active' : ''}`}
-                onClick={() => handleNavClick('recipes')}
-              >
-                Blog
-              </a>
-            </li>
-            <li>
-              <a 
                 href="#contact" 
                 className={`nav-link ${currentPage === 'contact' ? 'active' : ''}`}
                 onClick={() => handleNavClick('contact')}
