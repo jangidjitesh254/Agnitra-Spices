@@ -106,46 +106,53 @@ const initializeTables = async () => {
 
 const seedDatabaseIfEmpty = async () => {
   try {
-    const res = await pool.query('SELECT COUNT(*) FROM products');
-    const count = parseInt(res.rows[0].count);
+    const seedFile = path.join(DATA_DIR, 'seed.json');
+    if (!fs.existsSync(seedFile)) return;
 
-    if (count === 0) {
-      console.log('🌱 Seeding Neon PostgreSQL products table...');
-      const seedFile = path.join(DATA_DIR, 'seed.json');
-      if (fs.existsSync(seedFile)) {
-        const seedData = JSON.parse(fs.readFileSync(seedFile, 'utf-8'));
-        
-        for (const prod of seedData) {
-          const prodId = prod._id || prod.id;
-          await pool.query(`
-            INSERT INTO products (
-              id, name, description, price, unit, category, traditional_method, 
-              benefits, specifications, usage, recipes, rating, image, stock
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
-          `, [
-            prodId,
-            prod.name,
-            prod.description,
-            prod.price,
-            prod.unit || '250g',
-            prod.category,
-            prod.traditionalMethod,
-            prod.benefits,
-            JSON.stringify(prod.specifications),
-            prod.usage,
-            prod.recipes,
-            prod.rating || 4.8,
-            prod.image,
-            prod.stock || 100
-          ]);
-        }
-        console.log(`✅ Seeding completed. Inserted ${seedData.length} spices.`);
-      } else {
-        console.warn('⚠️ Seeding skipped: seed.json file not found in backend/data/');
-      }
+    const seedData = JSON.parse(fs.readFileSync(seedFile, 'utf-8'));
+
+    for (const prod of seedData) {
+      const prodId = prod._id || prod.id;
+      // UPSERT products into PostgreSQL Neon DB
+      await pool.query(`
+        INSERT INTO products (
+          id, name, description, price, unit, category, traditional_method, 
+          benefits, specifications, usage, recipes, rating, image, stock
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+        ON CONFLICT (id) DO UPDATE SET
+          name = EXCLUDED.name,
+          description = EXCLUDED.description,
+          price = EXCLUDED.price,
+          unit = EXCLUDED.unit,
+          category = EXCLUDED.category,
+          traditional_method = EXCLUDED.traditional_method,
+          benefits = EXCLUDED.benefits,
+          specifications = EXCLUDED.specifications,
+          usage = EXCLUDED.usage,
+          recipes = EXCLUDED.recipes,
+          rating = EXCLUDED.rating,
+          image = EXCLUDED.image,
+          stock = EXCLUDED.stock;
+      `, [
+        prodId,
+        prod.name,
+        prod.description,
+        prod.price,
+        prod.unit || '100g',
+        prod.category,
+        prod.traditionalMethod,
+        prod.benefits,
+        JSON.stringify(prod.specifications),
+        prod.usage,
+        prod.recipes,
+        prod.rating || 4.8,
+        prod.image,
+        prod.stock || 100
+      ]);
     }
+    console.log(`✅ Products database synchronized with ${seedData.length} standard 100g packages.`);
   } catch (error) {
-    console.error('❌ Error seeding PostgreSQL products table:', error.message);
+    console.error('❌ Error seeding/updating PostgreSQL products table:', error.message);
   }
 };
 

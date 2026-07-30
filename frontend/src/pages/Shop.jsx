@@ -76,7 +76,7 @@ function Shop({ products, navigateTo, addToCart, error, searchQuery, setSearchQu
                 onClick={() => navigateTo('product', { id: product._id })}
               >
                 <img 
-                  src={product.imageUrl} 
+                  src={product.image || product.imageUrl} 
                   alt={product.name} 
                   className="designer-product-img" 
                 />
