@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 function Account({ orders, navigateTo }) {
   const [activeTab, setActiveTab] = useState('profile'); // 'profile' or 'orders'
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [isLocating, setIsLocating] = useState(false);
+  const [locationError, setLocationError] = useState(null);
 
   // Default initial profile data
   const [profile, setProfile] = useState(() => {
@@ -31,6 +33,76 @@ function Account({ orders, navigateTo }) {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleFetchGPSLocation = () => {
+    if (!navigator.geolocation) {
+      setLocationError('Geolocation is not supported by your browser. Please enter your address manually below.');
+      return;
+    }
+
+    setIsLocating(true);
+    setLocationError(null);
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        try {
+          const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+          const data = await res.json();
+          
+          if (data && data.address) {
+            const addr = data.address;
+            const road = addr.road || addr.suburb || addr.neighbourhood || '';
+            const house = addr.house_number || addr.building || '';
+            const streetAddr = [house, road, addr.suburb].filter(Boolean).join(', ') || data.display_name.split(',')[0];
+            const city = addr.city || addr.town || addr.village || addr.county || 'Jaipur';
+            const state = addr.state || 'Rajasthan';
+            const postcode = addr.postcode || '';
+
+            setProfile(prev => ({
+              ...prev,
+              address: streetAddr || prev.address,
+              city: city || prev.city,
+              state: state || prev.state,
+              zipCode: postcode || prev.zipCode
+            }));
+            setSaveSuccess(true);
+            setTimeout(() => setSaveSuccess(false), 4000);
+          } else {
+            setProfile(prev => ({
+              ...prev,
+              address: `GPS Location (${latitude.toFixed(4)}, ${longitude.toFixed(4)})`
+            }));
+          }
+        } catch (err) {
+          console.error('Reverse geocode error:', err);
+          setProfile(prev => ({
+            ...prev,
+            address: `GPS Location (${latitude.toFixed(4)}, ${longitude.toFixed(4)})`
+          }));
+        } finally {
+          setIsLocating(false);
+        }
+      },
+      (error) => {
+        setIsLocating(false);
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            setLocationError('Location permission denied by browser. You can write your address manually below.');
+            break;
+          case error.POSITION_UNAVAILABLE:
+            setLocationError('Location information unavailable. Please write your address manually below.');
+            break;
+          case error.TIMEOUT:
+            setLocationError('Location request timed out. Please enter address manually below.');
+            break;
+          default:
+            setLocationError('Could not fetch GPS location. Please enter manually below.');
+        }
+      },
+      { timeout: 10000, enableHighAccuracy: true }
+    );
   };
 
   const handleSaveProfile = (e) => {
@@ -185,8 +257,43 @@ function Account({ orders, navigateTo }) {
                   />
                 </div>
 
+                {/* Location Detection Bar */}
+                <div className="location-options-bar full-width">
+                  <div className="location-bar-header">
+                    <span className="location-bar-title">📍 Delivery Address Selection</span>
+                    <span className="location-bar-subtitle">Fetch via GPS or write manually below</span>
+                  </div>
+                  <button 
+                    type="button" 
+                    className="btn-fetch-gps"
+                    onClick={handleFetchGPSLocation}
+                    disabled={isLocating}
+                  >
+                    {isLocating ? (
+                      <>
+                        <span className="mini-spinner"></span>
+                        <span>Detecting Location...</span>
+                      </>
+                    ) : (
+                      <>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>Fetch Current Location (GPS)</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {locationError && (
+                  <div className="location-error-banner full-width">
+                    <span>⚠️ {locationError}</span>
+                  </div>
+                )}
+
                 <div className="form-group full-width">
-                  <label className="form-label">Delivery Street Address / Location</label>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                    <label className="form-label" style={{ margin: 0 }}>Delivery Street Address / Location</label>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--accent-orange)', fontWeight: 600 }}>✍️ Write Manually or Auto-Filled</span>
+                  </div>
                   <input 
                     type="text"
                     name="address"
