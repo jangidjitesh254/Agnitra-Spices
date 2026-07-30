@@ -3829,4 +3829,257 @@ img {
   }
 }
 
+/* ==========================================================================
+   Mobile Responsiveness Enhancements (Products / Contact / About)
+   ========================================================================== */
+
+/* 1. Products Page (/shop) Mobile Optimization */
+@media (max-width: 768px) {
+  .shop-page.section {
+    padding: 24px 0 40px 0;
+  }
+
+  .main-headline-title {
+    font-size: 2rem;
+  }
+
+  .main-headline-sub {
+    font-size: 0.95rem;
+  }
+
+  /* Scrollable Category Filter Pills */
+  .category-filter-pills {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 6px 4px 12px 4px;
+    gap: 8px;
+    margin-bottom: 24px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+  }
+
+  .category-filter-pills::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
+  }
+
+  .filter-pill {
+    flex: 0 0 auto;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+  }
+
+  /* 2-Column Responsive Mobile Products Grid */
+  .designer-products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .designer-product-card {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .designer-product-img-box {
+    height: 145px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+
+  .product-badge-overlay {
+    font-size: 0.68rem;
+    padding: 3px 8px;
+    top: 8px;
+    left: 8px;
+  }
+
+  .designer-product-title {
+    font-size: 0.98rem;
+    margin-bottom: 4px;
+    line-height: 1.25;
+  }
+
+  .designer-product-desc {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .designer-product-price {
+    font-size: 1.05rem;
+  }
+
+  .designer-product-card .btn-primary {
+    padding: 10px 12px;
+    font-size: 0.82rem;
+    min-height: 42px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .designer-products-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .designer-product-img-box {
+    height: 180px;
+  }
+}
+
+/* 2. Contact Page (/contact) Mobile Optimization */
+@media (max-width: 768px) {
+  .contact-page.section {
+    padding: 24px 0 40px 0;
+  }
+
+  .contact-page .grid-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .contact-info-card {
+    padding: 22px 16px;
+    border-radius: 18px;
+  }
+
+  .contact-info-card h3 {
+    font-size: 1.3rem !important;
+    margin-bottom: 14px !important;
+  }
+
+  .contact-info-card p {
+    font-size: 0.9rem !important;
+    margin-bottom: 24px !important;
+  }
+
+  .contact-detail-row {
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
+
+  .contact-title {
+    font-size: 0.95rem;
+  }
+
+  .contact-desc {
+    font-size: 0.85rem;
+    word-break: break-word;
+  }
+
+  /* Contact Form Mobile Styling */
+  .contact-form {
+    padding: 22px 16px;
+    border-radius: 18px;
+  }
+
+  .contact-form .form-group {
+    margin-bottom: 16px;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select {
+    font-size: 16px !important; /* Prevents auto-zoom on iOS Safari */
+    padding: 12px 14px;
+    border-radius: 10px;
+  }
+
+  .contact-form button[type="submit"] {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    min-height: 48px;
+  }
+}
+
+/* 3. About Us Page (/about) Mobile Optimization */
+@media (max-width: 768px) {
+  .about-page.section {
+    padding: 24px 0 40px 0;
+  }
+
+  .about-heritage-card {
+    padding: 22px 16px;
+    border-radius: 18px;
+  }
+
+  .about-heritage-card .grid-2 {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 24px !important;
+  }
+
+  .about-heritage-card img {
+    width: 160px !important;
+    height: 160px !important;
+    margin: 0 auto 10px auto !important;
+    display: block;
+  }
+
+  .about-title {
+    font-size: 1.4rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 14px !important;
+    text-align: center;
+  }
+
+  .about-text {
+    font-size: 0.92rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Technology Comparison Mobile Layout */
+  .about-tech-comparison {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .comparison-box {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .comparison-title {
+    font-size: 1.15rem;
+    margin-bottom: 16px;
+  }
+
+  .comparison-list li {
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  /* Direct Sourcing Farmer Callout Section */
+  .about-page div[style*="marginTop: 80px"] {
+    margin-top: 40px !important;
+  }
+
+  .about-page div[style*="marginTop: 80px"] h2 {
+    font-size: 1.5rem !important;
+  }
+
+  .about-page div[style*="marginTop: 80px"] .btn-primary {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    min-height: 48px;
+  }
+}
+
 
