@@ -142,75 +142,7 @@ function Home({ products, navigateTo, addToCart, loading }) {
         </div>
       </section>
 
-      {/* Creative Natural Spice Journey with Red Chilli Arrow Connectors */}
-      <section className="natural-journey-section">
-        <div className="container" style={{ maxWidth: '1200px' }}>
-          <div className="section-title-wrapper text-center">
-            <span className="section-subtitle">Heritage Purity Journey</span>
-            <h2 className="section-title">From Nature to Nurture</h2>
-            <p className="journey-sub-tagline">Pure • Authentic • Trusted</p>
-          </div>
 
-          <div className="natural-journey-grid animate-fade-in">
-            {/* Step 1 */}
-            <div className="journey-card">
-              <div className="journey-badge">01</div>
-              <h3 className="journey-card-title">RAW MATERIAL</h3>
-              <p className="journey-card-desc">
-                Carefully selected sun-dehydrated raw spices harvested from trusted organic farms.
-              </p>
-            </div>
-
-            {/* Chilli Arrow 1 */}
-            <div className="chilli-arrow-wrapper" aria-hidden="true">
-              <img src="/images/chilli_icon.png" alt="Red chilli directional arrow" className="chilli-arrow-img" />
-            </div>
-
-            {/* Step 2 */}
-            <div className="journey-card highlighted-card">
-              <div className="journey-badge">02</div>
-              <h3 className="journey-card-title">GRINDING</h3>
-              <p className="journey-card-desc">
-                Cold stone-ground below 38°C in traditional chakkis to lock in natural essential oils.
-              </p>
-            </div>
-
-            {/* Chilli Arrow 2 */}
-            <div className="chilli-arrow-wrapper" aria-hidden="true">
-              <img src="/images/chilli_icon.png" alt="Red chilli directional arrow" className="chilli-arrow-img" />
-            </div>
-
-            {/* Step 3 */}
-            <div className="journey-card">
-              <div className="journey-badge">03</div>
-              <h3 className="journey-card-title">PACKING</h3>
-              <p className="journey-card-desc">
-                Sealed with care in triple-layer nitrogen packaging to retain freshness and quality.
-              </p>
-            </div>
-
-            {/* Chilli Arrow 3 */}
-            <div className="chilli-arrow-wrapper" aria-hidden="true">
-              <img src="/images/chilli_icon.png" alt="Red chilli directional arrow" className="chilli-arrow-img" />
-            </div>
-
-            {/* Step 4 */}
-            <div className="journey-card victory-card">
-              <div className="journey-badge">04</div>
-              <h3 className="journey-card-title">HEALTHY CUSTOMERS</h3>
-              <p className="journey-card-desc">
-                Bringing health, happiness, and traditional wellness to your family’s kitchen.
-              </p>
-            </div>
-          </div>
-
-          {/* Bottom Heritage Ribbon */}
-          <div className="journey-bottom-ribbon">
-            <span>🌿 Rooted in Tradition • Committed to Purity 🌿</span>
-          </div>
-
-        </div>
-      </section>
 
       {/* Storytelling & Call to Action */}
       <section className="section" style={{ background: 'var(--bg-secondary)', textAlign: 'center' }}>
