@@ -258,5 +258,18 @@ export const dbService = {
       ...msgData,
       createdAt
     };
+  },
+
+  async getMessages() {
+    const res = await pool.query('SELECT * FROM messages ORDER BY created_at DESC');
+    return res.rows.map(row => ({
+      id: row.id,
+      name: row.name,
+      email: row.email,
+      phone: row.phone,
+      subject: row.subject,
+      message: row.message,
+      createdAt: row.created_at
+    }));
   }
 };

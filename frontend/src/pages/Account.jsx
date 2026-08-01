@@ -1,10 +1,32 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../App';
 
 function Account({ orders, navigateTo }) {
-  const [activeTab, setActiveTab] = useState('profile'); // 'profile' or 'orders'
+  const [activeTab, setActiveTab] = useState('profile'); // 'profile', 'orders', or 'feedbacks'
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
   const [locationError, setLocationError] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [loadingMessages, setLoadingMessages] = useState(false);
+
+  // Fetch submitted customer feedbacks & inquiries
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        setLoadingMessages(true);
+        const response = await fetch(`${API_BASE_URL}/messages`);
+        if (response.ok) {
+          const data = await response.json();
+          setMessages(data);
+        }
+      } catch (err) {
+        console.error('Error fetching messages:', err);
+      } finally {
+        setLoadingMessages(false);
+      }
+    };
+    fetchMessages();
+  }, [activeTab]);
 
   // Default initial profile data
   const [profile, setProfile] = useState(() => {
@@ -206,6 +228,14 @@ function Account({ orders, navigateTo }) {
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             <span>Order History ({orders.length})</span>
+          </button>
+
+          <button 
+            className={`account-tab-btn ${activeTab === 'feedbacks' ? 'active' : ''}`}
+            onClick={() => setActiveTab('feedbacks')}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>Received Feedbacks ({messages.length})</span>
           </button>
         </div>
 
@@ -433,6 +463,67 @@ function Account({ orders, navigateTo }) {
                       <span className="total-label">Grand Total</span>
                       <span className="total-price">₹{order.totalAmount}</span>
                     </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* TAB 3: Submitted Customer Feedbacks & Inquiries */}
+        {activeTab === 'feedbacks' && (
+          <div className="account-tab-content animate-fade-in">
+            <div className="account-card-header" style={{ marginBottom: '25px' }}>
+              <h2 className="account-card-title">Customer Feedback Responses & Inquiries</h2>
+              <p className="account-card-desc">All reviews and contact messages submitted by website visitors.</p>
+            </div>
+
+            {loadingMessages ? (
+              <div className="loading-spinner"></div>
+            ) : messages.length === 0 ? (
+              <div className="empty-state card-box">
+                <span className="empty-icon" style={{ fontSize: '2.5rem' }}>💬</span>
+                <h3 className="empty-title">No Feedbacks Received Yet</h3>
+                <p className="empty-desc">When customers submit reviews or inquiry forms on the Contact page, they will appear live right here.</p>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                {messages.map((msg) => (
+                  <div 
+                    key={msg.id}
+                    style={{
+                      background: '#ffffff',
+                      border: '1.5px solid var(--border-color)',
+                      borderRadius: '16px',
+                      padding: '20px 22px',
+                      boxShadow: '0 6px 18px rgba(37, 29, 24, 0.04)'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '12px', borderBottom: '1px solid var(--border-color)', paddingBottom: '10px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-red) 100%)', color: '#ffffff', fontWeight: 800, fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          {msg.name ? msg.name[0].toUpperCase() : 'C'}
+                        </div>
+                        <div>
+                          <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>{msg.name}</h4>
+                          <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>{msg.email} {msg.phone ? `• ${msg.phone}` : ''}</span>
+                        </div>
+                      </div>
+
+                      <span style={{ fontSize: '0.78rem', background: 'rgba(27, 48, 23, 0.08)', color: '#1b3017', padding: '4px 12px', borderRadius: '50px', fontWeight: 700 }}>
+                        {msg.createdAt ? new Date(msg.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Recently'}
+                      </span>
+                    </div>
+
+                    {msg.subject && (
+                      <h5 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--accent-orange)', marginBottom: '8px' }}>
+                        {msg.subject}
+                      </h5>
+                    )}
+
+                    <p style={{ fontSize: '0.9rem', color: '#273b22', lineHeight: '1.6', margin: 0, whiteSpace: 'pre-line' }}>
+                      {msg.message}
+                    </p>
                   </div>
                 ))}
               </div>

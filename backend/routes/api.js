@@ -89,4 +89,15 @@ router.post('/contact', async (req, res) => {
   }
 });
 
+// GET all submitted contact messages & feedbacks
+router.get('/messages', async (req, res) => {
+  try {
+    const messages = await dbService.getMessages();
+    res.json(messages);
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+    res.status(500).json({ error: 'Failed to retrieve messages' });
+  }
+});
+
 export default router;
