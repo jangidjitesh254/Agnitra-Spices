@@ -13,6 +13,8 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
   const [isAutoFilled, setIsAutoFilled] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const [isLocating, setIsLocating] = useState(false);
+  const [locationError, setLocationError] = useState(null);
 
   // Auto-fill customer details from saved account profile
   useEffect(() => {
@@ -36,6 +38,60 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
       console.error('Error auto-filling account profile:', e);
     }
   }, []);
+
+  // Fetch current GPS location and reverse geocode
+  const handleFetchGPSLocation = () => {
+    if (!navigator.geolocation) {
+      setLocationError('GPS location is not supported by your browser');
+      return;
+    }
+    setIsLocating(true);
+    setLocationError(null);
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        try {
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+          );
+          const data = await response.json();
+          if (data && data.address) {
+            const road = data.address.road || data.address.suburb || data.address.neighbourhood || '';
+            const city = data.address.city || data.address.town || data.address.village || data.address.state_district || '';
+            const postcode = data.address.postcode || '';
+            const fullAddress = [data.address.house_number, road, data.address.suburb, data.address.city_district].filter(Boolean).join(', ') || data.display_name;
+
+            setFormData(prev => ({
+              ...prev,
+              address: fullAddress,
+              city: city || prev.city,
+              zipCode: postcode || prev.zipCode
+            }));
+          } else {
+            setFormData(prev => ({
+              ...prev,
+              address: `GPS: ${latitude.toFixed(4)}, ${longitude.toFixed(4)}`
+            }));
+          }
+        } catch (err) {
+          console.error('Error in reverse geocoding:', err);
+          setFormData(prev => ({
+            ...prev,
+            address: `GPS Location (${latitude.toFixed(4)}, ${longitude.toFixed(4)})`
+          }));
+        } finally {
+          setIsLocating(false);
+        }
+      },
+      (err) => {
+        console.error('Geolocation error:', err);
+        setLocationError(err.message || 'Unable to retrieve location');
+        setIsLocating(false);
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  };
 
   const cartTotal = cart.reduce((total, item) => total + (item.product.price * item.quantity), 0);
 
@@ -259,7 +315,43 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="address">Delivery Address</label>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px', flexWrap: 'wrap', gap: '8px' }}>
+                    <label className="form-label" htmlFor="address" style={{ margin: 0 }}>Delivery Address</label>
+                    <button 
+                      type="button"
+                      className="btn-fetch-gps-cart"
+                      onClick={handleFetchGPSLocation}
+                      disabled={isLocating}
+                      style={{
+                        appearance: 'none',
+                        WebkitAppearance: 'none',
+                        background: 'rgba(189, 89, 60, 0.08)',
+                        color: 'var(--accent-orange)',
+                        border: '1.5px solid rgba(189, 89, 60, 0.25)',
+                        borderRadius: '50px',
+                        padding: '5px 14px',
+                        fontSize: '0.78rem',
+                        fontWeight: '700',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        cursor: 'pointer',
+                        transition: 'all 0.25s ease'
+                      }}
+                    >
+                      {isLocating ? (
+                        <>
+                          <span className="mini-spinner"></span>
+                          <span>Locating...</span>
+                        </>
+                      ) : (
+                        <>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="12" r="3"/></svg>
+                          <span>Use GPS Location</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
                   <textarea 
                     id="address" 
                     name="address" 
@@ -271,6 +363,11 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
                     placeholder="House No, Street Name, Locality"
                     style={{ resize: 'vertical' }}
                   ></textarea>
+                  {locationError && (
+                    <p style={{ color: 'var(--accent-red)', fontSize: '0.78rem', marginTop: '6px', margin: 0 }}>
+                      ⚠️ {locationError}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid-2" style={{ gap: '15px', marginBottom: '0' }}>
