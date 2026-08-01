@@ -52,9 +52,9 @@ function Header({ currentPage, navigateTo, cartItemCount, searchQuery, setSearch
             alt="Agnitra Spices Logo" 
             className="logo-img" 
           />
-          <div className="logo-text-group">
-            <span className="logo-text">Agnitra</span>
-            <span className="logo-subtext">SPICES</span>
+          <div className="logo-text-group" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '3px' }}>
+            <span className="logo-text" style={{ display: 'block', fontSize: '1.5rem', fontWeight: '800', color: 'var(--text-primary)', lineHeight: '1', margin: 0 }}>Agnitra</span>
+            <span className="logo-subtext" style={{ display: 'block', fontSize: '0.65rem', fontWeight: '800', letterSpacing: '0.26em', color: 'var(--accent-orange)', textTransform: 'uppercase', lineHeight: '1', marginTop: '3px' }}>SPICES</span>
           </div>
         </a>
 

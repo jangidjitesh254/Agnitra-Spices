@@ -4242,4 +4242,38 @@ img {
   box-shadow: 0 4px 12px rgba(200, 62, 45, 0.3);
 }
 
+/* Logo Text Group Styling - Fixes vertical embedding/overlap */
+.logo-text-group, .footer-logo-text-group {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  gap: 3px !important;
+}
+
+.logo-text, .footer-logo-title {
+  font-family: var(--font-title) !important;
+  font-size: 1.5rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em !important;
+  color: var(--text-primary) !important;
+  line-height: 1.1 !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.logo-subtext, .footer-logo-subtitle {
+  font-family: var(--font-body) !important;
+  font-size: 0.65rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.26em !important;
+  color: var(--accent-orange) !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+  display: block !important;
+  margin-top: 3px !important;
+  padding: 0 !important;
+}
+
 
