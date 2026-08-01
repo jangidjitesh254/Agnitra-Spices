@@ -263,7 +263,7 @@ const STANDARD_FALLBACK_PRODUCTS = [
 
   const isStandalonePage = currentPage === 'qr';
   const cartTotalAmount = cart.reduce((total, item) => total + (item.product.price * item.quantity), 0);
-  const showFloatingCartBar = cartItemCount > 0 && currentPage !== 'cart' && currentPage !== 'qr';
+  const showFloatingCartBar = cartItemCount > 0 && currentPage === 'shop';
 
   if (isStandalonePage) {
     return (
