@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../App';
 
 function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOrderPlaced }) {

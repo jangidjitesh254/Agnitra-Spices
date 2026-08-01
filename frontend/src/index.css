@@ -4087,45 +4087,50 @@ img {
 /* 1. Floating Bottom-Right Pay Now / View Cart Bar */
 .floating-cart-pay-bar {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 28px;
+  right: 28px;
   z-index: 9999;
   display: flex;
   align-items: center;
-  gap: 16px;
-  background: linear-gradient(135deg, #1b3017 0%, #2a4723 100%);
+  gap: 18px;
+  background: linear-gradient(135deg, #1b3017 0%, #273b22 100%);
   color: #ffffff;
-  padding: 10px 14px 10px 20px;
+  padding: 10px 14px 10px 22px;
   border-radius: 50px;
-  box-shadow: 0 12px 36px rgba(27, 48, 23, 0.4);
-  border: 2px solid var(--accent-orange);
+  box-shadow: 0 14px 40px rgba(27, 48, 23, 0.45);
+  border: 2px solid #bd593c;
+  outline: 2px solid rgba(212, 175, 55, 0.35);
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .floating-cart-pay-bar:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 18px 45px rgba(27, 48, 23, 0.5);
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(27, 48, 23, 0.55);
   border-color: #ffffff;
+  outline-color: #d4af37;
 }
 
 .floating-cart-info {
   display: flex;
   flex-direction: column;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .floating-cart-badge {
   font-size: 0.76rem;
-  font-weight: 700;
-  color: var(--accent-gold);
+  font-weight: 800;
+  color: #d4af37;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .floating-cart-price {
   font-family: var(--font-title);
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 800;
   color: #ffffff;
 }
@@ -4134,16 +4139,22 @@ img {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-red) 100%);
+  background: linear-gradient(135deg, #bd593c 0%, #a43a1e 100%);
   color: #ffffff;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   font-family: var(--font-body);
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 800;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border-radius: 50px;
-  box-shadow: 0 4px 14px rgba(189, 89, 60, 0.35);
+  box-shadow: 0 4px 14px rgba(189, 89, 60, 0.4);
   cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.floating-pay-btn:hover {
+  background: linear-gradient(135deg, #d95328 0%, #bd593c 100%);
+  box-shadow: 0 6px 18px rgba(189, 89, 60, 0.6);
 }
 
 @media (max-width: 600px) {
@@ -4160,23 +4171,29 @@ img {
 .product-qty-stepper {
   display: inline-flex;
   align-items: center;
-  background-color: #1b3017;
+  background: linear-gradient(135deg, #1b3017 0%, #273b22 100%);
   color: #ffffff;
   border-radius: 50px;
-  padding: 3px 6px;
-  gap: 8px;
-  box-shadow: 0 4px 12px rgba(27, 48, 23, 0.25);
-  border: 1px solid var(--accent-green);
+  padding: 4px 8px;
+  gap: 10px;
+  box-shadow: 0 6px 16px rgba(27, 48, 23, 0.3);
+  border: 1.5px solid #d4af37;
+  transition: var(--transition-fast);
+}
+
+.product-qty-stepper:hover {
+  border-color: #ffffff;
+  box-shadow: 0 8px 20px rgba(27, 48, 23, 0.4);
 }
 
 .stepper-btn {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.18);
   color: #ffffff;
-  border: none;
-  font-size: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 1.15rem;
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -4187,15 +4204,17 @@ img {
 }
 
 .stepper-btn:hover {
-  background: var(--accent-orange);
+  background: #bd593c;
   color: #ffffff;
+  border-color: #bd593c;
+  transform: scale(1.1);
 }
 
 .stepper-count {
   font-family: var(--font-body);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 800;
-  min-width: 18px;
+  min-width: 20px;
   text-align: center;
   color: #ffffff;
 }
