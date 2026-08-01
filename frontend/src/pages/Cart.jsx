@@ -213,14 +213,7 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
 
               {/* Checkout Form */}
               <form onSubmit={handleSubmitOrder} style={{ marginTop: '30px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', marginBottom: '16px' }}>
-                  <h4 className="checkout-section-title" style={{ margin: 0 }}>Shipping & Billing Details</h4>
-                  {isAutoFilled && (
-                    <span style={{ fontSize: '0.78rem', background: 'rgba(54, 82, 39, 0.12)', color: 'var(--accent-green)', padding: '3px 10px', borderRadius: '50px', fontWeight: 700, border: '1px solid rgba(54, 82, 39, 0.25)' }}>
-                      ✓ Auto-filled from Account
-                    </span>
-                  )}
-                </div>
+                <h4 className="checkout-section-title">Shipping & Billing Details</h4>
                 
                 <div className="form-group">
                   <label className="form-label" htmlFor="name">Full Name</label>

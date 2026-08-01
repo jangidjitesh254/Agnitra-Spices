@@ -1,7 +1,7 @@
 [
   {
     "_id": "65f8a2f1c8e8d2a1b9e00001",
-    "name": "Traditional Kashmiri Chilli Powder",
+    "name": "Lal Mirchi - Agnitra Spices",
     "description": "Sun-dried Kashmiri chillies ground in slow-rotating stone chakkis. Keeps grinding temperatures below 38°C to retain natural red pigment and pure capsaicin oils. Gives mild heat with rich deep red color and sweet aroma.",
     "price": 52,
     "unit": "100g",
@@ -29,7 +29,7 @@
   },
   {
     "_id": "65f8a2f1c8e8d2a1b9e00002",
-    "name": "High-Curcumin Hand-Pounded Turmeric Powder",
+    "name": "Haldi - Agnitra Spices",
     "description": "Premium turmeric rhizomes sun-dehydrated and hand-pounded in traditional wooden and stone mortar-pestles (Okhli). Prevents thermal degradation, preserving active Curcumin (>5.2%) and natural turmeric oils.",
     "price": 40,
     "unit": "100g",
@@ -57,7 +57,7 @@
   },
   {
     "_id": "65f8a2f1c8e8d2a1b9e00003",
-    "name": "Stone-Ground Coriander Powder",
+    "name": "Dhaniya - Agnitra Spices",
     "description": "Freshly selected coriander seeds (Dhania) dry-roasted in sun-baked clay pans, then stone-ground in traditional hand-mills. Retains high concentrations of Linalool for a citrusy, herbal fragrance.",
     "price": 35,
     "unit": "100g",

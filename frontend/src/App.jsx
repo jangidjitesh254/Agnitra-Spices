@@ -60,7 +60,7 @@ function App() {
 const STANDARD_FALLBACK_PRODUCTS = [
   {
     _id: "agnitra_chilli_100g",
-    name: "Pure Red Chilli Powder",
+    name: "Lal Mirchi - Agnitra Spices",
     description: "100% pure sun-dehydrated red chilli powder with vibrant natural color & authentic spiciness.",
     price: 52,
     unit: "100g",
@@ -71,7 +71,7 @@ const STANDARD_FALLBACK_PRODUCTS = [
   },
   {
     _id: "agnitra_turmeric_100g",
-    name: "Lakadong Turmeric Powder",
+    name: "Haldi - Agnitra Spices",
     description: "Cold-ground turmeric powder with high natural Curcumin content for rich aroma & immunity wellness.",
     price: 40,
     unit: "100g",
@@ -82,7 +82,7 @@ const STANDARD_FALLBACK_PRODUCTS = [
   },
   {
     _id: "agnitra_coriander_100g",
-    name: "Heritage Coriander Powder",
+    name: "Dhaniya - Agnitra Spices",
     description: "Freshly ground fragrant coriander powder harvested from organic farms in Rajasthan.",
     price: 35,
     unit: "100g",
