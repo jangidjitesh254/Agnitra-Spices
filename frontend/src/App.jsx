@@ -290,7 +290,10 @@ const STANDARD_FALLBACK_PRODUCTS = [
       {showFloatingCartBar && (
         <div className="floating-cart-pay-bar animate-fade-in" onClick={() => navigateTo('cart')}>
           <div className="floating-cart-info">
-            <span className="floating-cart-badge">🛒 {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'}</span>
+            <span className="floating-cart-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ verticalAlign: 'middle', marginRight: '4px' }}><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'}
+            </span>
             <span className="floating-cart-price">₹{cartTotalAmount}</span>
           </div>
           <button className="floating-pay-btn" type="button">

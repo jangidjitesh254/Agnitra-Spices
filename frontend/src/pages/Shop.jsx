@@ -35,8 +35,9 @@ function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error
         </div>
 
         {error && (
-          <div style={{ textAlign: 'center', color: 'var(--accent-red)', margin: '20px 0' }}>
-            <p>⚠️ Error loading products: {error}</p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', color: 'var(--accent-red)', margin: '20px 0', fontSize: '0.92rem', fontWeight: 600 }}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+            <span>Error loading products: {error}</span>
           </div>
         )}
 

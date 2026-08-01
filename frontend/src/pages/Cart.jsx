@@ -96,7 +96,9 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
   if (cart.length === 0) {
     return (
       <div className="container empty-state section">
-        <span className="empty-icon">🛒</span>
+        <div className="empty-icon-box" style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'rgba(189, 89, 60, 0.1)', color: 'var(--accent-orange)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
         <h2 className="empty-title">Your Cart is Empty</h2>
         <p className="empty-desc">You haven't added any pure traditional spices to your cart yet.</p>
         <button className="btn btn-primary" onClick={() => navigateTo('shop')}>
@@ -115,8 +117,9 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
         </div>
 
         {error && (
-          <div style={{ backgroundColor: 'rgba(200, 62, 45, 0.1)', border: '1px solid var(--accent-red)', padding: '16px', borderRadius: '8px', marginBottom: '30px', color: 'var(--accent-red)' }}>
-            ⚠️ Error: {error}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', backgroundColor: 'rgba(200, 62, 45, 0.08)', border: '1px solid var(--accent-red)', padding: '14px 18px', borderRadius: '12px', marginBottom: '30px', color: 'var(--accent-red)', fontSize: '0.92rem', fontWeight: 600 }}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+            <span>Error: {error}</span>
           </div>
         )}
 
