@@ -35,11 +35,12 @@ function Home({ products, navigateTo, addToCart, loading }) {
             
             {/* Right side: Hero Visual Bowl Composition */}
             <div className="hero-visual-col animate-fade-in">
-              <div className="hero-dish-frame">
+              <div className="hero-dish-frame" style={{ borderRadius: '24px', overflow: 'hidden', boxShadow: '0 20px 45px rgba(0,0,0,0.18)', border: '2.5px solid var(--accent-gold)' }}>
                 <img 
-                  src="/images/turmeric.jpeg" 
-                  alt="Nature pure Indian spices" 
+                  src="/images/hero_spices_showcase.png" 
+                  alt="Agnitra Handcrafted Pure Spices Collection" 
                   className="hero-main-dish-img"
+                  style={{ width: '100%', height: 'auto', display: 'block', cursor: 'pointer', borderRadius: '20px' }}
                   onClick={() => navigateTo('shop')}
                 />
               </div>
