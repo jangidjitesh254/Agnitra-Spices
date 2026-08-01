@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Shop({ products, navigateTo, addToCart, error, searchQuery, setSearchQuery }) {
+function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error, searchQuery, setSearchQuery }) {
   const [filterCategory, setFilterCategory] = useState('All');
 
   const categories = ['All', 'Powder', 'Whole', 'Blends', 'Seeds'];
@@ -18,8 +18,10 @@ function Shop({ products, navigateTo, addToCart, error, searchQuery, setSearchQu
     return matchesCategory && matchesSearch;
   });
 
-  const handleAddToCart = (product) => {
-    addToCart(product, 1);
+  const getProductCartQty = (product) => {
+    const id = product._id || product.id;
+    const item = cart.find(i => (i.product._id || i.product.id) === id);
+    return item ? item.quantity : 0;
   };
 
   return (
@@ -69,45 +71,71 @@ function Shop({ products, navigateTo, addToCart, error, searchQuery, setSearchQu
 
         {/* Products Grid (Matching Screen 2) */}
         <div className="designer-products-grid">
-          {filteredProducts.map((product) => (
-            <div key={product._id} className="designer-product-card animate-fade-in">
-              <div 
-                className="designer-product-img-box"
-                onClick={() => navigateTo('product', { id: product._id })}
-              >
-                <span className="product-badge-overlay">{product.unit || '100g'} Pure</span>
-                <img 
-                  src={product.image || product.imageUrl} 
-                  alt={product.name} 
-                  className="designer-product-img" 
-                />
-              </div>
-              
-              <div className="designer-product-info">
-                <h3 
-                  className="designer-product-name"
-                  onClick={() => navigateTo('product', { id: product._id })}
+          {filteredProducts.map((product) => {
+            const productId = product._id || product.id;
+            const qty = getProductCartQty(product);
+
+            return (
+              <div key={productId} className="designer-product-card animate-fade-in">
+                <div 
+                  className="designer-product-img-box"
+                  onClick={() => navigateTo('product', { id: productId })}
                 >
-                  {product.name}
-                </h3>
+                  <span className="product-badge-overlay">{product.unit || '100g'} Pure</span>
+                  <img 
+                    src={product.image || product.imageUrl} 
+                    alt={product.name} 
+                    className="designer-product-img" 
+                  />
+                </div>
                 
-                <div className="designer-product-bottom-row">
-                  <div className="price-tag-group">
-                    <span className="designer-product-price">₹{product.price}</span>
-                    <span className="designer-product-unit">/ {product.unit || 'pack'}</span>
-                  </div>
-                  <button 
-                    className="add-to-cart-btn"
-                    onClick={() => handleAddToCart(product)}
-                    aria-label={`Add ${product.name} to cart`}
+                <div className="designer-product-info">
+                  <h3 
+                    className="designer-product-name"
+                    onClick={() => navigateTo('product', { id: productId })}
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-                    <span>Add</span>
-                  </button>
+                    {product.name}
+                  </h3>
+                  
+                  <div className="designer-product-bottom-row">
+                    <div className="price-tag-group">
+                      <span className="designer-product-price">₹{product.price}</span>
+                      <span className="designer-product-unit">/ {product.unit || 'pack'}</span>
+                    </div>
+
+                    {qty > 0 ? (
+                      <div className="product-qty-stepper animate-fade-in" onClick={(e) => e.stopPropagation()}>
+                        <button 
+                          className="stepper-btn minus"
+                          onClick={() => updateCartQty(productId, qty - 1)}
+                          aria-label="Decrease quantity"
+                        >
+                          −
+                        </button>
+                        <span className="stepper-count">{qty}</span>
+                        <button 
+                          className="stepper-btn plus"
+                          onClick={() => updateCartQty(productId, qty + 1)}
+                          aria-label="Increase quantity"
+                        >
+                          +
+                        </button>
+                      </div>
+                    ) : (
+                      <button 
+                        className="add-to-cart-btn"
+                        onClick={(e) => { e.stopPropagation(); addToCart(product, 1); }}
+                        aria-label={`Add ${product.name} to cart`}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                        <span>Add</span>
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {filteredProducts.length === 0 && (

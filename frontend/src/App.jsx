@@ -212,7 +212,9 @@ const STANDARD_FALLBACK_PRODUCTS = [
           <Shop 
             products={products} 
             navigateTo={navigateTo} 
-            addToCart={addToCart} 
+            addToCart={addToCart}
+            updateCartQty={updateCartQty}
+            cart={cart}
             error={error}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
@@ -260,6 +262,8 @@ const STANDARD_FALLBACK_PRODUCTS = [
   };
 
   const isStandalonePage = currentPage === 'qr';
+  const cartTotalAmount = cart.reduce((total, item) => total + (item.product.price * item.quantity), 0);
+  const showFloatingCartBar = cartItemCount > 0 && currentPage !== 'cart' && currentPage !== 'qr';
 
   if (isStandalonePage) {
     return (
@@ -281,6 +285,21 @@ const STANDARD_FALLBACK_PRODUCTS = [
       <main className="main-content">
         {renderPage()}
       </main>
+
+      {/* Floating Bottom-Right Pay Now / View Cart Bar */}
+      {showFloatingCartBar && (
+        <div className="floating-cart-pay-bar animate-fade-in" onClick={() => navigateTo('cart')}>
+          <div className="floating-cart-info">
+            <span className="floating-cart-badge">🛒 {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'}</span>
+            <span className="floating-cart-price">₹{cartTotalAmount}</span>
+          </div>
+          <button className="floating-pay-btn" type="button">
+            <span>Pay Now</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      )}
+
       <Footer navigateTo={navigateTo} />
     </div>
   );

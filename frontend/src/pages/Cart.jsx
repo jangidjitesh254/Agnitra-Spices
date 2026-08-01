@@ -10,8 +10,32 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
     city: '',
     zipCode: ''
   });
+  const [isAutoFilled, setIsAutoFilled] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+
+  // Auto-fill customer details from saved account profile
+  useEffect(() => {
+    try {
+      const savedUser = localStorage.getItem('agnitra_user_profile');
+      if (savedUser) {
+        const user = JSON.parse(savedUser);
+        setFormData(prev => ({
+          name: user.name || prev.name,
+          email: user.email || prev.email,
+          phone: user.phone || prev.phone,
+          address: user.address || prev.address,
+          city: user.city || prev.city,
+          zipCode: user.zipCode || user.pincode || prev.zipCode
+        }));
+        if (user.name || user.address) {
+          setIsAutoFilled(true);
+        }
+      }
+    } catch (e) {
+      console.error('Error auto-filling account profile:', e);
+    }
+  }, []);
 
   const cartTotal = cart.reduce((total, item) => total + (item.product.price * item.quantity), 0);
 
@@ -34,11 +58,11 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
       const orderPayload = {
         customer: formData,
         items: cart.map(item => ({
-          productId: item.product._id,
+          productId: item.product._id || item.product.id,
           name: item.product.name,
           quantity: item.quantity,
           price: item.product.price,
-          image: item.product.image
+          image: item.product.image || item.product.imageUrl
         })),
         totalAmount: cartTotal
       };
@@ -104,49 +128,52 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
                 Selected Spices ({cart.length})
               </h3>
               
-              {cart.map((item) => (
-                <div key={item.product._id} className="cart-item">
-                  <img 
-                    src={item.product.image} 
-                    alt={item.product.name} 
-                    className="cart-item-img" 
-                  />
-                  <div className="cart-item-info">
-                    <h4 className="cart-item-title">{item.product.name}</h4>
-                    <p className="cart-item-tech">{item.product.traditionalMethod}</p>
-                    <span className="cart-item-price">₹{item.product.price} <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>/ {item.product.unit}</span></span>
-                  </div>
+              {cart.map((item) => {
+                const productId = item.product._id || item.product.id;
+                return (
+                  <div key={productId} className="cart-item">
+                    <img 
+                      src={item.product.image || item.product.imageUrl} 
+                      alt={item.product.name} 
+                      className="cart-item-img" 
+                    />
+                    <div className="cart-item-info">
+                      <h4 className="cart-item-title">{item.product.name}</h4>
+                      <p className="cart-item-tech">{item.product.traditionalMethod || '100% Cold Ground'}</p>
+                      <span className="cart-item-price">₹{item.product.price} <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>/ {item.product.unit || '100g'}</span></span>
+                    </div>
 
-                  {/* Qty Picker in Cart */}
-                  <div className="detail-qty-picker" style={{ margin: '0 15px' }}>
-                    <button 
-                      className="qty-btn"
-                      onClick={() => updateCartQty(item.product._id, item.quantity - 1)}
-                    >
-                      -
-                    </button>
-                    <span className="qty-num">{item.quantity}</span>
-                    <button 
-                      className="qty-btn"
-                      onClick={() => updateCartQty(item.product._id, item.quantity + 1)}
-                    >
-                      +
-                    </button>
-                  </div>
+                    {/* Qty Picker in Cart */}
+                    <div className="detail-qty-picker" style={{ margin: '0 15px' }}>
+                      <button 
+                        className="qty-btn"
+                        onClick={() => updateCartQty(productId, item.quantity - 1)}
+                      >
+                        -
+                      </button>
+                      <span className="qty-num">{item.quantity}</span>
+                      <button 
+                        className="qty-btn"
+                        onClick={() => updateCartQty(productId, item.quantity + 1)}
+                      >
+                        +
+                      </button>
+                    </div>
 
-                  <div style={{ textAlign: 'right', minWidth: '80px' }}>
-                    <p style={{ fontWeight: 700, fontFamily: 'var(--font-title)' }}>₹{item.product.price * item.quantity}</p>
-                    <button 
-                      className="cart-remove-btn"
-                      onClick={() => removeFromCart(item.product._id)}
-                      style={{ marginTop: '4px' }}
-                      title="Remove Item"
-                    >
-                      🗑️
-                    </button>
+                    <div style={{ textAlign: 'right', minWidth: '80px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px' }}>
+                      <p style={{ fontWeight: 700, fontFamily: 'var(--font-title)', margin: 0 }}>₹{item.product.price * item.quantity}</p>
+                      <button 
+                        className="cart-remove-btn"
+                        onClick={() => removeFromCart(productId)}
+                        title="Remove Item"
+                        aria-label={`Remove ${item.product.name} from cart`}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <button 
@@ -183,7 +210,14 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
 
               {/* Checkout Form */}
               <form onSubmit={handleSubmitOrder} style={{ marginTop: '30px' }}>
-                <h4 className="checkout-section-title">Shipping & Billing Details</h4>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', marginBottom: '16px' }}>
+                  <h4 className="checkout-section-title" style={{ margin: 0 }}>Shipping & Billing Details</h4>
+                  {isAutoFilled && (
+                    <span style={{ fontSize: '0.78rem', background: 'rgba(54, 82, 39, 0.12)', color: 'var(--accent-green)', padding: '3px 10px', borderRadius: '50px', fontWeight: 700, border: '1px solid rgba(54, 82, 39, 0.25)' }}>
+                      ✓ Auto-filled from Account
+                    </span>
+                  )}
+                </div>
                 
                 <div className="form-group">
                   <label className="form-label" htmlFor="name">Full Name</label>
