@@ -4276,4 +4276,173 @@ img {
   padding: 0 !important;
 }
 
+/* ==========================================================================
+   Comprehensive Mobile Responsiveness System (All Screens & Devices)
+   ========================================================================== */
+
+/* Prevent iOS Safari Auto-Zoom on form input focus */
+@media (max-width: 768px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* 1. Header & Navigation Mobile Optimizations */
+@media (max-width: 480px) {
+  .header {
+    top: 10px !important;
+    padding: 0 10px !important;
+  }
+
+  .header-container {
+    padding: 0 14px !important;
+    height: 60px !important;
+  }
+
+  .logo-img {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .logo-text {
+    font-size: 1.22rem !important;
+  }
+
+  .logo-subtext {
+    font-size: 0.56rem !important;
+    letter-spacing: 0.2em !important;
+  }
+
+  .nav-actions {
+    gap: 8px !important;
+  }
+
+  .cart-icon-btn {
+    padding: 6px !important;
+  }
+}
+
+/* 2. Hero Section Mobile Responsiveness (Home.jsx) */
+@media (max-width: 768px) {
+  .designer-hero {
+    padding: 24px 0 20px 0 !important;
+  }
+
+  .hero-grid-2 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 22px !important;
+    text-align: center !important;
+  }
+
+  .hero-visual-col {
+    order: -1; /* Hero visual showcase image appears first on mobile screens */
+    width: 100% !important;
+  }
+
+  .hero-content-col {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .designer-hero-title {
+    font-size: 2.2rem !important;
+    line-height: 1.15 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .designer-hero-subtitle {
+    font-size: 0.92rem !important;
+    margin-bottom: 20px !important;
+  }
+
+  .hero-feature-ribbon {
+    padding: 16px 0 !important;
+  }
+
+  .ribbon-grid-4 {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .ribbon-card {
+    padding: 10px 12px !important;
+    font-size: 0.78rem !important;
+    border-radius: 12px !important;
+  }
+}
+
+/* 3. Cart Checkout Page Mobile Responsiveness (Cart.jsx) */
+@media (max-width: 768px) {
+  .cart-page .grid-2 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+  }
+
+  .cart-item-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .cart-item-info {
+    width: 100% !important;
+  }
+
+  .cart-item-controls {
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+
+  .btn-fetch-gps-cart {
+    width: 100% !important;
+    justify-content: center !important;
+    margin-top: 6px !important;
+  }
+}
+
+/* 4. Admin Dashboard Mobile Responsiveness (AdminDashboard.jsx) */
+@media (max-width: 768px) {
+  .admin-dashboard-page {
+    padding: 16px 0 40px 0 !important;
+  }
+
+  .admin-dashboard-page .account-tab-pills {
+    display: flex !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    padding-bottom: 8px !important;
+    gap: 8px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .admin-dashboard-page .account-tab-btn {
+    flex: 0 0 auto !important;
+    font-size: 0.82rem !important;
+    padding: 8px 16px !important;
+  }
+}
+
+/* 5. Footer Mobile Responsiveness (Footer.jsx) */
+@media (max-width: 768px) {
+  .footer-grid-4 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 28px !important;
+  }
+
+  .footer-ribbon-bar {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .ribbon-item {
+    font-size: 0.78rem !important;
+  }
+}
+
 
