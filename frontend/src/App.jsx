@@ -10,13 +10,14 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import QRPage from './pages/QRPage';
 import Account from './pages/Account';
+import AdminDashboard from './pages/AdminDashboard';
 
 export const API_BASE_URL = typeof window !== 'undefined' 
   ? `http://${window.location.hostname}:5000/api`
   : 'http://localhost:5000/api';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home'); // home, shop, product/:id, cart, orders, account, about, contact, qr
+  const [currentPage, setCurrentPage] = useState('home'); // home, shop, product/:id, cart, orders, account, about, contact, qr, admin
   const [activeProductId, setActiveProductId] = useState(null);
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
@@ -43,7 +44,7 @@ function App() {
         const id = path.split('/')[1];
         setActiveProductId(id);
         setCurrentPage('product');
-      } else if (['home', 'shop', 'about', 'contact', 'orders', 'account', 'cart'].includes(path)) {
+      } else if (['home', 'shop', 'about', 'contact', 'orders', 'account', 'cart', 'admin'].includes(path)) {
         setCurrentPage(path);
       } else if (path === '') {
         setCurrentPage('home');
@@ -249,6 +250,15 @@ const STANDARD_FALLBACK_PRODUCTS = [
         return <Contact />;
       case 'qr':
         return <QRPage navigateTo={navigateTo} />;
+      case 'admin':
+        return (
+          <AdminDashboard 
+            products={products}
+            orders={orders}
+            fetchOrders={fetchOrders}
+            navigateTo={navigateTo}
+          />
+        );
       default:
         return (
           <div className="container empty-state">

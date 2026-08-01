@@ -67,6 +67,21 @@ router.get('/orders', async (req, res) => {
   }
 });
 
+// PATCH update order status
+router.patch('/orders/:id/status', async (req, res) => {
+  try {
+    const { status } = req.body;
+    if (!status) {
+      return res.status(400).json({ error: 'Status is required' });
+    }
+    const updated = await dbService.updateOrderStatus(req.params.id, status);
+    res.json({ success: true, updated });
+  } catch (error) {
+    console.error(`Error updating order ${req.params.id} status:`, error);
+    res.status(500).json({ error: 'Failed to update order status' });
+  }
+});
+
 // POST submit contact form message
 router.post('/contact', async (req, res) => {
   try {

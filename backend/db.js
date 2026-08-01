@@ -235,6 +235,11 @@ export const dbService = {
     return res.rows.map(mapOrderRow);
   },
 
+  async updateOrderStatus(orderId, status) {
+    await pool.query('UPDATE orders SET status = $1 WHERE order_id = $2', [status, orderId]);
+    return { orderId, status };
+  },
+
   // MESSAGES
   async createMessage(msgData) {
     const id = 'MSG-' + Math.floor(100000 + Math.random() * 900000);
