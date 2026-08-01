@@ -57,7 +57,43 @@ function App() {
     };
   }, []);
 
-  // Load products from backend API
+const STANDARD_FALLBACK_PRODUCTS = [
+  {
+    _id: "agnitra_chilli_100g",
+    name: "Pure Red Chilli Powder",
+    description: "100% pure sun-dehydrated red chilli powder with vibrant natural color & authentic spiciness.",
+    price: 52,
+    unit: "100g",
+    category: "Powder",
+    rating: 4.9,
+    image: "/images/chilli.jpeg",
+    inStock: true
+  },
+  {
+    _id: "agnitra_turmeric_100g",
+    name: "Lakadong Turmeric Powder",
+    description: "Cold-ground turmeric powder with high natural Curcumin content for rich aroma & immunity wellness.",
+    price: 40,
+    unit: "100g",
+    category: "Powder",
+    rating: 5.0,
+    image: "/images/turmeric.jpeg",
+    inStock: true
+  },
+  {
+    _id: "agnitra_coriander_100g",
+    name: "Heritage Coriander Powder",
+    description: "Freshly ground fragrant coriander powder harvested from organic farms in Rajasthan.",
+    price: 35,
+    unit: "100g",
+    category: "Powder",
+    rating: 4.8,
+    image: "/images/corainder.jpeg",
+    inStock: true
+  }
+];
+
+// Load products from backend API
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -67,11 +103,12 @@ function App() {
           throw new Error('Failed to fetch spices from Agnitra server');
         }
         const data = await response.json();
-        setProducts(data);
+        setProducts(data && data.length > 0 ? data : STANDARD_FALLBACK_PRODUCTS);
         setError(null);
       } catch (err) {
-        console.error('Error fetching products:', err);
-        setError(err.message);
+        console.error('Error fetching products from backend, using fallback:', err);
+        setProducts(STANDARD_FALLBACK_PRODUCTS);
+        setError(null);
       } finally {
         setLoading(false);
       }
