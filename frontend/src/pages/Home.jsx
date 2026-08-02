@@ -25,7 +25,7 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
             {/* Left side: Headline & Call To Action */}
             <div className="hero-content-col animate-fade-in">
               <h1 className="designer-hero-title">
-                From Nature<br />To Your Kitchen
+                From Nature<br />To Our Kitchen
               </h1>
               <p className="designer-hero-subtitle">
                 100% natural spices for a healthy and happy life.
@@ -139,7 +139,7 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
                               onClick={() => updateCartQty(productId, qty - 1)}
                               aria-label="Decrease quantity"
                             >
-                              −
+                              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
                             </button>
                             <span className="stepper-count">{qty}</span>
                             <button 
@@ -148,7 +148,7 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
                               onClick={() => updateCartQty(productId, qty + 1)}
                               aria-label="Increase quantity"
                             >
-                              +
+                              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                             </button>
                           </div>
                         ) : (

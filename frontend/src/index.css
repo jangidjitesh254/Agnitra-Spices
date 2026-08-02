@@ -4175,14 +4175,14 @@ img {
   border-radius: 50px;
   padding: 4px 8px;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(43, 62, 27, 0.12);
+  box-shadow: none !important;
   border: 1.5px solid #2b3e1b;
   transition: var(--transition-fast);
 }
 
 .product-qty-stepper:hover {
   border-color: #1b3017;
-  box-shadow: 0 6px 18px rgba(43, 62, 27, 0.2);
+  box-shadow: none !important;
   background: #edf5eb;
 }
 
@@ -4195,36 +4195,42 @@ img {
   background: #2b3e1b;
   color: #ffffff;
   border: none;
-  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
-  font-size: 1.15rem;
-  font-weight: 700;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   text-align: center !important;
   cursor: pointer;
-  transition: transform 0.12s cubic-bezier(0.165, 0.84, 0.44, 1), background-color 0.15s ease;
-  line-height: 0 !important;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+  line-height: 1 !important;
   padding: 0 !important;
   margin: 0 !important;
-  box-shadow: 0 2px 6px rgba(43, 62, 27, 0.25);
+  box-shadow: none !important;
   appearance: none;
   -webkit-appearance: none;
   outline: none;
   user-select: none;
 }
 
+.stepper-btn svg {
+  width: 13px;
+  height: 13px;
+  display: block !important;
+  stroke: #ffffff;
+  stroke-width: 2.8;
+  margin: 0 auto;
+}
+
 .stepper-btn:hover {
   background: #19270e;
   color: #ffffff;
-  box-shadow: 0 4px 10px rgba(43, 62, 27, 0.35);
+  box-shadow: none !important;
 }
 
 .stepper-btn:active {
   background: #121e09 !important;
   opacity: 0.85 !important;
   transform: none !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: none !important;
 }
 
 .stepper-count {
