@@ -132,23 +132,92 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
                           <div 
                             className="product-qty-stepper animate-fade-in" 
                             onClick={(e) => e.stopPropagation()}
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              gap: '8px',
+                              background: 'linear-gradient(135deg, #1b3017 0%, #273b22 100%)',
+                              color: '#ffffff',
+                              borderRadius: '50px',
+                              padding: '4px 10px',
+                              border: '1.5px solid #d4af37',
+                              boxShadow: '0 4px 14px rgba(27, 48, 23, 0.35)',
+                              boxSizing: 'border-box'
+                            }}
                           >
                             <button 
                               type="button"
                               className="stepper-btn minus"
                               onClick={() => updateCartQty(productId, qty - 1)}
                               aria-label="Decrease quantity"
+                              style={{
+                                appearance: 'none',
+                                WebkitAppearance: 'none',
+                                width: '28px',
+                                height: '28px',
+                                minWidth: '28px',
+                                minHeight: '28px',
+                                borderRadius: '50%',
+                                background: '#bd593c',
+                                color: '#ffffff',
+                                border: 'none',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                padding: '0',
+                                margin: '0',
+                                lineHeight: '1',
+                                outline: 'none',
+                                boxShadow: '0 2px 6px rgba(189, 89, 60, 0.4)'
+                              }}
                             >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
                             </button>
-                            <span className="stepper-count">{qty}</span>
+
+                            <span 
+                              className="stepper-count"
+                              style={{
+                                fontFamily: 'var(--font-body), sans-serif',
+                                fontSize: '0.95rem',
+                                fontWeight: '800',
+                                color: '#ffffff',
+                                minWidth: '20px',
+                                textAlign: 'center'
+                              }}
+                            >
+                              {qty}
+                            </span>
+
                             <button 
                               type="button"
                               className="stepper-btn plus"
                               onClick={() => updateCartQty(productId, qty + 1)}
                               aria-label="Increase quantity"
+                              style={{
+                                appearance: 'none',
+                                WebkitAppearance: 'none',
+                                width: '28px',
+                                height: '28px',
+                                minWidth: '28px',
+                                minHeight: '28px',
+                                borderRadius: '50%',
+                                background: '#bd593c',
+                                color: '#ffffff',
+                                border: 'none',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                padding: '0',
+                                margin: '0',
+                                lineHeight: '1',
+                                outline: 'none',
+                                boxShadow: '0 2px 6px rgba(189, 89, 60, 0.4)'
+                              }}
                             >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                             </button>
                           </div>
                         ) : (

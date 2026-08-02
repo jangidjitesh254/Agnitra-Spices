@@ -4167,70 +4167,74 @@ img {
 
 /* 2. Product Card Quantity Stepper Widget (+ and -) - Light Botanical Aesthetic */
 .product-qty-stepper {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #f4f8f3;
-  color: #1b3017;
-  border-radius: 50px;
-  padding: 4px 8px;
-  gap: 8px;
-  box-shadow: none !important;
-  border: 1.5px solid #2b3e1b;
-  transition: var(--transition-fast);
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background: linear-gradient(135deg, #1b3017 0%, #273b22 100%) !important;
+  color: #ffffff !important;
+  border-radius: 50px !important;
+  padding: 4px 10px !important;
+  gap: 8px !important;
+  border: 1.5px solid #d4af37 !important;
+  box-shadow: 0 4px 14px rgba(27, 48, 23, 0.35) !important;
+  box-sizing: border-box !important;
 }
 
 .product-qty-stepper:hover {
-  border-color: #1b3017;
-  box-shadow: none !important;
-  background: #edf5eb;
+  border-color: #f7e6a1 !important;
+  box-shadow: 0 6px 18px rgba(27, 48, 23, 0.45) !important;
 }
 
 .stepper-btn {
-  width: 28px;
-  height: 28px;
-  min-width: 28px;
-  min-height: 28px;
-  border-radius: 50%;
-  background: #2b3e1b;
-  color: #ffffff;
-  border: none;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  border-radius: 50% !important;
+  background: #bd593c !important;
+  color: #ffffff !important;
+  border: none !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  text-align: center !important;
-  cursor: pointer;
-  transition: background-color 0.15s ease, opacity 0.15s ease;
-  line-height: 1 !important;
+  cursor: pointer !important;
   padding: 0 !important;
   margin: 0 !important;
-  box-shadow: none !important;
-  appearance: none;
-  -webkit-appearance: none;
-  outline: none;
-  user-select: none;
+  line-height: 1 !important;
+  outline: none !important;
+  box-shadow: 0 2px 6px rgba(189, 89, 60, 0.4) !important;
+  transition: transform 0.15s ease, background-color 0.15s ease !important;
+  user-select: none !important;
 }
 
 .stepper-btn svg {
-  width: 13px;
-  height: 13px;
+  width: 13px !important;
+  height: 13px !important;
   display: block !important;
-  stroke: #ffffff;
-  stroke-width: 2.8;
-  margin: 0 auto;
+  stroke: #ffffff !important;
+  stroke-width: 3 !important;
+  margin: 0 auto !important;
 }
 
 .stepper-btn:hover {
-  background: #19270e;
-  color: #ffffff;
-  box-shadow: none !important;
+  background: #a3482d !important;
+  transform: scale(1.08) !important;
 }
 
 .stepper-btn:active {
-  background: #121e09 !important;
-  opacity: 0.85 !important;
-  transform: none !important;
-  box-shadow: none !important;
+  transform: scale(0.92) !important;
+  background: #8e3d25 !important;
+}
+
+.stepper-count {
+  font-family: var(--font-body), sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  min-width: 20px !important;
+  text-align: center !important;
 }
 
 .stepper-count {
