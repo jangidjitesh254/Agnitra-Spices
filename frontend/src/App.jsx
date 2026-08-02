@@ -298,53 +298,55 @@ const STANDARD_FALLBACK_PRODUCTS = [
         {renderPage()}
       </main>
 
-      {/* Floating Bottom-Right Pay Now / View Cart Bar */}
+      {/* Floating Bottom-Right Pay Now / View Cart Bar - Luxury Heritage Design */}
       {showFloatingCartBar && (
         <div 
           className="floating-cart-pay-bar animate-fade-in" 
           onClick={() => navigateTo('cart')}
           style={{
             position: 'fixed',
-            bottom: '28px',
-            right: '28px',
+            bottom: '24px',
+            right: '24px',
             zIndex: 9999,
             display: 'flex',
             alignItems: 'center',
-            gap: '18px',
-            background: 'linear-gradient(135deg, #1b3017 0%, #273b22 100%)',
+            gap: '16px',
+            background: 'linear-gradient(135deg, #1b2e13 0%, #293f1f 100%)',
             color: '#ffffff',
-            padding: '10px 16px 10px 22px',
+            padding: '8px 10px 8px 20px',
             borderRadius: '50px',
-            boxShadow: '0 14px 40px rgba(27, 48, 23, 0.45)',
-            border: '2px solid #bd593c',
-            outline: '2px solid rgba(212, 175, 55, 0.35)',
-            cursor: 'pointer'
+            boxShadow: '0 12px 35px rgba(27, 48, 23, 0.35)',
+            border: '1.5px solid #d4af37',
+            cursor: 'pointer',
+            backdropFilter: 'blur(10px)',
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease'
           }}
         >
-          <div className="floating-cart-info" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
+          <div className="floating-cart-info" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.25 }}>
             <span 
               className="floating-cart-badge"
               style={{
-                fontSize: '0.76rem',
+                fontSize: '0.72rem',
                 fontWeight: '800',
-                color: '#d4af37',
+                color: '#f7e6a1',
                 textTransform: 'uppercase',
-                letterSpacing: '0.05em',
+                letterSpacing: '0.06em',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '4px'
+                gap: '5px'
               }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-              {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'}
+              {cartItemCount} {cartItemCount === 1 ? 'Item' : 'Items'}
             </span>
             <span 
               className="floating-cart-price"
               style={{
                 fontFamily: 'var(--font-title), serif',
-                fontSize: '1.2rem',
+                fontSize: '1.25rem',
                 fontWeight: '800',
-                color: '#ffffff'
+                color: '#ffffff',
+                letterSpacing: '-0.01em'
               }}
             >
               ₹{cartTotalAmount}
@@ -357,23 +359,25 @@ const STANDARD_FALLBACK_PRODUCTS = [
             style={{
               appearance: 'none',
               WebkitAppearance: 'none',
-              display: 'flex',
+              display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              background: 'linear-gradient(135deg, #bd593c 0%, #a43a1e 100%)',
-              color: '#ffffff',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
+              background: 'linear-gradient(135deg, #d4af37 0%, #b89228 100%)',
+              color: '#1b2e13',
+              border: 'none',
               fontFamily: 'var(--font-body), sans-serif',
-              fontSize: '0.9rem',
+              fontSize: '0.92rem',
               fontWeight: '800',
               padding: '10px 22px',
               borderRadius: '50px',
-              boxShadow: '0 4px 14px rgba(189, 89, 60, 0.4)',
-              cursor: 'pointer'
+              boxShadow: '0 4px 14px rgba(212, 175, 55, 0.4)',
+              cursor: 'pointer',
+              letterSpacing: '0.02em',
+              transition: 'all 0.15s ease'
             }}
           >
             <span>Pay Now</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
         </div>
       )}

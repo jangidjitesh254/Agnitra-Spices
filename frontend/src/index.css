@@ -4695,4 +4695,30 @@ img {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
 }
 
+/* Floating Bottom Cart Bar - Professional Royal Heritage Styling */
+.floating-cart-pay-bar:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 45px rgba(27, 48, 23, 0.45) !important;
+  border-color: #f7e6a1 !important;
+}
+
+.floating-cart-pay-bar:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.floating-pay-btn:hover {
+  background: linear-gradient(135deg, #f7e6a1 0%, #d4af37 100%) !important;
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.5) !important;
+}
+
+@media (max-width: 640px) {
+  .floating-cart-pay-bar {
+    bottom: 16px !important;
+    right: 16px !important;
+    left: 16px !important;
+    justify-content: space-between !important;
+    padding: 8px 12px 8px 18px !important;
+  }
+}
+
 
