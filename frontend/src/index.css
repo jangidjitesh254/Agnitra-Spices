@@ -4170,19 +4170,19 @@ img {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  background: linear-gradient(135deg, #1b3017 0%, #273b22 100%) !important;
-  color: #ffffff !important;
+  background: linear-gradient(180deg, #f9f6f0 0%, #ede6d8 100%) !important;
+  color: #1b2a12 !important;
   border-radius: 50px !important;
   padding: 4px 10px !important;
   gap: 8px !important;
-  border: 1.5px solid #d4af37 !important;
-  box-shadow: 0 4px 14px rgba(27, 48, 23, 0.35) !important;
+  border: 1.5px solid #2b3e1b !important;
+  box-shadow: 0 4px 12px rgba(37, 29, 24, 0.08) !important;
   box-sizing: border-box !important;
 }
 
 .product-qty-stepper:hover {
-  border-color: #f7e6a1 !important;
-  box-shadow: 0 6px 18px rgba(27, 48, 23, 0.45) !important;
+  border-color: #1b2a12 !important;
+  box-shadow: 0 6px 16px rgba(37, 29, 24, 0.12) !important;
 }
 
 .stepper-btn {
@@ -4193,7 +4193,7 @@ img {
   min-width: 28px !important;
   min-height: 28px !important;
   border-radius: 50% !important;
-  background: #bd593c !important;
+  background: linear-gradient(135deg, #2b3e1b 0%, #1b2a12 100%) !important;
   color: #ffffff !important;
   border: none !important;
   display: inline-flex !important;
@@ -4204,7 +4204,7 @@ img {
   margin: 0 !important;
   line-height: 1 !important;
   outline: none !important;
-  box-shadow: 0 2px 6px rgba(189, 89, 60, 0.4) !important;
+  box-shadow: 0 2px 6px rgba(43, 62, 27, 0.3) !important;
   transition: transform 0.15s ease, background-color 0.15s ease !important;
   user-select: none !important;
 }
@@ -4219,20 +4219,20 @@ img {
 }
 
 .stepper-btn:hover {
-  background: #a3482d !important;
+  background: linear-gradient(135deg, #1f3012 0%, #121e09 100%) !important;
   transform: scale(1.08) !important;
 }
 
 .stepper-btn:active {
   transform: scale(0.92) !important;
-  background: #8e3d25 !important;
+  background: #121e09 !important;
 }
 
 .stepper-count {
   font-family: var(--font-body), sans-serif !important;
-  font-size: 0.95rem !important;
+  font-size: 0.98rem !important;
   font-weight: 800 !important;
-  color: #ffffff !important;
+  color: #1b2a12 !important;
   min-width: 20px !important;
   text-align: center !important;
 }

@@ -113,12 +113,12 @@ function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error
                           alignItems: 'center',
                           justifyContent: 'space-between',
                           gap: '8px',
-                          background: 'linear-gradient(135deg, #1b3017 0%, #273b22 100%)',
-                          color: '#ffffff',
+                          background: 'linear-gradient(180deg, #f9f6f0 0%, #ede6d8 100%)',
+                          color: '#1b2a12',
                           borderRadius: '50px',
                           padding: '4px 10px',
-                          border: '1.5px solid #d4af37',
-                          boxShadow: '0 4px 14px rgba(27, 48, 23, 0.35)',
+                          border: '1.5px solid #2b3e1b',
+                          boxShadow: '0 4px 12px rgba(37, 29, 24, 0.08)',
                           boxSizing: 'border-box'
                         }}
                       >
@@ -135,7 +135,7 @@ function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error
                             minWidth: '28px',
                             minHeight: '28px',
                             borderRadius: '50%',
-                            background: '#bd593c',
+                            background: 'linear-gradient(135deg, #2b3e1b 0%, #1b2a12 100%)',
                             color: '#ffffff',
                             border: 'none',
                             display: 'inline-flex',
@@ -146,7 +146,7 @@ function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error
                             margin: '0',
                             lineHeight: '1',
                             outline: 'none',
-                            boxShadow: '0 2px 6px rgba(189, 89, 60, 0.4)'
+                            boxShadow: '0 2px 6px rgba(43, 62, 27, 0.3)'
                           }}
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -156,9 +156,9 @@ function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error
                           className="stepper-count"
                           style={{
                             fontFamily: 'var(--font-body), sans-serif',
-                            fontSize: '0.95rem',
+                            fontSize: '0.98rem',
                             fontWeight: '800',
-                            color: '#ffffff',
+                            color: '#1b2a12',
                             minWidth: '20px',
                             textAlign: 'center'
                           }}
@@ -179,7 +179,7 @@ function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error
                             minWidth: '28px',
                             minHeight: '28px',
                             borderRadius: '50%',
-                            background: '#bd593c',
+                            background: 'linear-gradient(135deg, #2b3e1b 0%, #1b2a12 100%)',
                             color: '#ffffff',
                             border: 'none',
                             display: 'inline-flex',
@@ -190,7 +190,7 @@ function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error
                             margin: '0',
                             lineHeight: '1',
                             outline: 'none',
-                            boxShadow: '0 2px 6px rgba(189, 89, 60, 0.4)'
+                            boxShadow: '0 2px 6px rgba(43, 62, 27, 0.3)'
                           }}
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
