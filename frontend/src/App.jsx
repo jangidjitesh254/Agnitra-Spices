@@ -205,6 +205,8 @@ const STANDARD_FALLBACK_PRODUCTS = [
             products={products} 
             navigateTo={navigateTo} 
             addToCart={addToCart} 
+            updateCartQty={updateCartQty}
+            cart={cart}
             loading={loading}
           />
         );

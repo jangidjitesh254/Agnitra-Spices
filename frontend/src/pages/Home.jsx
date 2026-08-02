@@ -1,4 +1,11 @@
-function Home({ products, navigateTo, addToCart, loading }) {
+function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading }) {
+
+  const getProductCartQty = (product) => {
+    if (!cart || !Array.isArray(cart)) return 0;
+    const productId = product._id || product.id;
+    const found = cart.find(item => (item.product._id || item.product.id) === productId);
+    return found ? found.quantity : 0;
+  };
 
   return (
     <div className="home-page">
@@ -84,50 +91,146 @@ function Home({ products, navigateTo, addToCart, loading }) {
           {loading ? (
             <div className="loading-spinner"></div>
           ) : (
-            <div className="designer-products-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', maxWidth: '1000px', margin: '0 auto' }}>
-              {products.slice(0, 3).map((product) => (
-                <div key={product._id} className="designer-product-card animate-fade-in">
-                  <div 
-                    className="designer-product-img-box"
-                    onClick={() => navigateTo('product', { id: product._id })}
-                  >
-                    <span className="product-badge-overlay">{product.unit || '100g'} Pure</span>
-                    <img 
-                      src={product.image || product.imageUrl} 
-                      alt={product.name} 
-                      className="designer-product-img" 
-                    />
-                  </div>
-                  
-                  <div className="designer-product-info">
-                    <h3 
-                      className="designer-product-name"
-                      onClick={() => navigateTo('product', { id: product._id })}
+            <div className="designer-products-grid" style={{ maxWidth: '1000px', margin: '0 auto' }}>
+              {products.slice(0, 3).map((product) => {
+                const productId = product._id || product.id;
+                const qty = getProductCartQty(product);
+
+                return (
+                  <div key={productId} className="designer-product-card animate-fade-in">
+                    <div 
+                      className="designer-product-img-box"
+                      onClick={() => navigateTo('product', { id: productId })}
                     >
-                      {product.name}
-                    </h3>
-
-                    <div style={{ marginBottom: '12px' }}>
-                      <span className="product-tech-badge">{product.traditionalMethod}</span>
+                      <span className="product-badge-overlay">{product.unit || '100g'} Pure</span>
+                      <img 
+                        src={product.image || product.imageUrl} 
+                        alt={product.name} 
+                        className="designer-product-img" 
+                      />
                     </div>
-
-                    <div className="designer-product-bottom-row">
-                      <div className="price-tag-group">
-                        <span className="designer-product-price">₹{product.price}</span>
-                        <span className="designer-product-unit">/ {product.unit || '250g'}</span>
-                      </div>
-                      <button 
-                        className="add-to-cart-btn"
-                        onClick={() => addToCart(product, 1)}
-                        aria-label={`Add ${product.name} to Cart`}
+                    
+                    <div className="designer-product-info">
+                      <h3 
+                        className="designer-product-name"
+                        onClick={() => navigateTo('product', { id: productId })}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-                        <span>Add</span>
-                      </button>
+                        {product.name}
+                      </h3>
+
+                      <div style={{ marginBottom: '12px' }}>
+                        <span className="product-tech-badge">{product.traditionalMethod || product.traditional_method}</span>
+                      </div>
+
+                      <div className="designer-product-bottom-row">
+                        <div className="price-tag-group">
+                          <span className="designer-product-price">₹{product.price}</span>
+                          <span className="designer-product-unit">/ {product.unit || '100g'}</span>
+                        </div>
+
+                        {qty > 0 ? (
+                          <div 
+                            className="product-qty-stepper animate-fade-in" 
+                            onClick={(e) => e.stopPropagation()}
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '8px',
+                              background: 'linear-gradient(135deg, #1b3017 0%, #273b22 100%)',
+                              color: '#ffffff',
+                              borderRadius: '50px',
+                              padding: '4px 10px',
+                              border: '1.5px solid #d4af37',
+                              boxShadow: '0 4px 14px rgba(27, 48, 23, 0.35)'
+                            }}
+                          >
+                            <button 
+                              type="button"
+                              className="stepper-btn minus"
+                              onClick={() => updateCartQty(productId, qty - 1)}
+                              aria-label="Decrease quantity"
+                              style={{
+                                appearance: 'none',
+                                WebkitAppearance: 'none',
+                                width: '28px',
+                                height: '28px',
+                                borderRadius: '50%',
+                                background: '#bd593c',
+                                color: '#ffffff',
+                                border: 'none',
+                                fontSize: '1.2rem',
+                                fontWeight: '800',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                padding: '0',
+                                margin: '0',
+                                lineHeight: '1',
+                                outline: 'none',
+                                boxShadow: '0 2px 6px rgba(189, 89, 60, 0.4)'
+                              }}
+                            >
+                              −
+                            </button>
+                            <span 
+                              className="stepper-count"
+                              style={{
+                                fontFamily: 'var(--font-body), sans-serif',
+                                fontSize: '0.95rem',
+                                fontWeight: '800',
+                                color: '#ffffff',
+                                minWidth: '20px',
+                                textAlign: 'center'
+                              }}
+                            >
+                              {qty}
+                            </span>
+                            <button 
+                              type="button"
+                              className="stepper-btn plus"
+                              onClick={() => updateCartQty(productId, qty + 1)}
+                              aria-label="Increase quantity"
+                              style={{
+                                appearance: 'none',
+                                WebkitAppearance: 'none',
+                                width: '28px',
+                                height: '28px',
+                                borderRadius: '50%',
+                                background: '#bd593c',
+                                color: '#ffffff',
+                                border: 'none',
+                                fontSize: '1.2rem',
+                                fontWeight: '800',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                padding: '0',
+                                margin: '0',
+                                lineHeight: '1',
+                                outline: 'none',
+                                boxShadow: '0 2px 6px rgba(189, 89, 60, 0.4)'
+                              }}
+                            >
+                              +
+                            </button>
+                          </div>
+                        ) : (
+                          <button 
+                            className="add-to-cart-btn"
+                            onClick={() => addToCart(product, 1)}
+                            aria-label={`Add ${product.name} to Cart`}
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                            <span>Add</span>
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
