@@ -4505,4 +4505,136 @@ img {
   }
 }
 
+/* ==========================================================================
+   Mobile Product Cards UI/UX Optimization (Three Pillars & Shop)
+   ========================================================================== */
+
+.price-tag-group {
+  display: inline-flex !important;
+  align-items: baseline !important;
+  gap: 4px !important;
+  white-space: nowrap !important;
+}
+
+.designer-product-unit {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .designer-products-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .designer-product-card {
+    padding: 12px 10px !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    height: 100% !important;
+  }
+
+  /* Centered 3rd card on 2-column mobile grid if odd number of items */
+  .designer-products-grid > .designer-product-card:nth-child(3):last-child {
+    grid-column: 1 / -1 !important;
+    max-width: 280px !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+  }
+
+  .designer-product-img-box {
+    height: 135px !important;
+    padding: 6px !important;
+    border-radius: 14px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .designer-product-name {
+    font-size: 0.88rem !important;
+    line-height: 1.25 !important;
+    margin-bottom: 6px !important;
+    min-height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .product-tech-badge {
+    font-size: 0.64rem !important;
+    padding: 3px 6px !important;
+    line-height: 1.25 !important;
+    display: block !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+  }
+
+  /* Clean Stacked Bottom Row Layout: Price top, Stepper/Button bottom */
+  .designer-product-bottom-row {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    padding-top: 8px !important;
+    border-top: 1px dashed var(--border-color) !important;
+    width: 100% !important;
+  }
+
+  .price-tag-group {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: baseline !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    white-space: nowrap !important;
+    margin-bottom: 2px !important;
+  }
+
+  .designer-product-price {
+    font-size: 1.15rem !important;
+    font-weight: 800 !important;
+    color: var(--text-primary) !important;
+  }
+
+  .designer-product-unit {
+    font-size: 0.8rem !important;
+    color: var(--text-secondary) !important;
+  }
+
+  .add-to-cart-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 8px 10px !important;
+    font-size: 0.82rem !important;
+    min-height: 38px !important;
+    border-radius: 50px !important;
+  }
+
+  .product-qty-stepper {
+    width: 100% !important;
+    justify-content: space-between !important;
+    padding: 4px 8px !important;
+    box-sizing: border-box !important;
+    border-radius: 50px !important;
+  }
+
+  .stepper-btn {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 1.1rem !important;
+  }
+
+  .stepper-count {
+    font-size: 0.9rem !important;
+  }
+}
+
 

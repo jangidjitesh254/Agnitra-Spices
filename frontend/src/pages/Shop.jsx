@@ -108,17 +108,6 @@ function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error
                       <div 
                         className="product-qty-stepper animate-fade-in" 
                         onClick={(e) => e.stopPropagation()}
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '8px',
-                          background: 'linear-gradient(135deg, #1b3017 0%, #273b22 100%)',
-                          color: '#ffffff',
-                          borderRadius: '50px',
-                          padding: '4px 10px',
-                          border: '1.5px solid #d4af37',
-                          boxShadow: '0 4px 14px rgba(27, 48, 23, 0.35)'
-                        }}
                       >
                         <button 
                           type="button"
