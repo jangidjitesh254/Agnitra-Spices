@@ -138,69 +138,15 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
                               className="stepper-btn minus"
                               onClick={() => updateCartQty(productId, qty - 1)}
                               aria-label="Decrease quantity"
-                              style={{
-                                appearance: 'none',
-                                WebkitAppearance: 'none',
-                                width: '28px',
-                                height: '28px',
-                                borderRadius: '50%',
-                                background: '#bd593c',
-                                color: '#ffffff',
-                                border: 'none',
-                                fontSize: '1.2rem',
-                                fontWeight: '800',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                cursor: 'pointer',
-                                padding: '0',
-                                margin: '0',
-                                lineHeight: '1',
-                                outline: 'none',
-                                boxShadow: '0 2px 6px rgba(189, 89, 60, 0.4)'
-                              }}
                             >
                               −
                             </button>
-                            <span 
-                              className="stepper-count"
-                              style={{
-                                fontFamily: 'var(--font-body), sans-serif',
-                                fontSize: '0.95rem',
-                                fontWeight: '800',
-                                color: '#ffffff',
-                                minWidth: '20px',
-                                textAlign: 'center'
-                              }}
-                            >
-                              {qty}
-                            </span>
+                            <span className="stepper-count">{qty}</span>
                             <button 
                               type="button"
                               className="stepper-btn plus"
                               onClick={() => updateCartQty(productId, qty + 1)}
                               aria-label="Increase quantity"
-                              style={{
-                                appearance: 'none',
-                                WebkitAppearance: 'none',
-                                width: '28px',
-                                height: '28px',
-                                borderRadius: '50%',
-                                background: '#bd593c',
-                                color: '#ffffff',
-                                border: 'none',
-                                fontSize: '1.2rem',
-                                fontWeight: '800',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                cursor: 'pointer',
-                                padding: '0',
-                                margin: '0',
-                                lineHeight: '1',
-                                outline: 'none',
-                                boxShadow: '0 2px 6px rgba(189, 89, 60, 0.4)'
-                              }}
                             >
                               +
                             </button>

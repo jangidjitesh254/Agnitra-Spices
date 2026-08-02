@@ -4167,32 +4167,34 @@ img {
   }
 }
 
-/* 2. Product Card Quantity Stepper Widget (+ and -) */
+/* 2. Product Card Quantity Stepper Widget (+ and -) - Light Botanical Aesthetic */
 .product-qty-stepper {
   display: inline-flex;
   align-items: center;
-  background: linear-gradient(135deg, #1b3017 0%, #273b22 100%);
-  color: #ffffff;
+  justify-content: space-between;
+  background: #f4f8f3;
+  color: #1b3017;
   border-radius: 50px;
   padding: 4px 8px;
-  gap: 10px;
-  box-shadow: 0 6px 16px rgba(27, 48, 23, 0.3);
-  border: 1.5px solid #d4af37;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(43, 62, 27, 0.12);
+  border: 1.5px solid #2b3e1b;
   transition: var(--transition-fast);
 }
 
 .product-qty-stepper:hover {
-  border-color: #ffffff;
-  box-shadow: 0 8px 20px rgba(27, 48, 23, 0.4);
+  border-color: #1b3017;
+  box-shadow: 0 6px 18px rgba(43, 62, 27, 0.2);
+  background: #edf5eb;
 }
 
 .stepper-btn {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.18);
+  background: #2b3e1b;
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: none;
   font-size: 1.15rem;
   font-weight: 800;
   display: flex;
@@ -4201,22 +4203,26 @@ img {
   cursor: pointer;
   transition: var(--transition-fast);
   line-height: 1;
+  box-shadow: 0 2px 6px rgba(43, 62, 27, 0.25);
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
 }
 
 .stepper-btn:hover {
-  background: #bd593c;
+  background: #19270e;
   color: #ffffff;
-  border-color: #bd593c;
-  transform: scale(1.1);
+  transform: scale(1.08);
+  box-shadow: 0 4px 10px rgba(43, 62, 27, 0.35);
 }
 
 .stepper-count {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-family: var(--font-body), sans-serif;
+  font-size: 1rem;
   font-weight: 800;
-  min-width: 20px;
+  min-width: 22px;
   text-align: center;
-  color: #ffffff;
+  color: #1b3017 !important;
 }
 
 /* 3. Upgraded Red Trash Delete Icon in Cart */
