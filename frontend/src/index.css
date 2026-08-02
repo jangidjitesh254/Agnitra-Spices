@@ -4445,4 +4445,46 @@ img {
   }
 }
 
+/* ==========================================================================
+   Hero 3D Transparent Image Placement (Zero Border / Clean Floating 3D Effect)
+   ========================================================================== */
+.hero-3d-image-wrapper {
+  position: relative;
+  display: inline-block;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  max-width: 100%;
+}
+
+.hero-3d-transparent-img {
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 22px 35px rgba(37, 29, 24, 0.22));
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.4s ease;
+  user-select: none;
+}
+
+.hero-3d-transparent-img:hover {
+  transform: translateY(-8px) scale(1.03);
+  filter: drop-shadow(0 30px 45px rgba(37, 29, 24, 0.3));
+}
+
+@media (max-width: 768px) {
+  .hero-3d-transparent-img {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+}
+
 

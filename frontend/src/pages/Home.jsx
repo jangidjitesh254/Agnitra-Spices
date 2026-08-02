@@ -33,13 +33,13 @@ function Home({ products, navigateTo, addToCart, loading }) {
               </div>
             </div>
             
-            {/* Right side: Hero Visual Bowl Composition */}
-            <div className="hero-visual-col animate-fade-in">
-              <div className="hero-dish-frame">
+            {/* Right side: Hero 3D Transparent Visual Placement */}
+            <div className="hero-visual-col animate-fade-in" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <div className="hero-3d-image-wrapper">
                 <img 
-                  src="/images/turmeric.jpeg" 
-                  alt="Nature pure Indian spices" 
-                  className="hero-main-dish-img"
+                  src="/images/Agnitra-home.png" 
+                  alt="Agnitra Spices 3D Handcrafted Collection" 
+                  className="hero-3d-transparent-img"
                   onClick={() => navigateTo('shop')}
                 />
               </div>
