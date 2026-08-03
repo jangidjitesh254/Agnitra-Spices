@@ -3234,16 +3234,107 @@ img {
     gap: 14px;
   }
 
-  /* Footer */
-  .footer-grid-4 {
-    grid-template-columns: 1fr;
-    gap: 24px;
+  /* Mobile Responsive Footer Layout */
+  .designer-footer {
+    padding: 42px 0 110px 0 !important;
+    margin-top: 50px !important;
   }
 
-  .footer-bottom-flex {
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
+  .footer-grid-4 {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 28px 16px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .footer-col-brand {
+    grid-column: 1 / -1 !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding-bottom: 20px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  }
+
+  .footer-logo-link {
+    justify-content: center !important;
+    margin-bottom: 12px !important;
+  }
+
+  .footer-tagline-text {
+    font-size: 0.88rem !important;
+    text-align: center !important;
+    margin-bottom: 16px !important;
+    line-height: 1.5 !important;
+  }
+
+  .footer-social-icons {
+    justify-content: center !important;
+    gap: 12px !important;
+  }
+
+  .footer-social-btn {
+    width: 40px !important;
+    height: 40px !important;
+    background-color: rgba(255, 255, 255, 0.12) !important;
+  }
+
+  .footer-col-title {
+    font-size: 0.95rem !important;
+    margin-bottom: 12px !important;
+    color: #ffffff !important;
+    border-bottom: 2px solid #d4af37 !important;
+    padding-bottom: 4px !important;
+    display: inline-block !important;
+  }
+
+  .footer-links-list li {
+    margin-bottom: 8px !important;
+  }
+
+  .footer-links-list a {
+    font-size: 0.82rem !important;
+    color: #d8ceba !important;
+    line-height: 1.4 !important;
+    display: inline-block !important;
+    padding: 2px 0 !important;
+  }
+
+  /* 2x2 Feature Ribbon Grid on Mobile */
+  .footer-ribbon-bar {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    padding: 18px 0 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    margin-bottom: 18px !important;
+  }
+
+  .ribbon-item {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 10px 8px !important;
+    justify-content: center !important;
+    font-size: 0.76rem !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    color: #f6f2e9 !important;
+  }
+
+  .ribbon-item svg {
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0 !important;
+    color: #d4af37 !important;
+  }
+
+  .footer-copyright-text {
+    font-size: 0.78rem !important;
+    line-height: 1.5 !important;
+    color: #b8ac98 !important;
   }
 
   /* Recipes / Blog Page */
