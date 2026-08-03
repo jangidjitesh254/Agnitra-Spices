@@ -5400,7 +5400,7 @@ img {
   padding: 10px 14px 10px 22px;
   border-radius: 50px;
   box-shadow: 0 14px 40px rgba(27, 46, 19, 0.4);
-  border: 1.5px solid #d4af37;
+  border: none;
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -5408,7 +5408,6 @@ img {
 .floating-cart-pay-bar:hover {
   transform: translateY(-5px) scale(1.03);
   box-shadow: 0 20px 48px rgba(27, 46, 19, 0.55);
-  border-color: #f7e6a1;
 }
 
 .floating-cart-info {
@@ -5441,7 +5440,7 @@ img {
   gap: 8px;
   background: linear-gradient(135deg, #bd593c 0%, #9e3e26 100%);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: none;
   font-family: var(--font-body);
   font-size: 0.92rem;
   font-weight: 800;
@@ -6000,11 +5999,10 @@ img {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Floating Bottom Cart Bar - Professional Royal Heritage Styling */
+/* Floating Bottom Cart Bar - Professional Styling */
 .floating-cart-pay-bar:hover {
   transform: translateY(-3px) scale(1.02);
   box-shadow: 0 16px 45px rgba(27, 48, 23, 0.45) !important;
-  border-color: #f7e6a1 !important;
 }
 
 .floating-cart-pay-bar:active {

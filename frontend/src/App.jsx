@@ -316,7 +316,7 @@ const STANDARD_FALLBACK_PRODUCTS = [
             padding: '8px 10px 8px 20px',
             borderRadius: '50px',
             boxShadow: '0 12px 35px rgba(27, 48, 23, 0.35)',
-            border: '1.5px solid #d4af37',
+            border: 'none',
             cursor: 'pointer',
             backdropFilter: 'blur(10px)',
             transition: 'transform 0.2s ease, box-shadow 0.2s ease'
@@ -364,7 +364,7 @@ const STANDARD_FALLBACK_PRODUCTS = [
               gap: '8px',
               background: 'linear-gradient(135deg, #bd593c 0%, #9e3e26 100%)',
               color: '#ffffff',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
+              border: 'none',
               fontFamily: 'var(--font-body), sans-serif',
               fontSize: '0.92rem',
               fontWeight: '800',
