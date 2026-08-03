@@ -15,6 +15,7 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
   const [error, setError] = useState(null);
   const [isLocating, setIsLocating] = useState(false);
   const [locationError, setLocationError] = useState(null);
+  const [isFormExpanded, setIsFormExpanded] = useState(false);
 
   // Auto-fill customer details from saved account profile
   useEffect(() => {
@@ -273,130 +274,155 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
                 <span className="summary-total-val">₹{cartTotal}</span>
               </div>
 
-              {/* Checkout Form */}
-              <form onSubmit={handleSubmitOrder} className="checkout-form">
-                <h4 className="checkout-section-title">Shipping & Billing Details</h4>
-                
-                <div className="form-group">
-                  <label className="form-label" htmlFor="name">Full Name</label>
-                  <input 
-                    type="text" 
-                    id="name" 
-                    name="name" 
-                    className="form-input" 
-                    value={formData.name} 
-                    onChange={handleInputChange} 
-                    required 
-                    placeholder="E.g. Rajesh Kumar"
-                  />
-                </div>
-
-                <div className="cart-form-row">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="email">Email Address</label>
-                    <input 
-                      type="email" 
-                      id="email" 
-                      name="email" 
-                      className="form-input" 
-                      value={formData.email} 
-                      onChange={handleInputChange} 
-                      required 
-                      placeholder="rajesh@mail.com"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="phone">Phone Number</label>
-                    <input 
-                      type="tel" 
-                      id="phone" 
-                      name="phone" 
-                      className="form-input" 
-                      value={formData.phone} 
-                      onChange={handleInputChange} 
-                      required 
-                      placeholder="9876543210"
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <div className="cart-address-header">
-                    <label className="form-label" htmlFor="address">Delivery Address</label>
-                    <button 
-                      type="button"
-                      className="btn-fetch-gps-cart"
-                      onClick={handleFetchGPSLocation}
-                      disabled={isLocating}
-                    >
-                      {isLocating ? (
-                        <>
-                          <span className="mini-spinner"></span>
-                          <span>Locating...</span>
-                        </>
-                      ) : (
-                        <>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="12" r="3"/></svg>
-                          <span>Use GPS Location</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-                  <textarea 
-                    id="address" 
-                    name="address" 
-                    className="form-input" 
-                    rows="3" 
-                    value={formData.address} 
-                    onChange={handleInputChange} 
-                    required 
-                    placeholder="House No, Street Name, Locality"
-                    style={{ resize: 'vertical' }}
-                  ></textarea>
-                  {locationError && (
-                    <p style={{ color: 'var(--accent-red)', fontSize: '0.78rem', marginTop: '6px', margin: 0 }}>
-                      ⚠️ {locationError}
-                    </p>
-                  )}
-                </div>
-
-                <div className="cart-form-row">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="city">City</label>
-                    <input 
-                      type="text" 
-                      id="city" 
-                      name="city" 
-                      className="form-input" 
-                      value={formData.city} 
-                      onChange={handleInputChange} 
-                      required 
-                      placeholder="Mumbai"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="zipCode">ZIP / Postal Code</label>
-                    <input 
-                      type="text" 
-                      id="zipCode" 
-                      name="zipCode" 
-                      className="form-input" 
-                      value={formData.zipCode} 
-                      onChange={handleInputChange} 
-                      required 
-                      placeholder="400001"
-                    />
-                  </div>
-                </div>
-
-                <button 
-                  type="submit" 
-                  className="btn btn-primary btn-place-order" 
-                  disabled={submitting}
+              {/* Collapsible Shipping & Billing Details Accordion */}
+              <div className="checkout-accordion-wrapper">
+                <button
+                  type="button"
+                  className={`checkout-accordion-trigger ${isFormExpanded ? 'is-expanded' : ''}`}
+                  onClick={() => setIsFormExpanded(prev => !prev)}
+                  aria-expanded={isFormExpanded}
                 >
-                  {submitting ? 'Placing Order...' : `Confirm & Place Order (₹${cartTotal})`}
+                  <div className="accordion-trigger-left">
+                    <span className="accordion-icon-badge">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </span>
+                    <div className="accordion-text-group">
+                      <h4 className="accordion-title">Shipping & Billing Details</h4>
+                      <span className="accordion-subtitle">
+                        {formData.name ? `${formData.name} • ${formData.city || 'Address Saved'}` : 'Tap to expand & fill delivery address'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <span className={`accordion-arrow-circle ${isFormExpanded ? 'rotated' : ''}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </span>
                 </button>
-              </form>
+
+                {isFormExpanded && (
+                  <form onSubmit={handleSubmitOrder} className="checkout-form animate-fade-in">
+                    <div className="form-group">
+                      <label className="form-label" htmlFor="name">Full Name</label>
+                      <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        className="form-input" 
+                        value={formData.name} 
+                        onChange={handleInputChange} 
+                        required 
+                        placeholder="E.g. Rajesh Kumar"
+                      />
+                    </div>
+
+                    <div className="cart-form-row">
+                      <div className="form-group">
+                        <label className="form-label" htmlFor="email">Email Address</label>
+                        <input 
+                          type="email" 
+                          id="email" 
+                          name="email" 
+                          className="form-input" 
+                          value={formData.email} 
+                          onChange={handleInputChange} 
+                          required 
+                          placeholder="rajesh@mail.com"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label" htmlFor="phone">Phone Number</label>
+                        <input 
+                          type="tel" 
+                          id="phone" 
+                          name="phone" 
+                          className="form-input" 
+                          value={formData.phone} 
+                          onChange={handleInputChange} 
+                          required 
+                          placeholder="9876543210"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <div className="cart-address-header">
+                        <label className="form-label" htmlFor="address">Delivery Address</label>
+                        <button 
+                          type="button"
+                          className="btn-fetch-gps-cart"
+                          onClick={handleFetchGPSLocation}
+                          disabled={isLocating}
+                        >
+                          {isLocating ? (
+                            <>
+                              <span className="mini-spinner"></span>
+                              <span>Locating...</span>
+                            </>
+                          ) : (
+                            <>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="12" r="3"/></svg>
+                              <span>Use GPS Location</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                      <textarea 
+                        id="address" 
+                        name="address" 
+                        className="form-input" 
+                        rows="3" 
+                        value={formData.address} 
+                        onChange={handleInputChange} 
+                        required 
+                        placeholder="House No, Street Name, Locality"
+                        style={{ resize: 'vertical' }}
+                      ></textarea>
+                      {locationError && (
+                        <p style={{ color: 'var(--accent-red)', fontSize: '0.78rem', marginTop: '6px', margin: 0 }}>
+                          ⚠️ {locationError}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="cart-form-row">
+                      <div className="form-group">
+                        <label className="form-label" htmlFor="city">City</label>
+                        <input 
+                          type="text" 
+                          id="city" 
+                          name="city" 
+                          className="form-input" 
+                          value={formData.city} 
+                          onChange={handleInputChange} 
+                          required 
+                          placeholder="Mumbai"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label" htmlFor="zipCode">ZIP / Postal Code</label>
+                        <input 
+                          type="text" 
+                          id="zipCode" 
+                          name="zipCode" 
+                          className="form-input" 
+                          value={formData.zipCode} 
+                          onChange={handleInputChange} 
+                          required 
+                          placeholder="400001"
+                        />
+                      </div>
+                    </div>
+
+                    <button 
+                      type="submit" 
+                      className="btn btn-primary btn-place-order" 
+                      disabled={submitting}
+                    >
+                      {submitting ? 'Placing Order...' : `Confirm & Place Order (₹${cartTotal})`}
+                    </button>
+                  </form>
+                )}
+              </div>
             </div>
           </div>
         </div>
