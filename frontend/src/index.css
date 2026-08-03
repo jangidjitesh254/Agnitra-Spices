@@ -127,34 +127,34 @@ img {
 }
 
 .btn-primary {
-  background-color: var(--bg-dark-green);
+  background: linear-gradient(135deg, #3b6e28 0%, #4a8034 100%);
   color: #ffffff;
-  border-color: var(--bg-dark-green);
-  box-shadow: 0 4px 14px rgba(43, 62, 27, 0.22);
+  border: none;
+  box-shadow: 0 4px 14px rgba(59, 110, 40, 0.25);
 }
 
 .btn-primary:hover {
-  background-color: var(--bg-dark-green-hover);
-  border-color: var(--bg-dark-green-hover);
+  background: linear-gradient(135deg, #2b541d 0%, #396728 100%);
+  color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(43, 62, 27, 0.32);
+  box-shadow: 0 6px 20px rgba(43, 84, 29, 0.35);
 }
 
 .btn-secondary {
   background-color: transparent;
-  color: var(--accent-green);
-  border-color: var(--accent-green);
+  color: #3b6e28;
+  border-color: #3b6e28;
 }
 
 .btn-secondary:hover {
-  background-color: var(--accent-green);
+  background-color: #3b6e28;
   color: #ffffff;
   transform: translateY(-2px);
 }
 
 /* Designer Buttons */
 .btn-designer-green {
-  background-color: var(--accent-green);
+  background: linear-gradient(135deg, #3b6e28 0%, #4a8034 100%);
   color: #ffffff;
   padding: 12px 28px;
   border-radius: var(--border-radius-round);
@@ -163,12 +163,14 @@ img {
   border: none;
   cursor: pointer;
   transition: var(--transition-fast);
-  box-shadow: 0 4px 12px rgba(43, 62, 27, 0.2);
+  box-shadow: 0 4px 14px rgba(59, 110, 40, 0.25);
 }
 
 .btn-designer-green:hover {
-  background-color: var(--bg-dark-green-hover);
+  background: linear-gradient(135deg, #2b541d 0%, #396728 100%);
+  color: #ffffff;
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(43, 84, 29, 0.35);
 }
 
 .btn-designer-outline {
@@ -4412,29 +4414,30 @@ img {
 }
 
 .btn-save-profile {
-  background: linear-gradient(135deg, #d4af37 0%, #b89228 100%);
-  color: #1b2e13;
+  background: linear-gradient(135deg, #3b6e28 0%, #4a8034 100%);
+  color: #ffffff;
   font-family: var(--font-body);
   font-weight: 800;
   font-size: 0.98rem;
   padding: 14px 40px;
   border-radius: 50px;
   border: none;
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+  box-shadow: 0 6px 20px rgba(59, 110, 40, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .btn-save-profile:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.45);
-  background: linear-gradient(135deg, #e6be44 0%, #c49b2c 100%);
+  box-shadow: 0 10px 25px rgba(59, 110, 40, 0.4);
+  background: linear-gradient(135deg, #2b541d 0%, #396728 100%);
+  color: #ffffff;
 }
 
 /* Location Selection Bar & GPS Fetcher */
 .location-options-bar {
   background: linear-gradient(135deg, #faf6f0 0%, #f0e8d5 100%);
-  border: 1.5px solid rgba(212, 175, 55, 0.35);
+  border: 1.5px solid rgba(229, 223, 210, 0.95);
   border-radius: 16px;
   padding: 16px 20px;
   display: flex;
@@ -4462,23 +4465,24 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #2b3e1b 0%, #1b2a12 100%);
-  color: #d4af37;
-  border: 1.5px solid #d4af37;
+  background: linear-gradient(135deg, #3b6e28 0%, #4a8034 100%);
+  color: #ffffff;
+  border: none;
   padding: 10px 20px;
   border-radius: 50px;
   font-weight: 700;
   font-size: 0.85rem;
   cursor: pointer;
   transition: var(--transition-fast);
-  box-shadow: 0 4px 14px rgba(43, 62, 27, 0.25);
+  box-shadow: 0 4px 14px rgba(59, 110, 40, 0.25);
   flex-shrink: 0;
 }
 
 .btn-fetch-gps:hover:not(:disabled) {
-  background: linear-gradient(135deg, #365227 0%, #233719 100%);
+  background: linear-gradient(135deg, #2b541d 0%, #396728 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(43, 62, 27, 0.35);
+  box-shadow: 0 6px 18px rgba(43, 84, 29, 0.35);
+  color: #ffffff;
 }
 
 .btn-fetch-gps:disabled {
@@ -5385,7 +5389,7 @@ img {
    Floating Bottom-Right Pay Now Bar & Product Stepper Controls
    ========================================================================== */
 
-/* 1. Floating Bottom-Right Pay Now / View Cart Bar (Light Botanical & Gold Theme) */
+/* 1. Floating Bottom-Right Pay Now / View Cart Bar (Fresh Green & White Theme) */
 .floating-cart-pay-bar {
   position: fixed;
   bottom: 28px;
@@ -5394,20 +5398,20 @@ img {
   display: flex;
   align-items: center;
   gap: 18px;
-  background: linear-gradient(135deg, #3b6e28 0%, #294c1a 100%);
+  background: linear-gradient(135deg, #233e1a 0%, #152710 100%);
   color: #ffffff;
   padding: 10px 14px 10px 22px;
   border-radius: 50px;
-  box-shadow: 0 14px 40px rgba(43, 80, 30, 0.35);
-  border: 1.5px solid #d4af37;
+  box-shadow: 0 14px 40px rgba(27, 48, 23, 0.4);
+  border: 1.5px solid rgba(229, 223, 210, 0.3);
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .floating-cart-pay-bar:hover {
   transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 20px 48px rgba(43, 80, 30, 0.45);
-  border-color: #f7e6a1;
+  box-shadow: 0 20px 48px rgba(27, 48, 23, 0.5);
+  border-color: #ffffff;
 }
 
 .floating-cart-info {
@@ -5419,7 +5423,7 @@ img {
 .floating-cart-badge {
   font-size: 0.76rem;
   font-weight: 800;
-  color: #f7e6a1;
+  color: #dce8d3;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   display: flex;
@@ -5438,22 +5442,23 @@ img {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #d4af37 0%, #b89228 100%);
-  color: #1b2e13;
+  background: linear-gradient(135deg, #3b6e28 0%, #4a8034 100%);
+  color: #ffffff;
   border: none;
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 800;
   padding: 10px 22px;
   border-radius: 50px;
-  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 14px rgba(59, 110, 40, 0.35);
   cursor: pointer;
   transition: var(--transition-fast);
 }
 
 .floating-pay-btn:hover {
-  background: linear-gradient(135deg, #f7e6a1 0%, #d4af37 100%);
-  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.6);
+  background: linear-gradient(135deg, #2b541d 0%, #396728 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(43, 84, 29, 0.45);
 }
 
 @media (max-width: 600px) {
@@ -5998,11 +6003,11 @@ img {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Floating Bottom Cart Bar - Professional Royal Heritage Styling */
+/* Floating Bottom Cart Bar Styling */
 .floating-cart-pay-bar:hover {
   transform: translateY(-3px) scale(1.02);
   box-shadow: 0 16px 45px rgba(27, 48, 23, 0.45) !important;
-  border-color: #f7e6a1 !important;
+  border-color: #ffffff !important;
 }
 
 .floating-cart-pay-bar:active {
@@ -6010,8 +6015,9 @@ img {
 }
 
 .floating-pay-btn:hover {
-  background: linear-gradient(135deg, #f7e6a1 0%, #d4af37 100%) !important;
-  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.5) !important;
+  background: linear-gradient(135deg, #2b541d 0%, #396728 100%) !important;
+  box-shadow: 0 6px 18px rgba(43, 84, 29, 0.5) !important;
+  color: #ffffff !important;
 }
 
 @media (max-width: 640px) {
