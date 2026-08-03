@@ -3275,8 +3275,431 @@ img {
 /* ==========================================================================
    Account & User Profile Management Hub (Royal Botanical Theme)
    ========================================================================== */
-.account-page {
-  padding: 40px 0 80px 0;
+/* ==========================================================================
+   Mockup-Inspired Profile Hub Component
+   ========================================================================== */
+.profile-hero-card {
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 14px 40px rgba(37, 29, 24, 0.07);
+  border: 1.5px solid rgba(229, 223, 210, 0.95);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.profile-banner-bg {
+  height: 120px;
+  background: linear-gradient(135deg, #1b2e13 0%, #2b3e1b 100%);
+  position: relative;
+}
+
+.profile-banner-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 45px;
+}
+
+.profile-hero-content {
+  text-align: center;
+  margin-top: -50px;
+  padding: 0 24px 20px 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.profile-avatar-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.profile-avatar-ring {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2b3e1b 0%, #172611 100%);
+  border: 4px solid #ffffff;
+  box-shadow: 0 8px 24px rgba(27, 46, 19, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-avatar-text {
+  font-family: var(--font-title);
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #d4af37;
+}
+
+.avatar-edit-badge {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4af37 0%, #b89228 100%);
+  color: #1b2e13;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: transform 0.25s ease;
+}
+
+.avatar-edit-badge:hover {
+  transform: scale(1.1);
+}
+
+.profile-user-title {
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1b2e13;
+  margin: 0 0 2px 0;
+}
+
+.profile-user-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.profile-contact-chips {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chip-item {
+  font-size: 0.78rem;
+  background: #faf6f0;
+  border: 1px solid rgba(229, 223, 210, 0.9);
+  padding: 4px 12px;
+  border-radius: 50px;
+  color: #3b4d2c;
+  font-weight: 600;
+}
+
+/* Quick Action Grid (Inspired by 3x2 Grid in mockup) */
+.profile-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 20px 24px;
+  background-color: #faf6f0;
+  border-top: 1px solid rgba(229, 223, 210, 0.9);
+  border-bottom: 1px solid rgba(229, 223, 210, 0.9);
+}
+
+.quick-tile {
+  background: #ffffff;
+  border: 1.5px solid rgba(229, 223, 210, 0.95);
+  border-radius: 18px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.quick-tile:hover {
+  transform: translateY(-3px);
+  border-color: #d4af37;
+  box-shadow: 0 8px 20px rgba(37, 29, 24, 0.08);
+}
+
+.quick-tile.active-tile {
+  border-color: #1b2e13;
+  background: #fdfaf4;
+  box-shadow: 0 6px 16px rgba(27, 46, 19, 0.12);
+}
+
+.tile-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
+}
+
+.tile-blue { background: rgba(59, 130, 246, 0.12); color: #2563eb; }
+.tile-yellow { background: rgba(234, 179, 8, 0.12); color: #ca8a04; }
+.tile-pink { background: rgba(236, 72, 153, 0.12); color: #db2777; }
+.tile-green { background: rgba(34, 197, 94, 0.12); color: #16a34a; }
+.tile-purple { background: rgba(168, 85, 247, 0.12); color: #9333ea; }
+.tile-purple-light { background: rgba(99, 102, 241, 0.12); color: #4f46e5; }
+
+.tile-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1b2e13;
+}
+
+.tile-badge-count {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  background: #1b2e13;
+  color: #d4af37;
+  padding: 2px 7px;
+  border-radius: 50px;
+}
+
+/* Mockup Menu List Items */
+.profile-menu-list {
+  padding: 12px 18px 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-list-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: #ffffff;
+  border: 1px solid rgba(229, 223, 210, 0.95);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: left;
+}
+
+.menu-list-item:hover {
+  background: #faf6f0;
+  border-color: #d4af37;
+  transform: translateX(3px);
+}
+
+.menu-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-icon {
+  font-size: 1.2rem;
+}
+
+.menu-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-title {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: #1b2e13;
+}
+
+.menu-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.menu-chevron {
+  font-size: 1.4rem;
+  color: #c4b8a5;
+  font-weight: 400;
+}
+
+/* Mockup Orders Page Filters & Cards */
+.orders-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.orders-page-title {
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1b2e13;
+  margin: 0;
+}
+
+.orders-filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.orders-filter-btn {
+  background: #ffffff;
+  border: 1.5px solid rgba(229, 223, 210, 0.95);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.orders-filter-btn:hover {
+  border-color: #d4af37;
+  color: #1b2e13;
+}
+
+.orders-filter-btn.active-filter {
+  background: #1b2e13;
+  color: #d4af37;
+  border-color: #1b2e13;
+}
+
+.mockup-order-card {
+  background: #ffffff;
+  border: 1.5px solid rgba(229, 223, 210, 0.95);
+  border-radius: 20px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 6px 18px rgba(37, 29, 24, 0.04);
+}
+
+.mockup-order-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mockup-order-no {
+  font-weight: 800;
+  font-size: 0.98rem;
+  color: #1b2e13;
+  display: block;
+}
+
+.mockup-order-date {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.mockup-status-pill {
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+.mockup-order-meta {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.mockup-order-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(229, 223, 210, 0.9);
+}
+
+.btn-mockup-details {
+  background: #faf6f0;
+  border: 1px solid rgba(229, 223, 210, 0.95);
+  color: #1b2e13;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-mockup-details:hover {
+  background: #1b2e13;
+  color: #d4af37;
+}
+
+.mockup-tracking-no {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #3b4d2c;
+}
+
+.mockup-expanded-details {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1.5px solid #faf6f0;
+}
+
+/* Mobile Media Queries (< 640px) */
+@media (max-width: 640px) {
+  .profile-quick-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 16px 12px;
+  }
+
+  .quick-tile {
+    padding: 10px 6px;
+    gap: 6px;
+  }
+
+  .tile-icon-box {
+    width: 36px;
+    height: 36px;
+  }
+
+  .tile-icon-box svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .tile-label {
+    font-size: 0.72rem;
+  }
+
+  .tile-badge-count {
+    top: 4px;
+    right: 6px;
+    font-size: 0.65rem;
+    padding: 1px 5px;
+  }
+
+  .orders-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .orders-filter-pills {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .orders-filter-btn {
+    flex: 1;
+    text-align: center;
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
 }
 
 .account-user-card {

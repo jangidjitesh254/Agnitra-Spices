@@ -150,79 +150,187 @@ function Account({ orders, navigateTo }) {
     ? profile.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
     : 'AS';
 
+  // Order filter state for orders tab
+  const [orderFilter, setOrderFilter] = useState('all'); // 'all', 'delivered', 'processing'
+  const [expandedOrderId, setExpandedOrderId] = useState(null);
+
+  const filteredOrders = orders.filter(order => {
+    if (orderFilter === 'delivered') return order.status?.toLowerCase() === 'delivered' || order.status?.toLowerCase() === 'shipped';
+    if (orderFilter === 'processing') return order.status?.toLowerCase() === 'processing' || !order.status;
+    return true;
+  });
+
   return (
     <div className="account-page section">
-      <div className="container" style={{ maxWidth: '980px' }}>
+      <div className="container" style={{ maxWidth: '820px' }}>
         
-        {/* User Profile Header Card */}
-        <div className="account-user-card animate-fade-in">
-          <div className="account-avatar-wrapper">
-            <div className="account-avatar-circle">{initials}</div>
-          </div>
-          
-          <div className="account-user-info">
-            <div className="account-name-row">
-              <h1 className="account-user-name">{profile.name}</h1>
-              <span className="account-vip-badge">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                Agnitra VIP Member
-              </span>
+        {/* Mockup-Inspired Hero Profile Card with Organic Curved Wave Header */}
+        <div className="profile-hero-card animate-fade-in">
+          <div className="profile-banner-bg">
+            <div className="profile-banner-wave">
+              <svg viewBox="0 0 500 150" preserveAspectRatio="none" style={{ height: '100%', width: '100%' }}>
+                <path d="M0.00,49.98 C160.27,140.00 320.80,-20.00 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" fill="#ffffff"></path>
+              </svg>
             </div>
-            <p className="account-user-contact">
-              <span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ verticalAlign: 'middle', marginRight: '4px' }}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                {profile.email}
-              </span>
-              <span className="dot-sep">•</span>
-              <span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ verticalAlign: 'middle', marginRight: '4px' }}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                {profile.phone}
-              </span>
-            </p>
-            <p className="account-user-location">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ verticalAlign: 'middle', marginRight: '4px' }}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="12" r="3"/></svg>
-              {profile.address ? `${profile.address}, ${profile.city}` : 'No primary address configured'}
-            </p>
           </div>
 
-          <div className="account-stats-group">
-            <div className="stat-box">
-              <span className="stat-num">{orders.length}</span>
-              <span className="stat-label">Total Orders</span>
+          <div className="profile-hero-content">
+            <div className="profile-avatar-container">
+              <div className="profile-avatar-ring">
+                <span className="profile-avatar-text">{initials}</span>
+              </div>
+              <button 
+                type="button" 
+                className="avatar-edit-badge" 
+                title="Update Profile Avatar"
+                onClick={() => setActiveTab('profile')}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+              </button>
             </div>
-            <div className="stat-box">
-              <span className="stat-num" style={{ color: '#d4af37' }}>100%</span>
-              <span className="stat-label">Aroma Lock</span>
+
+            <h1 className="profile-user-title">{profile.name}</h1>
+            <p className="profile-user-subtitle">Agnitra VIP Connoisseur</p>
+            
+            <div className="profile-contact-chips">
+              <span className="chip-item">✉️ {profile.email}</span>
+              <span className="chip-item">📞 {profile.phone}</span>
+              <span className="chip-item">📍 {profile.city || 'Jaipur'}</span>
             </div>
+          </div>
+
+          {/* Quick Action Category Grid (Inspired by mockup 3x2 grid) */}
+          <div className="profile-quick-grid">
+            <button 
+              type="button" 
+              className={`quick-tile ${activeTab === 'orders' && orderFilter === 'all' ? 'active-tile' : ''}`}
+              onClick={() => { setActiveTab('orders'); setOrderFilter('all'); }}
+            >
+              <div className="tile-icon-box tile-blue">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+              </div>
+              <span className="tile-label">My Orders</span>
+              <span className="tile-badge-count">{orders.length}</span>
+            </button>
+
+            <button 
+              type="button" 
+              className={`quick-tile ${activeTab === 'orders' && orderFilter === 'delivered' ? 'active-tile' : ''}`}
+              onClick={() => { setActiveTab('orders'); setOrderFilter('delivered'); }}
+            >
+              <div className="tile-icon-box tile-yellow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-2.3-2.76a1 1 0 0 0-.77-.37H16v6h3Z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+              </div>
+              <span className="tile-label">Delivered</span>
+              <span className="tile-badge-count">
+                {orders.filter(o => o.status?.toLowerCase() === 'delivered' || o.status?.toLowerCase() === 'shipped').length}
+              </span>
+            </button>
+
+            <button 
+              type="button" 
+              className={`quick-tile ${activeTab === 'orders' && orderFilter === 'processing' ? 'active-tile' : ''}`}
+              onClick={() => { setActiveTab('orders'); setOrderFilter('processing'); }}
+            >
+              <div className="tile-icon-box tile-pink">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="M2 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="M12 22v-4"/><path d="m19.07 19.07-2.83-2.83"/><path d="M22 12h-4"/><path d="m19.07 4.93-2.83 2.83"/></svg>
+              </div>
+              <span className="tile-label">Processing</span>
+              <span className="tile-badge-count">
+                {orders.filter(o => o.status?.toLowerCase() === 'processing' || !o.status).length}
+              </span>
+            </button>
+
+            <button 
+              type="button" 
+              className={`quick-tile ${activeTab === 'profile' ? 'active-tile' : ''}`}
+              onClick={() => setActiveTab('profile')}
+            >
+              <div className="tile-icon-box tile-green">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <span className="tile-label">GPS Address</span>
+            </button>
+
+            <button 
+              type="button" 
+              className="quick-tile"
+              onClick={() => navigateTo('shop')}
+            >
+              <div className="tile-icon-box tile-purple">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </div>
+              <span className="tile-label">Explore Spices</span>
+            </button>
+
+            <button 
+              type="button" 
+              className="quick-tile"
+              onClick={() => navigateTo('contact')}
+            >
+              <div className="tile-icon-box tile-purple-light">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg>
+              </div>
+              <span className="tile-label">Customer Care</span>
+            </button>
+          </div>
+
+          {/* Menu Item Cards (Inspired by Mockup List Items) */}
+          <div className="profile-menu-list">
+            <button 
+              type="button"
+              className={`menu-list-item ${activeTab === 'profile' ? 'item-active' : ''}`}
+              onClick={() => setActiveTab('profile')}
+            >
+              <div className="menu-item-left">
+                <span className="menu-icon">👤</span>
+                <div className="menu-text">
+                  <span className="menu-title">Edit Profile Details</span>
+                  <span className="menu-subtitle">Update name, phone number, and email address</span>
+                </div>
+              </div>
+              <span className="menu-chevron">›</span>
+            </button>
+
+            <button 
+              type="button"
+              className={`menu-list-item ${activeTab === 'profile' ? 'item-active' : ''}`}
+              onClick={() => setActiveTab('profile')}
+            >
+              <div className="menu-item-left">
+                <span className="menu-icon">📍</span>
+                <div className="menu-text">
+                  <span className="menu-title">Shipping Address & GPS</span>
+                  <span className="menu-subtitle">{profile.address ? `${profile.address}, ${profile.city}` : 'Configure delivery address'}</span>
+                </div>
+              </div>
+              <span className="menu-chevron">›</span>
+            </button>
+
+            <button 
+              type="button"
+              className={`menu-list-item ${activeTab === 'orders' ? 'item-active' : ''}`}
+              onClick={() => { setActiveTab('orders'); setOrderFilter('all'); }}
+            >
+              <div className="menu-item-left">
+                <span className="menu-icon">📦</span>
+                <div className="menu-text">
+                  <span className="menu-title">My Orders History ({orders.length})</span>
+                  <span className="menu-subtitle">View past order receipts & aroma-lock tracking</span>
+                </div>
+              </div>
+              <span className="menu-chevron">›</span>
+            </button>
           </div>
         </div>
 
-        {/* Tab Navigation Controls */}
-        <div className="account-tab-pills">
-          <button 
-            className={`account-tab-btn ${activeTab === 'profile' ? 'active' : ''}`}
-            onClick={() => setActiveTab('profile')}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <span>My Profile & Address</span>
-          </button>
-          
-          <button 
-            className={`account-tab-btn ${activeTab === 'orders' ? 'active' : ''}`}
-            onClick={() => setActiveTab('orders')}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-            <span>Order History ({orders.length})</span>
-          </button>
-        </div>
-
-        {/* TAB 1: Profile & Delivery Address Editing Form */}
+        {/* TAB 1: Edit Profile & Address */}
         {activeTab === 'profile' && (
-          <div className="account-tab-content animate-fade-in">
+          <div className="account-tab-content animate-fade-in" style={{ marginTop: '24px' }}>
             <div className="account-card-box">
               <div className="account-card-header">
-                <h2 className="account-card-title">Personal & Shipping Destination</h2>
-                <p className="account-card-desc">Update your profile details and primary address for fast 1-click checkout.</p>
+                <h2 className="account-card-title">Edit Personal & Location Details</h2>
+                <p className="account-card-desc">Update your name, contact information, and primary shipping destination.</p>
               </div>
 
               {saveSuccess && (
@@ -291,7 +399,7 @@ function Account({ orders, navigateTo }) {
                       </>
                     ) : (
                       <>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s-8-6-8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
                         <span>Fetch Current Location (GPS)</span>
                       </>
                     )}
@@ -305,16 +413,39 @@ function Account({ orders, navigateTo }) {
                 )}
 
                 <div className="form-group full-width">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                    <label className="form-label" style={{ margin: 0 }}>Delivery Street Address</label>
-                    <span style={{ fontSize: '0.78rem', color: '#2b3e1b', fontWeight: 700 }}>✍️ Write Manually or Auto-Filled</span>
-                  </div>
+                  <label className="form-label">Delivery Street Address</label>
                   <input 
                     type="text"
                     name="address"
                     value={profile.address}
                     onChange={handleInputChange}
                     placeholder="House/Flat No., Building, Street Name"
+                    className="account-input"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">City</label>
+                  <input 
+                    type="text"
+                    name="city"
+                    value={profile.city}
+                    onChange={handleInputChange}
+                    placeholder="City / District"
+                    className="account-input"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">State</label>
+                  <input 
+                    type="text"
+                    name="state"
+                    value={profile.state}
+                    onChange={handleInputChange}
+                    placeholder="State"
                     className="account-input"
                     required
                   />
@@ -343,77 +474,104 @@ function Account({ orders, navigateTo }) {
           </div>
         )}
 
-        {/* TAB 2: Past Orders History */}
+        {/* TAB 2: Orders History (Inspired by mockup My Orders page) */}
         {activeTab === 'orders' && (
-          <div className="account-tab-content animate-fade-in">
-            {orders.length === 0 ? (
+          <div className="account-tab-content animate-fade-in" style={{ marginTop: '24px' }}>
+            <div className="orders-header-bar">
+              <h2 className="orders-page-title">My Orders</h2>
+              
+              {/* Order Status Filter Pills */}
+              <div className="orders-filter-pills">
+                <button 
+                  className={`orders-filter-btn ${orderFilter === 'all' ? 'active-filter' : ''}`}
+                  onClick={() => setOrderFilter('all')}
+                >
+                  All ({orders.length})
+                </button>
+                <button 
+                  className={`orders-filter-btn ${orderFilter === 'delivered' ? 'active-filter' : ''}`}
+                  onClick={() => setOrderFilter('delivered')}
+                >
+                  Delivered
+                </button>
+                <button 
+                  className={`orders-filter-btn ${orderFilter === 'processing' ? 'active-filter' : ''}`}
+                  onClick={() => setOrderFilter('processing')}
+                >
+                  Processing
+                </button>
+              </div>
+            </div>
+
+            {filteredOrders.length === 0 ? (
               <div className="empty-state account-card-box">
                 <span className="empty-icon" style={{ fontSize: '3rem' }}>📦</span>
-                <h3 className="empty-title" style={{ fontFamily: 'var(--font-title)', fontSize: '1.4rem', color: '#1b2e13', margin: '12px 0 6px 0' }}>No Orders Placed Yet</h3>
-                <p className="empty-desc" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Once you place an order, you can track its packing and aroma-lock status here.</p>
+                <h3 className="empty-title" style={{ fontFamily: 'var(--font-title)', fontSize: '1.4rem', color: '#1b2e13', margin: '12px 0 6px 0' }}>No Orders Found</h3>
+                <p className="empty-desc" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>No orders match your selected filter.</p>
                 <button className="btn btn-save-profile" onClick={() => navigateTo('shop')} style={{ marginTop: '20px', display: 'inline-flex', width: 'auto', padding: '12px 28px' }}>
                   Explore Spices Shop
                 </button>
               </div>
             ) : (
               <div className="orders-list">
-                {orders.map((order) => (
-                  <div key={order.orderId} className="order-card animate-fade-in">
-                    <div className="order-header">
+                {filteredOrders.map((order) => (
+                  <div key={order.orderId} className="mockup-order-card animate-fade-in">
+                    <div className="mockup-order-top">
                       <div>
-                        <span className="order-meta-label">Order Reference</span>
-                        <span className="order-id">#{order.orderId}</span>
+                        <span className="mockup-order-no">Order No: #{order.orderId}</span>
+                        <span className="mockup-order-date">{new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                       </div>
-                      <div>
-                        <span className="order-meta-label">Placed On</span>
-                        <span className="order-date">{new Date(order.createdAt).toLocaleDateString('en-IN', {
-                          day: 'numeric',
-                          month: 'short',
-                          year: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}</span>
-                      </div>
-                      <div>
-                        <span className="order-meta-label">Aroma Lock Status</span>
-                        <span className={`order-status-badge ${getStatusClass(order.status)}`}>
-                          {getStatusText(order.status)}
-                        </span>
-                      </div>
+                      <span className={`mockup-status-pill ${getStatusClass(order.status)}`}>
+                        {getStatusText(order.status)}
+                      </span>
                     </div>
 
-                    {/* List items */}
-                    <div className="order-items-list">
-                      {order.items.map((item, idx) => (
-                        <div key={idx} className="order-item-row">
-                          <div className="order-item-info">
-                            <img 
-                              src={item.image} 
-                              alt={item.name} 
-                              className="order-item-thumb"
-                            />
-                            <div>
-                              <span className="order-item-title">{item.name}</span>
-                              <span className="order-item-qty">Qty: {item.quantity} × {item.unit || '100g'}</span>
+                    <div className="mockup-order-mid">
+                      <p className="mockup-order-meta">
+                        <span>Items: <strong>{order.items?.reduce((a, b) => a + (b.quantity || 1), 0) || 1}</strong></span>
+                        <span className="dot-sep">•</span>
+                        <span>Total Amount: <strong>₹{order.totalAmount}</strong></span>
+                      </p>
+                    </div>
+
+                    <div className="mockup-order-bottom">
+                      <button 
+                        type="button"
+                        className="btn-mockup-details"
+                        onClick={() => setExpandedOrderId(expandedOrderId === order.orderId ? null : order.orderId)}
+                      >
+                        {expandedOrderId === order.orderId ? 'Hide Details ▲' : 'Details ▼'}
+                      </button>
+
+                      <span className="mockup-tracking-no">
+                        Aroma Sealed & Locked
+                      </span>
+                    </div>
+
+                    {/* Expandable Order Details Panel */}
+                    {expandedOrderId === order.orderId && (
+                      <div className="mockup-expanded-details animate-fade-in">
+                        <h4 style={{ fontSize: '0.88rem', color: '#1b2e13', margin: '0 0 10px 0', fontWeight: 700 }}>Packed Spices:</h4>
+                        {order.items?.map((item, idx) => (
+                          <div key={idx} className="order-item-row">
+                            <div className="order-item-info">
+                              <img src={item.image} alt={item.name} className="order-item-thumb" />
+                              <div>
+                                <span className="order-item-title">{item.name}</span>
+                                <span className="order-item-qty">Qty: {item.quantity} × {item.unit || '100g'}</span>
+                              </div>
                             </div>
+                            <span className="order-item-price">₹{item.price * item.quantity}</span>
                           </div>
-                          <span className="order-item-price">₹{item.price * item.quantity}</span>
+                        ))}
+
+                        <div className="order-address-box" style={{ marginTop: '12px', paddingTop: '12px' }}>
+                          <p className="order-address-title">📍 Shipping Destination:</p>
+                          <p className="order-address-text">{order.customer?.name || profile.name} | {order.customer?.phone || profile.phone}</p>
+                          <p className="order-address-text">{order.customer?.address || profile.address}, {order.customer?.city || profile.city} - {order.customer?.zipCode || profile.zipCode}</p>
                         </div>
-                      ))}
-                    </div>
-
-                    {/* Shipping Address */}
-                    <div className="order-address-box">
-                      <p className="order-address-title">📍 Shipping Destination:</p>
-                      <p className="order-address-text">{order.customer?.name || profile.name} | {order.customer?.phone || profile.phone}</p>
-                      <p className="order-address-text">{order.customer?.address || profile.address}, {order.customer?.city || profile.city} - {order.customer?.zipCode || profile.zipCode}</p>
-                    </div>
-
-                    {/* Order Total */}
-                    <div className="order-total-row">
-                      <span className="total-label">Grand Total Paid</span>
-                      <span className="total-price">₹{order.totalAmount}</span>
-                    </div>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
