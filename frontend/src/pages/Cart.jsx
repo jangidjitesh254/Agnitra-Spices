@@ -394,7 +394,7 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
                   className="btn btn-primary btn-place-order" 
                   disabled={submitting}
                 >
-                  {submitting ? 'Placing Order...' : `Confirm & Place Order (₹${cartTotal})`}
+                  {submitting ? 'Placing Order...' : `Place Order (₹${cartTotal})`}
                 </button>
               </form>
             </div>
