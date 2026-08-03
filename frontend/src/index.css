@@ -3288,14 +3288,14 @@ img {
   margin-bottom: 30px;
 }
 
-/* 1. Light Green Botanical Header Card */
+/* 1. Agnitra Home Cover Image Header Card */
 .agnitra-hero-header {
-  background: linear-gradient(135deg, #3b6e28 0%, #589445 100%);
+  background: linear-gradient(180deg, rgba(27, 46, 19, 0.72) 0%, rgba(27, 46, 19, 0.86) 100%), url('/images/Agnitra-home.png') center/cover no-repeat;
   color: #ffffff;
-  padding: 28px 24px;
+  padding: 32px 24px 28px 24px;
   border-radius: 0 0 28px 28px;
   position: relative;
-  box-shadow: 0 6px 20px rgba(59, 110, 40, 0.18);
+  box-shadow: 0 8px 24px rgba(27, 46, 19, 0.22);
 }
 
 .agnitra-header-bar {
@@ -5378,6 +5378,8 @@ img {
     font-size: 0.95rem;
     min-height: 48px;
   }
+}
+
 /* ==========================================================================
    Floating Bottom-Right Pay Now Bar & Product Stepper Controls
    ========================================================================== */
@@ -5963,6 +5965,8 @@ img {
   .stepper-count {
     font-size: 0.9rem !important;
   }
+}
+
 /* Add to Cart Button Base Style & Micro-animations */
 .add-to-cart-btn {
   display: inline-flex;
