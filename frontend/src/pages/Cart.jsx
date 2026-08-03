@@ -179,73 +179,79 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
           </div>
         )}
 
-        <div className="grid-2" style={{ gap: '40px', alignItems: 'start' }}>
+        <div className="cart-layout-grid">
           {/* Left: Cart Items List */}
-          <div>
+          <div className="cart-left-col">
             <div className="cart-card">
-              <h3 style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '1.2rem', marginBottom: '20px', borderBottom: '1px solid var(--border-color)', paddingBottom: '12px' }}>
+              <h3 className="cart-card-header-title">
                 Selected Spices ({cart.length})
               </h3>
               
-              {cart.map((item) => {
-                const productId = item.product._id || item.product.id;
-                return (
-                  <div key={productId} className="cart-item">
-                    <img 
-                      src={item.product.image || item.product.imageUrl} 
-                      alt={item.product.name} 
-                      className="cart-item-img" 
-                    />
-                    <div className="cart-item-info">
-                      <h4 className="cart-item-title">{item.product.name}</h4>
-                      <p className="cart-item-tech">{item.product.traditionalMethod || '100% Cold Ground'}</p>
-                      <span className="cart-item-price">₹{item.product.price} <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>/ {item.product.unit || '100g'}</span></span>
-                    </div>
+              <div className="cart-items-wrapper">
+                {cart.map((item) => {
+                  const productId = item.product._id || item.product.id;
+                  return (
+                    <div key={productId} className="cart-item-row">
+                      <div className="cart-item-main">
+                        <img 
+                          src={item.product.image || item.product.imageUrl} 
+                          alt={item.product.name} 
+                          className="cart-item-thumb" 
+                        />
+                        <div className="cart-item-details">
+                          <h4 className="cart-item-name">{item.product.name}</h4>
+                          <p className="cart-item-sub">{item.product.traditionalMethod || '100% Cold Ground'}</p>
+                          <span className="cart-item-unit-price">₹{item.product.price} / {item.product.unit || '100g'}</span>
+                        </div>
+                        <button 
+                          className="cart-remove-btn"
+                          onClick={() => removeFromCart(productId)}
+                          title="Remove Item"
+                          aria-label={`Remove ${item.product.name} from cart`}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                        </button>
+                      </div>
 
-                    {/* Qty Picker in Cart */}
-                    <div className="detail-qty-picker" style={{ margin: '0 15px' }}>
-                      <button 
-                        className="qty-btn"
-                        onClick={() => updateCartQty(productId, item.quantity - 1)}
-                      >
-                        -
-                      </button>
-                      <span className="qty-num">{item.quantity}</span>
-                      <button 
-                        className="qty-btn"
-                        onClick={() => updateCartQty(productId, item.quantity + 1)}
-                      >
-                        +
-                      </button>
-                    </div>
+                      <div className="cart-item-controls">
+                        <div className="cart-stepper-widget">
+                          <button 
+                            type="button"
+                            className="cart-stepper-btn"
+                            onClick={() => updateCartQty(productId, item.quantity - 1)}
+                            aria-label="Decrease quantity"
+                          >
+                            −
+                          </button>
+                          <span className="cart-stepper-val">{item.quantity}</span>
+                          <button 
+                            type="button"
+                            className="cart-stepper-btn"
+                            onClick={() => updateCartQty(productId, item.quantity + 1)}
+                            aria-label="Increase quantity"
+                          >
+                            +
+                          </button>
+                        </div>
 
-                    <div style={{ textAlign: 'right', minWidth: '80px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px' }}>
-                      <p style={{ fontWeight: 700, fontFamily: 'var(--font-title)', margin: 0 }}>₹{item.product.price * item.quantity}</p>
-                      <button 
-                        className="cart-remove-btn"
-                        onClick={() => removeFromCart(productId)}
-                        title="Remove Item"
-                        aria-label={`Remove ${item.product.name} from cart`}
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-                      </button>
+                        <span className="cart-item-subtotal">₹{item.product.price * item.quantity}</span>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
 
             <button 
-              className="btn btn-secondary"
+              className="btn btn-secondary btn-continue-shopping"
               onClick={() => navigateTo('shop')}
-              style={{ marginTop: '20px', width: '100%' }}
             >
               ← Add More Spices
             </button>
           </div>
 
           {/* Right: Checkout Summary & Form */}
-          <div>
+          <div className="cart-right-col">
             <div className="cart-summary">
               <h3 className="summary-title">Order Summary</h3>
               
@@ -268,7 +274,7 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
               </div>
 
               {/* Checkout Form */}
-              <form onSubmit={handleSubmitOrder} style={{ marginTop: '30px' }}>
+              <form onSubmit={handleSubmitOrder} className="checkout-form">
                 <h4 className="checkout-section-title">Shipping & Billing Details</h4>
                 
                 <div className="form-group">
@@ -285,7 +291,7 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
                   />
                 </div>
 
-                <div className="grid-2" style={{ gap: '15px', marginBottom: '0' }}>
+                <div className="cart-form-row">
                   <div className="form-group">
                     <label className="form-label" htmlFor="email">Email Address</label>
                     <input 
@@ -315,29 +321,13 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
                 </div>
 
                 <div className="form-group">
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px', flexWrap: 'wrap', gap: '8px' }}>
-                    <label className="form-label" htmlFor="address" style={{ margin: 0 }}>Delivery Address</label>
+                  <div className="cart-address-header">
+                    <label className="form-label" htmlFor="address">Delivery Address</label>
                     <button 
                       type="button"
                       className="btn-fetch-gps-cart"
                       onClick={handleFetchGPSLocation}
                       disabled={isLocating}
-                      style={{
-                        appearance: 'none',
-                        WebkitAppearance: 'none',
-                        background: 'rgba(189, 89, 60, 0.08)',
-                        color: 'var(--accent-orange)',
-                        border: '1.5px solid rgba(189, 89, 60, 0.25)',
-                        borderRadius: '50px',
-                        padding: '5px 14px',
-                        fontSize: '0.78rem',
-                        fontWeight: '700',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        cursor: 'pointer',
-                        transition: 'all 0.25s ease'
-                      }}
                     >
                       {isLocating ? (
                         <>
@@ -370,7 +360,7 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
                   )}
                 </div>
 
-                <div className="grid-2" style={{ gap: '15px', marginBottom: '0' }}>
+                <div className="cart-form-row">
                   <div className="form-group">
                     <label className="form-label" htmlFor="city">City</label>
                     <input 
@@ -401,8 +391,7 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
 
                 <button 
                   type="submit" 
-                  className="btn btn-primary" 
-                  style={{ width: '100%', padding: '16px 20px', marginTop: '10px' }}
+                  className="btn btn-primary btn-place-order" 
                   disabled={submitting}
                 >
                   {submitting ? 'Placing Order...' : `Confirm & Place Order (₹${cartTotal})`}
