@@ -3348,42 +3348,55 @@ img {
 .agnitra-avatar-box {
   position: relative;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .agnitra-avatar-circle {
-  width: 68px;
-  height: 68px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: #ffffff;
+  background: linear-gradient(135deg, #ffffff 0%, #f7f4ee 100%);
   border: 3px solid #d4af37;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.agnitra-avatar-box:hover .agnitra-avatar-circle {
+  transform: scale(1.05);
 }
 
 .agnitra-avatar-monogram {
   font-family: var(--font-title);
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: 800;
-  color: #1b2e13;
+  background: linear-gradient(135deg, #1b2e13 0%, #3b6e28 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.agnitra-check-badge {
+.avatar-camera-btn {
   position: absolute;
   bottom: 0;
-  right: 0;
-  width: 22px;
-  height: 22px;
+  right: -2px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: #22c55e;
-  color: #ffffff;
-  font-size: 0.72rem;
-  font-weight: 900;
+  background: #ffffff;
+  border: 1.5px solid #d4af37;
+  font-size: 0.68rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #182c12;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: transform 0.25s ease;
+}
+
+.avatar-camera-btn:hover {
+  transform: scale(1.15);
 }
 
 .agnitra-profile-meta {

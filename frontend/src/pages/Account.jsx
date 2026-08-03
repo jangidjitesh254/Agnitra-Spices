@@ -158,6 +158,11 @@ function Account({ orders, navigateTo }) {
     return true;
   });
 
+  // User Initials
+  const initials = profile.name
+    ? profile.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+    : 'JJ';
+
   return (
     <div className="account-page section">
       <div className="container" style={{ maxWidth: '640px', padding: '0 12px' }}>
@@ -175,10 +180,17 @@ function Account({ orders, navigateTo }) {
 
               <div className="agnitra-profile-row">
                 <div className="agnitra-avatar-box">
-                  <div className="agnitra-avatar-circle">
-                    <span className="agnitra-avatar-monogram">A</span>
+                  <div className="agnitra-avatar-circle" onClick={() => setCurrentView('profile_edit')} title="Edit Profile Details">
+                    <span className="agnitra-avatar-monogram">{initials}</span>
                   </div>
-                  <span className="agnitra-check-badge">✓</span>
+                  <button 
+                    type="button" 
+                    className="avatar-camera-btn"
+                    onClick={() => setCurrentView('profile_edit')}
+                    title="Edit Profile"
+                  >
+                    📷
+                  </button>
                 </div>
 
                 <div className="agnitra-profile-meta">
