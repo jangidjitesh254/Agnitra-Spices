@@ -183,14 +183,6 @@ function Account({ orders, navigateTo }) {
                   <div className="agnitra-avatar-circle" onClick={() => setCurrentView('profile_edit')} title="Edit Profile Details">
                     <span className="agnitra-avatar-monogram">{initials}</span>
                   </div>
-                  <button 
-                    type="button" 
-                    className="avatar-camera-btn"
-                    onClick={() => setCurrentView('profile_edit')}
-                    title="Edit Profile"
-                  >
-                    📷
-                  </button>
                 </div>
 
                 <div className="agnitra-profile-meta">
