@@ -3284,13 +3284,14 @@ img {
   margin-bottom: 30px;
 }
 
-/* 1. Deep Botanical Header Card */
+/* 1. Light Green Botanical Header Card */
 .agnitra-hero-header {
-  background: linear-gradient(180deg, #182c12 0%, #293f1f 100%);
+  background: linear-gradient(135deg, #3b6e28 0%, #589445 100%);
   color: #ffffff;
-  padding: 24px 20px 30px 20px;
+  padding: 24px 20px 24px 20px;
   border-radius: 0 0 28px 28px;
   position: relative;
+  box-shadow: 0 6px 20px rgba(59, 110, 40, 0.18);
 }
 
 .agnitra-header-bar {
