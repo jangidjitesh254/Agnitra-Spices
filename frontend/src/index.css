@@ -5446,14 +5446,14 @@ img {
   font-weight: 800;
   padding: 10px 24px;
   border-radius: 50px;
-  box-shadow: 0 4px 16px rgba(189, 89, 60, 0.45);
+  box-shadow: none;
   cursor: pointer;
   transition: var(--transition-fast);
 }
 
 .floating-pay-btn:hover {
   background: linear-gradient(135deg, #d46648 0%, #ae462d 100%);
-  box-shadow: 0 8px 22px rgba(189, 89, 60, 0.6);
+  box-shadow: none;
   color: #ffffff;
 }
 
@@ -6011,7 +6011,7 @@ img {
 
 .floating-pay-btn:hover {
   background: linear-gradient(135deg, #d46648 0%, #ae462d 100%) !important;
-  box-shadow: 0 8px 22px rgba(189, 89, 60, 0.6) !important;
+  box-shadow: none !important;
   color: #ffffff !important;
 }
 

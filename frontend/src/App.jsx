@@ -370,7 +370,7 @@ const STANDARD_FALLBACK_PRODUCTS = [
               fontWeight: '800',
               padding: '10px 22px',
               borderRadius: '50px',
-              boxShadow: '0 4px 16px rgba(189, 89, 60, 0.45)',
+              boxShadow: 'none',
               cursor: 'pointer',
               letterSpacing: '0.02em',
               transition: 'all 0.2s ease'
