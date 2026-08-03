@@ -172,12 +172,6 @@ function Account({ orders, navigateTo }) {
             
             {/* 1. Light Green Botanical Header Card */}
             <div className="agnitra-hero-header">
-              <div className="agnitra-header-bar">
-                <div className="agnitra-header-logo-group">
-                  <div className="agnitra-brand-name">Agnitra Spices</div>
-                </div>
-              </div>
-
               <div className="agnitra-profile-row">
                 <div className="agnitra-avatar-box">
                   <div className="agnitra-avatar-circle" onClick={() => setCurrentView('profile_edit')} title="Edit Profile Details">
