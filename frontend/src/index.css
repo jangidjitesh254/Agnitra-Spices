@@ -5386,6 +5386,7 @@ img {
    ========================================================================== */
 
 /* 1. Floating Bottom-Right Pay Now / View Cart Bar (Light Botanical & Gold Theme) */
+/* 1. Floating Bottom-Right Pay Now / View Cart Bar (Terracotta Red Pay Now Theme) */
 .floating-cart-pay-bar {
   position: fixed;
   bottom: 28px;
@@ -5394,11 +5395,11 @@ img {
   display: flex;
   align-items: center;
   gap: 18px;
-  background: linear-gradient(135deg, #3b6e28 0%, #294c1a 100%);
+  background: linear-gradient(135deg, #1b2e13 0%, #293f1f 100%);
   color: #ffffff;
   padding: 10px 14px 10px 22px;
   border-radius: 50px;
-  box-shadow: 0 14px 40px rgba(43, 80, 30, 0.35);
+  box-shadow: 0 14px 40px rgba(27, 46, 19, 0.4);
   border: 1.5px solid #d4af37;
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -5406,7 +5407,7 @@ img {
 
 .floating-cart-pay-bar:hover {
   transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 20px 48px rgba(43, 80, 30, 0.45);
+  box-shadow: 0 20px 48px rgba(27, 46, 19, 0.55);
   border-color: #f7e6a1;
 }
 
@@ -5438,22 +5439,23 @@ img {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #d4af37 0%, #b89228 100%);
-  color: #1b2e13;
-  border: none;
+  background: linear-gradient(135deg, #bd593c 0%, #9e3e26 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 800;
-  padding: 10px 22px;
+  padding: 10px 24px;
   border-radius: 50px;
-  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 16px rgba(189, 89, 60, 0.45);
   cursor: pointer;
   transition: var(--transition-fast);
 }
 
 .floating-pay-btn:hover {
-  background: linear-gradient(135deg, #f7e6a1 0%, #d4af37 100%);
-  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.6);
+  background: linear-gradient(135deg, #d46648 0%, #ae462d 100%);
+  box-shadow: 0 8px 22px rgba(189, 89, 60, 0.6);
+  color: #ffffff;
 }
 
 @media (max-width: 600px) {
@@ -6010,8 +6012,9 @@ img {
 }
 
 .floating-pay-btn:hover {
-  background: linear-gradient(135deg, #f7e6a1 0%, #d4af37 100%) !important;
-  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.5) !important;
+  background: linear-gradient(135deg, #d46648 0%, #ae462d 100%) !important;
+  box-shadow: 0 8px 22px rgba(189, 89, 60, 0.6) !important;
+  color: #ffffff !important;
 }
 
 @media (max-width: 640px) {

@@ -362,22 +362,22 @@ const STANDARD_FALLBACK_PRODUCTS = [
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              background: 'linear-gradient(135deg, #d4af37 0%, #b89228 100%)',
-              color: '#1b2e13',
-              border: 'none',
+              background: 'linear-gradient(135deg, #bd593c 0%, #9e3e26 100%)',
+              color: '#ffffff',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
               fontFamily: 'var(--font-body), sans-serif',
               fontSize: '0.92rem',
               fontWeight: '800',
               padding: '10px 22px',
               borderRadius: '50px',
-              boxShadow: '0 4px 14px rgba(212, 175, 55, 0.4)',
+              boxShadow: '0 4px 16px rgba(189, 89, 60, 0.45)',
               cursor: 'pointer',
               letterSpacing: '0.02em',
-              transition: 'all 0.15s ease'
+              transition: 'all 0.2s ease'
             }}
           >
             <span>Pay Now</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
         </div>
       )}
