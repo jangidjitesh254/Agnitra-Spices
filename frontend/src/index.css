@@ -3272,21 +3272,25 @@ img {
 /* ==========================================================================
    Account & User Profile Management Hub
    ========================================================================== */
+/* ==========================================================================
+   Account & User Profile Management Hub (Royal Botanical Theme)
+   ========================================================================== */
 .account-page {
   padding: 40px 0 80px 0;
 }
 
 .account-user-card {
-  background: linear-gradient(135deg, #ffffff 0%, #f8f4ec 100%);
-  border: 1.5px solid rgba(229, 223, 210, 0.95);
+  background: linear-gradient(135deg, #1b2e13 0%, #293f1f 100%);
+  border: 1.5px solid #d4af37;
   border-radius: 24px;
   padding: 28px 32px;
   display: flex;
   align-items: center;
   gap: 24px;
   margin-bottom: 30px;
-  box-shadow: 0 10px 30px rgba(37, 29, 24, 0.06);
+  box-shadow: 0 14px 40px rgba(27, 46, 19, 0.25);
   position: relative;
+  color: #ffffff;
 }
 
 .account-avatar-wrapper {
@@ -3294,19 +3298,19 @@ img {
 }
 
 .account-avatar-circle {
-  width: 72px;
-  height: 72px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-red) 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #2b3e1b 0%, #172611 100%);
+  color: #f7e6a1;
   font-family: var(--font-title);
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 20px rgba(189, 89, 60, 0.3);
-  border: 3px solid #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  border: 3px solid #d4af37;
 }
 
 .account-user-info {
@@ -3323,25 +3327,29 @@ img {
 
 .account-user-name {
   font-family: var(--font-title);
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   font-weight: 800;
-  color: #1a2813;
+  color: #ffffff;
   margin: 0;
 }
 
 .account-vip-badge {
-  background-color: rgba(62, 80, 37, 0.12);
-  color: var(--accent-green);
+  background: linear-gradient(135deg, #d4af37 0%, #b89228 100%);
+  color: #1b2e13;
   font-size: 0.78rem;
-  font-weight: 700;
-  padding: 4px 12px;
+  font-weight: 800;
+  padding: 4px 14px;
   border-radius: 50px;
-  border: 1px solid rgba(62, 80, 37, 0.2);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
 }
 
 .account-user-contact {
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: #d8ceba;
   margin-bottom: 4px;
   display: flex;
   align-items: center;
@@ -3350,50 +3358,52 @@ img {
 }
 
 .dot-sep {
-  color: #c0b5a5;
+  color: #8a7c66;
 }
 
 .account-user-location {
   font-size: 0.88rem;
-  color: #5c4e43;
+  color: #e5ded2;
   font-weight: 500;
 }
 
 .account-stats-group {
   display: flex;
-  gap: 16px;
+  gap: 14px;
   flex-shrink: 0;
 }
 
 .stat-box {
-  background: #ffffff;
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(212, 175, 55, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 16px;
   padding: 12px 20px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .stat-num {
   font-family: var(--font-title);
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  color: var(--accent-orange);
+  color: #f7e6a1;
   display: block;
 }
 
 .stat-label {
   font-size: 0.75rem;
-  color: var(--text-secondary);
+  color: #d8ceba;
   font-weight: 600;
 }
 
-/* Tab Pills */
+/* Tab Pills Navigation */
 .account-tab-pills {
   display: flex;
   gap: 12px;
   margin-bottom: 30px;
-  border-bottom: 1.5px solid rgba(229, 223, 210, 0.9);
+  border-bottom: 1.5px solid rgba(229, 223, 210, 0.95);
   padding-bottom: 12px;
 }
 
@@ -3402,35 +3412,36 @@ img {
   align-items: center;
   gap: 8px;
   background: transparent;
-  border: none;
+  border: 1.5px solid transparent;
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--text-secondary);
-  padding: 10px 20px;
+  color: #4a5d3b;
+  padding: 10px 22px;
   border-radius: 50px;
   cursor: pointer;
   transition: var(--transition-fast);
 }
 
 .account-tab-btn:hover {
-  color: var(--accent-orange);
-  background-color: rgba(189, 89, 60, 0.06);
+  color: #1b2e13;
+  background-color: rgba(212, 175, 55, 0.12);
 }
 
 .account-tab-btn.active {
-  background-color: var(--accent-green);
-  color: #ffffff;
-  box-shadow: 0 6px 16px rgba(35, 52, 24, 0.25);
+  background: linear-gradient(135deg, #1b2e13 0%, #293f1f 100%);
+  color: #d4af37;
+  border-color: #d4af37;
+  box-shadow: 0 6px 18px rgba(27, 46, 19, 0.3);
 }
 
 /* Profile Form Card Box */
 .account-card-box {
   background: #ffffff;
-  border: 1.5px solid var(--border-color);
+  border: 1.5px solid rgba(229, 223, 210, 0.95);
   border-radius: 24px;
   padding: 32px;
-  box-shadow: var(--card-shadow);
+  box-shadow: 0 10px 30px rgba(37, 29, 24, 0.04);
 }
 
 .account-card-header {
@@ -3452,8 +3463,8 @@ img {
 
 .profile-save-toast {
   background-color: #edf7ed;
-  border: 1.5px solid #66bb6a;
-  color: #1e4620;
+  border: 1.5px solid #365227;
+  color: #1b2e13;
   padding: 12px 20px;
   border-radius: 14px;
   display: flex;
@@ -3476,8 +3487,8 @@ img {
 
 .account-input {
   width: 100%;
-  background-color: #f7f3ea;
-  border: 1.5px solid rgba(229, 223, 210, 0.9);
+  background-color: #faf6f0;
+  border: 1.5px solid rgba(229, 223, 210, 0.95);
   border-radius: 12px;
   padding: 12px 16px;
   font-size: 0.92rem;
@@ -3487,22 +3498,35 @@ img {
 }
 
 .account-input:focus {
-  border-color: var(--accent-orange);
+  border-color: #d4af37;
   background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(189, 89, 60, 0.12);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
 }
 
 .btn-save-profile {
-  padding: 14px 36px;
-  font-size: 0.95rem;
-  font-weight: 700;
+  background: linear-gradient(135deg, #d4af37 0%, #b89228 100%);
+  color: #1b2e13;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.98rem;
+  padding: 14px 40px;
   border-radius: 50px;
+  border: none;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-save-profile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.45);
+  background: linear-gradient(135deg, #e6be44 0%, #c49b2c 100%);
 }
 
 /* Location Selection Bar & GPS Fetcher */
 .location-options-bar {
-  background: linear-gradient(135deg, #f8f4ec 0%, #efe7d8 100%);
-  border: 1.5px solid rgba(229, 223, 210, 0.95);
+  background: linear-gradient(135deg, #faf6f0 0%, #f0e8d5 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.35);
   border-radius: 16px;
   padding: 16px 20px;
   display: flex;
@@ -3530,23 +3554,23 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background-color: var(--accent-orange);
-  color: #ffffff;
-  border: none;
+  background: linear-gradient(135deg, #2b3e1b 0%, #1b2a12 100%);
+  color: #d4af37;
+  border: 1.5px solid #d4af37;
   padding: 10px 20px;
   border-radius: 50px;
   font-weight: 700;
   font-size: 0.85rem;
   cursor: pointer;
   transition: var(--transition-fast);
-  box-shadow: 0 4px 12px rgba(189, 89, 60, 0.25);
+  box-shadow: 0 4px 14px rgba(43, 62, 27, 0.25);
   flex-shrink: 0;
 }
 
 .btn-fetch-gps:hover:not(:disabled) {
-  background-color: var(--accent-red);
+  background: linear-gradient(135deg, #365227 0%, #233719 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(189, 89, 60, 0.35);
+  box-shadow: 0 6px 18px rgba(43, 62, 27, 0.35);
 }
 
 .btn-fetch-gps:disabled {
@@ -3554,38 +3578,15 @@ img {
   cursor: wait;
 }
 
-.mini-spinner {
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #ffffff;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  display: inline-block;
-}
-
 .location-error-banner {
-  background-color: #fff3e0;
-  border: 1px solid #ffe0b2;
-  color: #e65100;
+  background-color: #fdf3f2;
+  border: 1px solid #e0b2b0;
+  color: #721c24;
   padding: 10px 16px;
   border-radius: 12px;
   font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 12px;
-}
-
-@media (max-width: 600px) {
-  .location-options-bar {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
-    gap: 12px;
-  }
-  .btn-fetch-gps {
-    justify-content: center;
-    width: 100%;
-  }
 }
 
 /* Orders Styling Tweaks */
@@ -3603,7 +3604,7 @@ img {
   height: 48px;
   object-fit: contain;
   border-radius: 8px;
-  background-color: #f8f4ec;
+  background-color: #ffffff;
   border: 1px solid var(--border-color);
   padding: 4px;
 }
@@ -3644,48 +3645,84 @@ img {
   line-height: 1.4;
 }
 
-  @media (max-width: 768px) {
-    .account-user-card {
-      flex-direction: column;
-      text-align: center;
-      padding: 22px 16px;
-      gap: 16px;
-    }
-    .account-name-row {
-      justify-content: center;
-    }
-    .account-user-contact {
-      justify-content: center;
-      word-break: break-word;
-    }
-    .account-user-location {
-      word-break: break-word;
-    }
-    .account-form-grid {
-      grid-template-columns: 1fr;
-    }
-    .account-form-grid .full-width {
-      grid-column: span 1;
-    }
-    .account-tab-pills {
-      display: flex;
-      flex-direction: row;
-      gap: 8px;
-    }
-    .account-tab-btn {
-      flex: 1;
-      justify-content: center;
-      padding: 10px 8px;
-      font-size: 0.82rem;
-    }
-    .account-card-box {
-      padding: 20px 16px;
-      border-radius: 18px;
-    }
-    .account-input, .form-input {
-      font-size: 16px !important; /* Prevents auto-zoom on iOS Safari */
-    }
+/* Status Classes */
+.status-processing {
+  background: rgba(43, 62, 27, 0.12);
+  color: #2b3e1b;
+  border: 1px solid rgba(43, 62, 27, 0.25);
+}
+
+.status-aroma-locked {
+  background: rgba(212, 175, 55, 0.15);
+  color: #8c6f14;
+  border: 1px solid #d4af37;
+}
+
+.status-shipped {
+  background: rgba(27, 46, 19, 0.15);
+  color: #1b2e13;
+  border: 1px solid #2b3e1b;
+}
+
+/* Responsiveness across Mobile & Desktop */
+@media (max-width: 768px) {
+  .account-user-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 18px;
+    gap: 16px;
   }
+  .account-name-row {
+    justify-content: center;
+  }
+  .account-user-contact {
+    justify-content: center;
+    word-break: break-word;
+  }
+  .account-user-location {
+    word-break: break-word;
+  }
+  .account-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .account-form-grid .full-width {
+    grid-column: span 1;
+  }
+  .account-tab-pills {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+  .account-tab-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 8px;
+    font-size: 0.82rem;
+  }
+  .account-card-box {
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+  .account-input {
+    font-size: 16px !important; /* Prevents auto-zoom on iOS Safari */
+  }
+}
+
+@media (max-width: 600px) {
+  .location-options-bar {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 12px;
+  }
+  .btn-fetch-gps {
+    justify-content: center;
+    width: 100%;
+  }
+  .btn-save-profile {
+    width: 100%;
+  }
+}
 
 /* ==========================================================================
    Shopping Cart Layout & Mobile Responsiveness System

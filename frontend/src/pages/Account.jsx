@@ -152,7 +152,7 @@ function Account({ orders, navigateTo }) {
 
   return (
     <div className="account-page section">
-      <div className="container" style={{ maxWidth: '950px' }}>
+      <div className="container" style={{ maxWidth: '980px' }}>
         
         {/* User Profile Header Card */}
         <div className="account-user-card animate-fade-in">
@@ -163,7 +163,10 @@ function Account({ orders, navigateTo }) {
           <div className="account-user-info">
             <div className="account-name-row">
               <h1 className="account-user-name">{profile.name}</h1>
-              <span className="account-vip-badge">Agnitra VIP Member</span>
+              <span className="account-vip-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                Agnitra VIP Member
+              </span>
             </div>
             <p className="account-user-contact">
               <span>
@@ -178,7 +181,7 @@ function Account({ orders, navigateTo }) {
             </p>
             <p className="account-user-location">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ verticalAlign: 'middle', marginRight: '4px' }}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="12" r="3"/></svg>
-              {profile.address ? `${profile.address}, ${profile.city}` : 'No address set'}
+              {profile.address ? `${profile.address}, ${profile.city}` : 'No primary address configured'}
             </p>
           </div>
 
@@ -186,6 +189,10 @@ function Account({ orders, navigateTo }) {
             <div className="stat-box">
               <span className="stat-num">{orders.length}</span>
               <span className="stat-label">Total Orders</span>
+            </div>
+            <div className="stat-box">
+              <span className="stat-num" style={{ color: '#d4af37' }}>100%</span>
+              <span className="stat-label">Aroma Lock</span>
             </div>
           </div>
         </div>
@@ -214,14 +221,14 @@ function Account({ orders, navigateTo }) {
           <div className="account-tab-content animate-fade-in">
             <div className="account-card-box">
               <div className="account-card-header">
-                <h2 className="account-card-title">Edit Personal & Location Details</h2>
-                <p className="account-card-desc">Update your name, contact information, and primary shipping destination.</p>
+                <h2 className="account-card-title">Personal & Shipping Destination</h2>
+                <p className="account-card-desc">Update your profile details and primary address for fast 1-click checkout.</p>
               </div>
 
               {saveSuccess && (
                 <div className="profile-save-toast animate-fade-in">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                  <span>Profile and location details updated successfully!</span>
+                  <span>Profile and delivery address updated successfully!</span>
                 </div>
               )}
 
@@ -252,7 +259,7 @@ function Account({ orders, navigateTo }) {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group full-width">
                   <label className="form-label">Phone Number</label>
                   <input 
                     type="tel"
@@ -268,8 +275,8 @@ function Account({ orders, navigateTo }) {
                 {/* Location Detection Bar */}
                 <div className="location-options-bar full-width">
                   <div className="location-bar-header">
-                    <span className="location-bar-title">Delivery Address Selection</span>
-                    <span className="location-bar-subtitle">Fetch via GPS or write manually below</span>
+                    <span className="location-bar-title">GPS Delivery Address Detection</span>
+                    <span className="location-bar-subtitle">Auto-fill street name, city, and pincode via GPS</span>
                   </div>
                   <button 
                     type="button" 
@@ -299,8 +306,8 @@ function Account({ orders, navigateTo }) {
 
                 <div className="form-group full-width">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                    <label className="form-label" style={{ margin: 0 }}>Delivery Street Address / Location</label>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--accent-orange)', fontWeight: 600 }}>✍️ Write Manually or Auto-Filled</span>
+                    <label className="form-label" style={{ margin: 0 }}>Delivery Street Address</label>
+                    <span style={{ fontSize: '0.78rem', color: '#2b3e1b', fontWeight: 700 }}>✍️ Write Manually or Auto-Filled</span>
                   </div>
                   <input 
                     type="text"
@@ -313,33 +320,7 @@ function Account({ orders, navigateTo }) {
                   />
                 </div>
 
-                <div className="form-group">
-                  <label className="form-label">City</label>
-                  <input 
-                    type="text"
-                    name="city"
-                    value={profile.city}
-                    onChange={handleInputChange}
-                    placeholder="City / District"
-                    className="account-input"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">State</label>
-                  <input 
-                    type="text"
-                    name="state"
-                    value={profile.state}
-                    onChange={handleInputChange}
-                    placeholder="State"
-                    className="account-input"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
+                <div className="form-group full-width">
                   <label className="form-label">Pincode / Zip Code</label>
                   <input 
                     type="text"
@@ -353,8 +334,8 @@ function Account({ orders, navigateTo }) {
                 </div>
 
                 <div className="form-submit-row full-width">
-                  <button type="submit" className="btn btn-designer-green btn-save-profile">
-                    Save Profile Details
+                  <button type="submit" className="btn btn-save-profile">
+                    Save Profile & Address Details
                   </button>
                 </div>
               </form>
@@ -367,10 +348,10 @@ function Account({ orders, navigateTo }) {
           <div className="account-tab-content animate-fade-in">
             {orders.length === 0 ? (
               <div className="empty-state account-card-box">
-                <span className="empty-icon">📦</span>
-                <h3 className="empty-title">No Orders Placed Yet</h3>
-                <p className="empty-desc">Once you place an order, you can track its packing and aroma-lock status here.</p>
-                <button className="btn btn-designer-green" onClick={() => navigateTo('shop')} style={{ marginTop: '16px' }}>
+                <span className="empty-icon" style={{ fontSize: '3rem' }}>📦</span>
+                <h3 className="empty-title" style={{ fontFamily: 'var(--font-title)', fontSize: '1.4rem', color: '#1b2e13', margin: '12px 0 6px 0' }}>No Orders Placed Yet</h3>
+                <p className="empty-desc" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Once you place an order, you can track its packing and aroma-lock status here.</p>
+                <button className="btn btn-save-profile" onClick={() => navigateTo('shop')} style={{ marginTop: '20px', display: 'inline-flex', width: 'auto', padding: '12px 28px' }}>
                   Explore Spices Shop
                 </button>
               </div>
@@ -380,8 +361,8 @@ function Account({ orders, navigateTo }) {
                   <div key={order.orderId} className="order-card animate-fade-in">
                     <div className="order-header">
                       <div>
-                        <span className="order-meta-label">Order ID</span>
-                        <span className="order-id">{order.orderId}</span>
+                        <span className="order-meta-label">Order Reference</span>
+                        <span className="order-id">#{order.orderId}</span>
                       </div>
                       <div>
                         <span className="order-meta-label">Placed On</span>
@@ -394,7 +375,7 @@ function Account({ orders, navigateTo }) {
                         })}</span>
                       </div>
                       <div>
-                        <span className="order-meta-label">Aroma Status</span>
+                        <span className="order-meta-label">Aroma Lock Status</span>
                         <span className={`order-status-badge ${getStatusClass(order.status)}`}>
                           {getStatusText(order.status)}
                         </span>
@@ -430,7 +411,7 @@ function Account({ orders, navigateTo }) {
 
                     {/* Order Total */}
                     <div className="order-total-row">
-                      <span className="total-label">Grand Total</span>
+                      <span className="total-label">Grand Total Paid</span>
                       <span className="total-price">₹{order.totalAmount}</span>
                     </div>
                   </div>
