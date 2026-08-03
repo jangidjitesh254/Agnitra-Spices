@@ -3273,11 +3273,477 @@ img {
    Account & User Profile Management Hub
    ========================================================================== */
 /* ==========================================================================
-   Account & User Profile Management Hub (Royal Botanical Theme)
+   Exact Agnitra Profile Hub Layout (Matching Uploaded Screenshot)
    ========================================================================== */
-/* ==========================================================================
-   Mockup-Inspired Profile Hub Component
-   ========================================================================== */
+.agnitra-profile-wrapper {
+  background-color: #f7f4ee;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 16px 45px rgba(37, 29, 24, 0.08);
+  border: 1.5px solid rgba(229, 223, 210, 0.95);
+  margin-bottom: 30px;
+}
+
+/* 1. Deep Botanical Header Card */
+.agnitra-hero-header {
+  background: linear-gradient(180deg, #182c12 0%, #293f1f 100%);
+  color: #ffffff;
+  padding: 24px 20px 30px 20px;
+  border-radius: 0 0 28px 28px;
+  position: relative;
+}
+
+.agnitra-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.agnitra-brand-name {
+  font-family: var(--font-title);
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.agnitra-brand-tagline {
+  font-size: 0.65rem;
+  color: #d4af37;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.agnitra-settings-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.agnitra-settings-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: rotate(45deg);
+}
+
+.agnitra-profile-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.agnitra-avatar-box {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.agnitra-avatar-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #d4af37;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+.agnitra-avatar-monogram {
+  font-family: var(--font-title);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1b2e13;
+}
+
+.agnitra-check-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #22c55e;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #182c12;
+}
+
+.agnitra-profile-meta {
+  flex: 1;
+}
+
+.agnitra-title-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+
+.agnitra-user-title {
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.agnitra-verified-tag {
+  background: linear-gradient(135deg, #d4af37 0%, #b89228 100%);
+  color: #1b2e13;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 50px;
+}
+
+.agnitra-user-subtitle {
+  font-size: 0.8rem;
+  color: #d8ceba;
+  margin: 0;
+}
+
+/* 3 Column Statistics Bar */
+.agnitra-stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.agnitra-stat-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.agnitra-stat-value {
+  font-family: var(--font-title);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.agnitra-stat-label {
+  font-size: 0.72rem;
+  color: #d8ceba;
+  font-weight: 500;
+}
+
+.agnitra-stat-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 2. Floating White Trust Card (4 Columns) */
+.agnitra-trust-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 16px 10px;
+  margin: -18px 16px 20px 16px;
+  border: 1px solid rgba(229, 223, 210, 0.95);
+  box-shadow: 0 10px 28px rgba(37, 29, 24, 0.06);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+  position: relative;
+  z-index: 5;
+}
+
+.trust-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.trust-icon {
+  font-size: 1.4rem;
+  margin-bottom: 2px;
+}
+
+.trust-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #1b2e13;
+  line-height: 1.2;
+}
+
+/* 3. My Orders Section */
+.agnitra-orders-section {
+  padding: 0 16px 20px 16px;
+}
+
+.agnitra-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.agnitra-section-title {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #1b2e13;
+  margin: 0;
+}
+
+.agnitra-view-all-btn {
+  background: transparent;
+  border: none;
+  color: #1b2e13;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.agnitra-orders-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.order-status-card {
+  background: #ffffff;
+  border: 1px solid rgba(229, 223, 210, 0.95);
+  border-radius: 18px;
+  padding: 14px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.order-status-card:hover {
+  transform: translateY(-3px);
+  border-color: #2b3e1b;
+  box-shadow: 0 6px 18px rgba(37, 29, 24, 0.06);
+}
+
+.order-status-icon-box {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: #f4f8f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-badge-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #eab308;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 900;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+}
+
+.order-status-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1b2e13;
+}
+
+/* 4. Divided Menu Card Container */
+.agnitra-menu-card {
+  background: #ffffff;
+  border-radius: 22px;
+  margin: 0 16px 20px 16px;
+  border: 1px solid rgba(229, 223, 210, 0.95);
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(37, 29, 24, 0.04);
+}
+
+.agnitra-menu-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: #ffffff;
+  border: none;
+  border-bottom: 1px solid #f4efe6;
+  cursor: pointer;
+  text-align: left;
+  transition: var(--transition-fast);
+}
+
+.agnitra-menu-row:last-child {
+  border-bottom: none;
+}
+
+.agnitra-menu-row:hover {
+  background-color: #faf6f0;
+}
+
+.menu-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.green-soft {
+  background-color: #eff5ea;
+}
+
+.menu-row-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-row-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1b2e13;
+}
+
+.menu-row-sub {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.menu-row-arrow {
+  font-size: 1.4rem;
+  color: #c4b8a5;
+  font-weight: 400;
+}
+
+/* 5. "Why Agnitra?" Promo Banner */
+.agnitra-why-banner {
+  background: linear-gradient(135deg, #dce8d3 0%, #cce0bf 100%);
+  border-radius: 22px;
+  margin: 0 16px 20px 16px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  border: 1px solid rgba(43, 62, 27, 0.15);
+  transition: var(--transition-fast);
+}
+
+.agnitra-why-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(43, 62, 27, 0.12);
+}
+
+.why-mortar-icon {
+  font-size: 2.2rem;
+}
+
+.why-banner-content {
+  flex: 1;
+}
+
+.why-banner-title {
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1b2e13;
+  margin: 0 0 2px 0;
+}
+
+.why-banner-sub {
+  font-size: 0.76rem;
+  color: #365227;
+  font-weight: 600;
+  margin: 0;
+}
+
+.why-banner-arrow {
+  font-size: 1.4rem;
+  color: #1b2e13;
+  font-weight: 700;
+}
+
+/* 6. Logout Row */
+.agnitra-logout-row {
+  padding: 0 16px 24px 16px;
+}
+
+.btn-agnitra-logout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  border: 1.5px solid #a85848;
+  color: #a85848;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 14px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-agnitra-logout:hover {
+  background-color: #fdf3f2;
+}
+
+.btn-back-dashboard {
+  appearance: none;
+  background: #faf6f0;
+  border: 1.5px solid rgba(229, 223, 210, 0.95);
+  color: #1b2e13;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  margin-bottom: 16px;
+}
+
+.btn-back-dashboard:hover {
+  background: #1b2e13;
+  color: #ffffff;
+}
 .profile-hero-card {
   background: #ffffff;
   border-radius: 28px;

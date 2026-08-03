@@ -145,253 +145,283 @@ function Account({ orders, navigateTo }) {
     }
   };
 
-  // Get user initials for avatar
-  const initials = profile.name
-    ? profile.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
-    : 'AS';
-
-  // Order filter state for orders tab
-  const [orderFilter, setOrderFilter] = useState('all'); // 'all', 'delivered', 'processing'
+  const [currentView, setCurrentView] = useState('dashboard');
+  const [orderFilter, setOrderFilter] = useState('all'); 
   const [expandedOrderId, setExpandedOrderId] = useState(null);
 
   const filteredOrders = orders.filter(order => {
-    if (orderFilter === 'delivered') return order.status?.toLowerCase() === 'delivered' || order.status?.toLowerCase() === 'shipped';
-    if (orderFilter === 'processing') return order.status?.toLowerCase() === 'processing' || !order.status;
+    const status = order.status?.toLowerCase() || 'pending';
+    if (orderFilter === 'pending') return status === 'pending' || status === 'processing';
+    if (orderFilter === 'processing') return status === 'processing' || status === 'aroma-locked' || status === 'aroma-sealed';
+    if (orderFilter === 'shipped') return status === 'shipped';
+    if (orderFilter === 'delivered') return status === 'delivered';
     return true;
   });
 
   return (
     <div className="account-page section">
-      <div className="container" style={{ maxWidth: '820px' }}>
-        
-        {/* Mockup-Inspired Hero Profile Card with Organic Curved Wave Header */}
-        <div className="profile-hero-card animate-fade-in">
-          <div className="profile-banner-bg">
-            <div className="profile-banner-wave">
-              <svg viewBox="0 0 500 150" preserveAspectRatio="none" style={{ height: '100%', width: '100%' }}>
-                <path d="M0.00,49.98 C160.27,140.00 320.80,-20.00 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" fill="#ffffff"></path>
-              </svg>
-            </div>
-          </div>
+      <div className="container" style={{ maxWidth: '640px', padding: '0 12px' }}>
 
-          <div className="profile-hero-content">
-            <div className="profile-avatar-container">
-              <div className="profile-avatar-ring">
-                <span className="profile-avatar-text">{initials}</span>
+        {currentView === 'dashboard' && (
+          <div className="agnitra-profile-wrapper animate-fade-in">
+            
+            <div className="agnitra-hero-header">
+              <div className="agnitra-header-bar">
+                <div className="agnitra-header-logo-group">
+                  <div className="agnitra-brand-name">Agnitra</div>
+                  <div className="agnitra-brand-tagline">Pure. Natural. Authentic.</div>
+                </div>
+                <button 
+                  type="button" 
+                  className="agnitra-settings-btn"
+                  onClick={() => setCurrentView('profile_edit')}
+                  title="Settings"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
               </div>
+
+              <div className="agnitra-profile-row">
+                <div className="agnitra-avatar-box">
+                  <div className="agnitra-avatar-circle">
+                    <span className="agnitra-avatar-monogram">A</span>
+                  </div>
+                  <span className="agnitra-check-badge">✓</span>
+                </div>
+
+                <div className="agnitra-profile-meta">
+                  <div className="agnitra-title-badge-row">
+                    <h1 className="agnitra-user-title">{profile.name}</h1>
+                    <span className="agnitra-verified-tag">✓ Verified Brand</span>
+                  </div>
+                  <p className="agnitra-user-subtitle">Authentic Spices. Healthy Life.</p>
+                </div>
+              </div>
+
+              <div className="agnitra-stats-bar">
+                <div className="agnitra-stat-col">
+                  <span className="agnitra-stat-value">12</span>
+                  <span className="agnitra-stat-label">Products</span>
+                </div>
+                <div className="agnitra-stat-divider"></div>
+                <div className="agnitra-stat-col">
+                  <span className="agnitra-stat-value">4.8 ★</span>
+                  <span className="agnitra-stat-label">Rating</span>
+                </div>
+                <div className="agnitra-stat-divider"></div>
+                <div className="agnitra-stat-col">
+                  <span className="agnitra-stat-value">2.4K</span>
+                  <span className="agnitra-stat-label">Happy Customers</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="agnitra-trust-card">
+              <div className="trust-col">
+                <div className="trust-icon">🍃</div>
+                <span className="trust-label">Pure &amp;<br/>Natural</span>
+              </div>
+              <div className="trust-col">
+                <div className="trust-icon">🧪</div>
+                <span className="trust-label">No<br/>Additives</span>
+              </div>
+              <div className="trust-col">
+                <div className="trust-icon">🚚</div>
+                <span className="trust-label">Freshly<br/>Packed</span>
+              </div>
+              <div className="trust-col">
+                <div className="trust-icon">💖</div>
+                <span className="trust-label">Healthy<br/>Choices</span>
+              </div>
+            </div>
+
+            <div className="agnitra-orders-section">
+              <div className="agnitra-section-header">
+                <h3 className="agnitra-section-title">My Orders</h3>
+                <button 
+                  type="button" 
+                  className="agnitra-view-all-btn"
+                  onClick={() => { setCurrentView('orders'); setOrderFilter('all'); }}
+                >
+                  View All →
+                </button>
+              </div>
+
+              <div className="agnitra-orders-grid">
+                <button 
+                  type="button" 
+                  className="order-status-card"
+                  onClick={() => { setCurrentView('orders'); setOrderFilter('pending'); }}
+                >
+                  <div className="order-status-icon-box">
+                    <span className="status-badge-count">{orders.length || 1}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2b3e1b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" x2="12" y1="22.08" y2="12"/></svg>
+                  </div>
+                  <span className="order-status-label">Pending</span>
+                </button>
+
+                <button 
+                  type="button" 
+                  className="order-status-card"
+                  onClick={() => { setCurrentView('orders'); setOrderFilter('processing'); }}
+                >
+                  <div className="order-status-icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2b3e1b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="16" height="13" x="1" y="3" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                  </div>
+                  <span className="order-status-label">Processing</span>
+                </button>
+
+                <button 
+                  type="button" 
+                  className="order-status-card"
+                  onClick={() => { setCurrentView('orders'); setOrderFilter('shipped'); }}
+                >
+                  <div className="order-status-icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2b3e1b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+                  </div>
+                  <span className="order-status-label">Shipped</span>
+                </button>
+
+                <button 
+                  type="button" 
+                  className="order-status-card"
+                  onClick={() => { setCurrentView('orders'); setOrderFilter('delivered'); }}
+                >
+                  <div className="order-status-icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2b3e1b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  </div>
+                  <span className="order-status-label">Delivered</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="agnitra-menu-card">
               <button 
                 type="button" 
-                className="avatar-edit-badge" 
-                title="Update Profile Avatar"
-                onClick={() => setActiveTab('profile')}
+                className="agnitra-menu-row"
+                onClick={() => setCurrentView('profile_edit')}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                <div className="menu-icon-circle green-soft">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b3e1b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <div className="menu-row-info">
+                  <span className="menu-row-title">My Profile</span>
+                  <span className="menu-row-sub">Manage your personal details</span>
+                </div>
+                <span className="menu-row-arrow">›</span>
+              </button>
+
+              <button 
+                type="button" 
+                className="agnitra-menu-row"
+                onClick={() => setCurrentView('address_edit')}
+              >
+                <div className="menu-icon-circle green-soft">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b3e1b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
+                <div className="menu-row-info">
+                  <span className="menu-row-title">My Addresses</span>
+                  <span className="menu-row-sub">{profile.address ? `${profile.address}, ${profile.city}` : 'Delivery locations'}</span>
+                </div>
+                <span className="menu-row-arrow">›</span>
+              </button>
+
+              <button 
+                type="button" 
+                className="agnitra-menu-row"
+                onClick={() => navigateTo('cart')}
+              >
+                <div className="menu-icon-circle green-soft">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b3e1b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                </div>
+                <div className="menu-row-info">
+                  <span className="menu-row-title">Payment Methods</span>
+                  <span className="menu-row-sub">Secure &amp; easy payments</span>
+                </div>
+                <span className="menu-row-arrow">›</span>
+              </button>
+
+              <button 
+                type="button" 
+                className="agnitra-menu-row"
+                onClick={() => navigateTo('about')}
+              >
+                <div className="menu-icon-circle green-soft">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b3e1b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="16" y2="12"/><line x1="12" x2="12.01" y1="8" y2="8"/></svg>
+                </div>
+                <div className="menu-row-info">
+                  <span className="menu-row-title">About Agnitra</span>
+                  <span className="menu-row-sub">Our story, mission &amp; quality</span>
+                </div>
+                <span className="menu-row-arrow">›</span>
               </button>
             </div>
 
-            <h1 className="profile-user-title">{profile.name}</h1>
-            <p className="profile-user-subtitle">Agnitra VIP Connoisseur</p>
-            
-            <div className="profile-contact-chips">
-              <span className="chip-item">✉️ {profile.email}</span>
-              <span className="chip-item">📞 {profile.phone}</span>
-              <span className="chip-item">📍 {profile.city || 'Jaipur'}</span>
+            <div className="agnitra-why-banner" onClick={() => navigateTo('about')}>
+              <div className="why-banner-left">
+                <div className="why-mortar-icon">🥣</div>
+              </div>
+              <div className="why-banner-content">
+                <h4 className="why-banner-title">Why Agnitra?</h4>
+                <p className="why-banner-sub">100% Pure • Naturally Sourced • Traditionally Ground</p>
+              </div>
+              <span className="why-banner-arrow">›</span>
             </div>
+
+            <div className="agnitra-logout-row">
+              <button type="button" className="btn-agnitra-logout" onClick={() => navigateTo('home')}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                <span>Logout</span>
+              </button>
+            </div>
+
           </div>
+        )}
 
-          {/* Quick Action Category Grid (Inspired by mockup 3x2 grid) */}
-          <div className="profile-quick-grid">
-            <button 
-              type="button" 
-              className={`quick-tile ${activeTab === 'orders' && orderFilter === 'all' ? 'active-tile' : ''}`}
-              onClick={() => { setActiveTab('orders'); setOrderFilter('all'); }}
-            >
-              <div className="tile-icon-box tile-blue">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-              </div>
-              <span className="tile-label">My Orders</span>
-              <span className="tile-badge-count">{orders.length}</span>
-            </button>
-
-            <button 
-              type="button" 
-              className={`quick-tile ${activeTab === 'orders' && orderFilter === 'delivered' ? 'active-tile' : ''}`}
-              onClick={() => { setActiveTab('orders'); setOrderFilter('delivered'); }}
-            >
-              <div className="tile-icon-box tile-yellow">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-2.3-2.76a1 1 0 0 0-.77-.37H16v6h3Z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
-              </div>
-              <span className="tile-label">Delivered</span>
-              <span className="tile-badge-count">
-                {orders.filter(o => o.status?.toLowerCase() === 'delivered' || o.status?.toLowerCase() === 'shipped').length}
-              </span>
-            </button>
-
-            <button 
-              type="button" 
-              className={`quick-tile ${activeTab === 'orders' && orderFilter === 'processing' ? 'active-tile' : ''}`}
-              onClick={() => { setActiveTab('orders'); setOrderFilter('processing'); }}
-            >
-              <div className="tile-icon-box tile-pink">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="M2 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="M12 22v-4"/><path d="m19.07 19.07-2.83-2.83"/><path d="M22 12h-4"/><path d="m19.07 4.93-2.83 2.83"/></svg>
-              </div>
-              <span className="tile-label">Processing</span>
-              <span className="tile-badge-count">
-                {orders.filter(o => o.status?.toLowerCase() === 'processing' || !o.status).length}
-              </span>
-            </button>
-
-            <button 
-              type="button" 
-              className={`quick-tile ${activeTab === 'profile' ? 'active-tile' : ''}`}
-              onClick={() => setActiveTab('profile')}
-            >
-              <div className="tile-icon-box tile-green">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="12" r="3"/></svg>
-              </div>
-              <span className="tile-label">GPS Address</span>
-            </button>
-
-            <button 
-              type="button" 
-              className="quick-tile"
-              onClick={() => navigateTo('shop')}
-            >
-              <div className="tile-icon-box tile-purple">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-              </div>
-              <span className="tile-label">Explore Spices</span>
-            </button>
-
-            <button 
-              type="button" 
-              className="quick-tile"
-              onClick={() => navigateTo('contact')}
-            >
-              <div className="tile-icon-box tile-purple-light">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg>
-              </div>
-              <span className="tile-label">Customer Care</span>
-            </button>
-          </div>
-
-          {/* Menu Item Cards (Inspired by Mockup List Items) */}
-          <div className="profile-menu-list">
+        {(currentView === 'profile_edit' || currentView === 'address_edit') && (
+          <div className="account-tab-content animate-fade-in">
             <button 
               type="button"
-              className={`menu-list-item ${activeTab === 'profile' ? 'item-active' : ''}`}
-              onClick={() => setActiveTab('profile')}
+              className="btn-back-dashboard"
+              onClick={() => setCurrentView('dashboard')}
             >
-              <div className="menu-item-left">
-                <span className="menu-icon">👤</span>
-                <div className="menu-text">
-                  <span className="menu-title">Edit Profile Details</span>
-                  <span className="menu-subtitle">Update name, phone number, and email address</span>
-                </div>
-              </div>
-              <span className="menu-chevron">›</span>
+              ← Back to Profile Dashboard
             </button>
 
-            <button 
-              type="button"
-              className={`menu-list-item ${activeTab === 'profile' ? 'item-active' : ''}`}
-              onClick={() => setActiveTab('profile')}
-            >
-              <div className="menu-item-left">
-                <span className="menu-icon">📍</span>
-                <div className="menu-text">
-                  <span className="menu-title">Shipping Address & GPS</span>
-                  <span className="menu-subtitle">{profile.address ? `${profile.address}, ${profile.city}` : 'Configure delivery address'}</span>
-                </div>
-              </div>
-              <span className="menu-chevron">›</span>
-            </button>
-
-            <button 
-              type="button"
-              className={`menu-list-item ${activeTab === 'orders' ? 'item-active' : ''}`}
-              onClick={() => { setActiveTab('orders'); setOrderFilter('all'); }}
-            >
-              <div className="menu-item-left">
-                <span className="menu-icon">📦</span>
-                <div className="menu-text">
-                  <span className="menu-title">My Orders History ({orders.length})</span>
-                  <span className="menu-subtitle">View past order receipts & aroma-lock tracking</span>
-                </div>
-              </div>
-              <span className="menu-chevron">›</span>
-            </button>
-          </div>
-        </div>
-
-        {/* TAB 1: Edit Profile & Address */}
-        {activeTab === 'profile' && (
-          <div className="account-tab-content animate-fade-in" style={{ marginTop: '24px' }}>
-            <div className="account-card-box">
+            <div className="account-card-box" style={{ marginTop: '16px' }}>
               <div className="account-card-header">
-                <h2 className="account-card-title">Edit Personal & Location Details</h2>
+                <h2 className="account-card-title">
+                  {currentView === 'address_edit' ? 'Delivery Address & GPS' : 'Edit Personal Profile'}
+                </h2>
                 <p className="account-card-desc">Update your name, contact information, and primary shipping destination.</p>
               </div>
 
               {saveSuccess && (
                 <div className="profile-save-toast animate-fade-in">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                  <span>Profile and delivery address updated successfully!</span>
+                  <span>Profile and location details updated successfully!</span>
                 </div>
               )}
 
               <form onSubmit={handleSaveProfile} className="account-form-grid">
                 <div className="form-group">
                   <label className="form-label">Full Name</label>
-                  <input 
-                    type="text"
-                    name="name"
-                    value={profile.name}
-                    onChange={handleInputChange}
-                    placeholder="Enter your full name"
-                    className="account-input"
-                    required
-                  />
+                  <input type="text" name="name" value={profile.name} onChange={handleInputChange} className="account-input" required />
                 </div>
-
                 <div className="form-group">
                   <label className="form-label">Email Address</label>
-                  <input 
-                    type="email"
-                    name="email"
-                    value={profile.email}
-                    onChange={handleInputChange}
-                    placeholder="Enter email address"
-                    className="account-input"
-                    required
-                  />
+                  <input type="email" name="email" value={profile.email} onChange={handleInputChange} className="account-input" required />
                 </div>
-
                 <div className="form-group full-width">
                   <label className="form-label">Phone Number</label>
-                  <input 
-                    type="tel"
-                    name="phone"
-                    value={profile.phone}
-                    onChange={handleInputChange}
-                    placeholder="Enter mobile number"
-                    className="account-input"
-                    required
-                  />
+                  <input type="tel" name="phone" value={profile.phone} onChange={handleInputChange} className="account-input" required />
                 </div>
-
-                {/* Location Detection Bar */}
                 <div className="location-options-bar full-width">
                   <div className="location-bar-header">
                     <span className="location-bar-title">GPS Delivery Address Detection</span>
                     <span className="location-bar-subtitle">Auto-fill street name, city, and pincode via GPS</span>
                   </div>
-                  <button 
-                    type="button" 
-                    className="btn-fetch-gps"
-                    onClick={handleFetchGPSLocation}
-                    disabled={isLocating}
-                  >
+                  <button type="button" className="btn-fetch-gps" onClick={handleFetchGPSLocation} disabled={isLocating}>
                     {isLocating ? (
                       <>
                         <span className="mini-spinner"></span>
@@ -399,74 +429,31 @@ function Account({ orders, navigateTo }) {
                       </>
                     ) : (
                       <>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s-8-6-8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="12" r="3"/></svg>
                         <span>Fetch Current Location (GPS)</span>
                       </>
                     )}
                   </button>
                 </div>
-
-                {locationError && (
-                  <div className="location-error-banner full-width">
-                    <span>⚠️ {locationError}</span>
-                  </div>
-                )}
-
                 <div className="form-group full-width">
                   <label className="form-label">Delivery Street Address</label>
-                  <input 
-                    type="text"
-                    name="address"
-                    value={profile.address}
-                    onChange={handleInputChange}
-                    placeholder="House/Flat No., Building, Street Name"
-                    className="account-input"
-                    required
-                  />
+                  <input type="text" name="address" value={profile.address} onChange={handleInputChange} className="account-input" required />
                 </div>
-
                 <div className="form-group">
                   <label className="form-label">City</label>
-                  <input 
-                    type="text"
-                    name="city"
-                    value={profile.city}
-                    onChange={handleInputChange}
-                    placeholder="City / District"
-                    className="account-input"
-                    required
-                  />
+                  <input type="text" name="city" value={profile.city} onChange={handleInputChange} className="account-input" required />
                 </div>
-
                 <div className="form-group">
                   <label className="form-label">State</label>
-                  <input 
-                    type="text"
-                    name="state"
-                    value={profile.state}
-                    onChange={handleInputChange}
-                    placeholder="State"
-                    className="account-input"
-                    required
-                  />
+                  <input type="text" name="state" value={profile.state} onChange={handleInputChange} className="account-input" required />
                 </div>
-
                 <div className="form-group full-width">
                   <label className="form-label">Pincode / Zip Code</label>
-                  <input 
-                    type="text"
-                    name="zipCode"
-                    value={profile.zipCode}
-                    onChange={handleInputChange}
-                    placeholder="6-digit pincode"
-                    className="account-input"
-                    required
-                  />
+                  <input type="text" name="zipCode" value={profile.zipCode} onChange={handleInputChange} className="account-input" required />
                 </div>
-
                 <div className="form-submit-row full-width">
                   <button type="submit" className="btn btn-save-profile">
-                    Save Profile & Address Details
+                    Save Profile &amp; Location Details
                   </button>
                 </div>
               </form>
@@ -474,32 +461,18 @@ function Account({ orders, navigateTo }) {
           </div>
         )}
 
-        {/* TAB 2: Orders History (Inspired by mockup My Orders page) */}
-        {activeTab === 'orders' && (
-          <div className="account-tab-content animate-fade-in" style={{ marginTop: '24px' }}>
-            <div className="orders-header-bar">
+        {currentView === 'orders' && (
+          <div className="account-tab-content animate-fade-in">
+            <button type="button" className="btn-back-dashboard" onClick={() => setCurrentView('dashboard')}>
+              ← Back to Profile Dashboard
+            </button>
+            <div className="orders-header-bar" style={{ marginTop: '16px' }}>
               <h2 className="orders-page-title">My Orders</h2>
-              
-              {/* Order Status Filter Pills */}
               <div className="orders-filter-pills">
-                <button 
-                  className={`orders-filter-btn ${orderFilter === 'all' ? 'active-filter' : ''}`}
-                  onClick={() => setOrderFilter('all')}
-                >
-                  All ({orders.length})
-                </button>
-                <button 
-                  className={`orders-filter-btn ${orderFilter === 'delivered' ? 'active-filter' : ''}`}
-                  onClick={() => setOrderFilter('delivered')}
-                >
-                  Delivered
-                </button>
-                <button 
-                  className={`orders-filter-btn ${orderFilter === 'processing' ? 'active-filter' : ''}`}
-                  onClick={() => setOrderFilter('processing')}
-                >
-                  Processing
-                </button>
+                <button className={`orders-filter-btn ${orderFilter === 'all' ? 'active-filter' : ''}`} onClick={() => setOrderFilter('all')}>All ({orders.length})</button>
+                <button className={`orders-filter-btn ${orderFilter === 'pending' ? 'active-filter' : ''}`} onClick={() => setOrderFilter('pending')}>Pending</button>
+                <button className={`orders-filter-btn ${orderFilter === 'shipped' ? 'active-filter' : ''}`} onClick={() => setOrderFilter('shipped')}>Shipped</button>
+                <button className={`orders-filter-btn ${orderFilter === 'delivered' ? 'active-filter' : ''}`} onClick={() => setOrderFilter('delivered')}>Delivered</button>
               </div>
             </div>
 
@@ -507,10 +480,7 @@ function Account({ orders, navigateTo }) {
               <div className="empty-state account-card-box">
                 <span className="empty-icon" style={{ fontSize: '3rem' }}>📦</span>
                 <h3 className="empty-title" style={{ fontFamily: 'var(--font-title)', fontSize: '1.4rem', color: '#1b2e13', margin: '12px 0 6px 0' }}>No Orders Found</h3>
-                <p className="empty-desc" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>No orders match your selected filter.</p>
-                <button className="btn btn-save-profile" onClick={() => navigateTo('shop')} style={{ marginTop: '20px', display: 'inline-flex', width: 'auto', padding: '12px 28px' }}>
-                  Explore Spices Shop
-                </button>
+                <button className="btn btn-save-profile" onClick={() => navigateTo('shop')} style={{ marginTop: '20px', display: 'inline-flex', width: 'auto', padding: '12px 28px' }}>Explore Spices Shop</button>
               </div>
             ) : (
               <div className="orders-list">
@@ -521,11 +491,8 @@ function Account({ orders, navigateTo }) {
                         <span className="mockup-order-no">Order No: #{order.orderId}</span>
                         <span className="mockup-order-date">{new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                       </div>
-                      <span className={`mockup-status-pill ${getStatusClass(order.status)}`}>
-                        {getStatusText(order.status)}
-                      </span>
+                      <span className={`mockup-status-pill ${getStatusClass(order.status)}`}>{getStatusText(order.status)}</span>
                     </div>
-
                     <div className="mockup-order-mid">
                       <p className="mockup-order-meta">
                         <span>Items: <strong>{order.items?.reduce((a, b) => a + (b.quantity || 1), 0) || 1}</strong></span>
@@ -533,22 +500,12 @@ function Account({ orders, navigateTo }) {
                         <span>Total Amount: <strong>₹{order.totalAmount}</strong></span>
                       </p>
                     </div>
-
                     <div className="mockup-order-bottom">
-                      <button 
-                        type="button"
-                        className="btn-mockup-details"
-                        onClick={() => setExpandedOrderId(expandedOrderId === order.orderId ? null : order.orderId)}
-                      >
+                      <button type="button" className="btn-mockup-details" onClick={() => setExpandedOrderId(expandedOrderId === order.orderId ? null : order.orderId)}>
                         {expandedOrderId === order.orderId ? 'Hide Details ▲' : 'Details ▼'}
                       </button>
-
-                      <span className="mockup-tracking-no">
-                        Aroma Sealed & Locked
-                      </span>
+                      <span className="mockup-tracking-no">Aroma Sealed &amp; Locked</span>
                     </div>
-
-                    {/* Expandable Order Details Panel */}
                     {expandedOrderId === order.orderId && (
                       <div className="mockup-expanded-details animate-fade-in">
                         <h4 style={{ fontSize: '0.88rem', color: '#1b2e13', margin: '0 0 10px 0', fontWeight: 700 }}>Packed Spices:</h4>
@@ -564,7 +521,6 @@ function Account({ orders, navigateTo }) {
                             <span className="order-item-price">₹{item.price * item.quantity}</span>
                           </div>
                         ))}
-
                         <div className="order-address-box" style={{ marginTop: '12px', paddingTop: '12px' }}>
                           <p className="order-address-title">📍 Shipping Destination:</p>
                           <p className="order-address-text">{order.customer?.name || profile.name} | {order.customer?.phone || profile.phone}</p>
