@@ -3511,7 +3511,8 @@ img {
 
 /* 3. My Orders Section */
 .agnitra-orders-section {
-  padding: 0 16px 20px 16px;
+  padding: 24px 16px 20px 16px;
+  margin-top: 8px;
 }
 
 .agnitra-section-header {
