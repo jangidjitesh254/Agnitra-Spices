@@ -140,32 +140,62 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
 
       // Extract generated Order ID
       const createdOrder = result.order || {};
-      const orderId = createdOrder.orderId || `AGN-${Math.floor(100000 + Math.random() * 900000)}`;
+      const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      const randNum = Math.floor(1000 + Math.random() * 9000);
+      const formattedOrderId = createdOrder.orderId || `AGN-${todayStr}-${randNum}`;
 
       // Update global app state so order immediately reflects on Admin Dashboard & My Orders
       if (onOrderPlaced) {
         await onOrderPlaced();
       }
 
-      // Build formatted WhatsApp order message
-      const itemsListText = cart
-        .map(item => `• *${item.product.name}* (${item.product.unit || '100g'}) x ${item.quantity} - ₹${item.product.price * item.quantity}`)
-        .join('\n');
+      // Build formatted WhatsApp order message matching professional template
+      const numberEmojis = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
+      const itemsFormattedText = cart.map((item, index) => {
+        const emoji = numberEmojis[index] || `${index + 1}️⃣`;
+        const unit = item.product.unit || '100g';
+        const price = item.product.price;
+        const subtotal = price * item.quantity;
+        return `${emoji} *${item.product.name}* (${unit})\n   Qty: ${item.quantity}\n   Price: ₹${price}\n   Subtotal: ₹${subtotal}`;
+      }).join('\n\n');
+
+      const totalItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
       const whatsappText = 
-`🌶️ *NEW ORDER - AGNITRA SPICES* 🌶️
------------------------------------
-📋 *Order ID:* #${orderId}
-👤 *Customer Name:* ${formData.name}
-📞 *Phone Number:* ${formData.phone}
-${formData.email ? `📧 *Email:* ${formData.email}\n` : ''}
-📦 *ORDERED ITEMS:*
-${itemsListText}
+`🌿 *New Order - Agnitra Spices*
 
-💰 *Total Amount:* ₹${cartTotal}
-🚚 *Delivery Address:* ${formData.address}${formData.city ? `, ${formData.city}` : ''}${formData.zipCode ? ` - ${formData.zipCode}` : ''}
------------------------------------
-*Thank you for choosing Agnitra Pure Traditional Spices!*`;
+🆔 *Order ID:* ${formattedOrderId}
+
+━━━━━━━━━━━━━━━━━━
+
+👤 *Customer Details*
+
+Name: ${formData.name}
+Phone: ${formData.phone}${formData.email ? `\nEmail: ${formData.email}` : ''}
+
+━━━━━━━━━━━━━━━━━━
+
+📦 *Ordered Items*
+
+${itemsFormattedText}
+
+━━━━━━━━━━━━━━━━━━
+
+🛒 *Order Summary*
+
+Total Items: ${totalItemsCount}
+Grand Total: ₹${cartTotal}
+
+━━━━━━━━━━━━━━━━━━
+
+📍 *Delivery Address*
+
+${formData.address}${formData.city ? `,\n${formData.city}` : ''}${formData.zipCode ? ` - ${formData.zipCode}` : ''}
+
+━━━━━━━━━━━━━━━━━━
+
+Thank you! 🌿
+Please confirm my order.`;
 
       const encodedText = encodeURIComponent(whatsappText);
       const whatsappUrl = `https://wa.me/919461839415?text=${encodedText}`;
