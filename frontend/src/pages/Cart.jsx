@@ -123,6 +123,7 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
         totalAmount: cartTotal
       };
 
+      // Save order in backend database (reflects on Admin Dashboard)
       const response = await fetch(`${API_BASE_URL}/orders`, {
         method: 'POST',
         headers: {
@@ -137,9 +138,43 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
         throw new Error(result.error || 'Failed to place order.');
       }
 
-      alert(result.message);
+      // Extract generated Order ID
+      const createdOrder = result.order || {};
+      const orderId = createdOrder.orderId || `AGN-${Math.floor(100000 + Math.random() * 900000)}`;
+
+      // Update global app state so order immediately reflects on Admin Dashboard & My Orders
+      if (onOrderPlaced) {
+        await onOrderPlaced();
+      }
+
+      // Build formatted WhatsApp order message
+      const itemsListText = cart
+        .map(item => `• *${item.product.name}* (${item.product.unit || '100g'}) x ${item.quantity} - ₹${item.product.price * item.quantity}`)
+        .join('\n');
+
+      const whatsappText = 
+`🌶️ *NEW ORDER - AGNITRA SPICES* 🌶️
+-----------------------------------
+📋 *Order ID:* #${orderId}
+👤 *Customer Name:* ${formData.name}
+📞 *Phone Number:* ${formData.phone}
+${formData.email ? `📧 *Email:* ${formData.email}\n` : ''}
+📦 *ORDERED ITEMS:*
+${itemsListText}
+
+💰 *Total Amount:* ₹${cartTotal}
+🚚 *Delivery Address:* ${formData.address}${formData.city ? `, ${formData.city}` : ''}${formData.zipCode ? ` - ${formData.zipCode}` : ''}
+-----------------------------------
+*Thank you for choosing Agnitra Pure Traditional Spices!*`;
+
+      const encodedText = encodeURIComponent(whatsappText);
+      const whatsappUrl = `https://wa.me/919461839415?text=${encodedText}`;
+
+      // Redirect user to Agnitra official WhatsApp
+      window.open(whatsappUrl, '_blank');
+
+      // Clear cart and navigate to tracking page
       clearCart();
-      onOrderPlaced(); // refresh app orders state
       navigateTo('orders');
     } catch (err) {
       console.error('Checkout error:', err);
