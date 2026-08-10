@@ -138,10 +138,6 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
                           {product.name}
                         </h3>
 
-                        <div style={{ marginBottom: '12px' }}>
-                          <span className="product-tech-badge">{product.traditionalMethod || product.traditional_method}</span>
-                        </div>
-
                         <div className="designer-product-bottom-row">
                           <div className="price-tag-group">
                             <span className="designer-product-price">₹{product.price}</span>
