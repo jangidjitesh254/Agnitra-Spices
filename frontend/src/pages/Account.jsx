@@ -128,7 +128,12 @@ function Account({ orders, navigateTo }) {
       setCountdown(30);
     } catch (err) {
       console.error('Send OTP error:', err);
-      if (err.code === 'auth/invalid-app-credential' || err.message?.includes('invalid-app-credential')) {
+      if (err.message?.includes('region') || err.code === 'auth/operation-not-allowed') {
+        setOtpError('🌐 Firebase SMS Region Restriction: Please go to Firebase Console -> Authentication -> Settings tab -> SMS Region Policy -> Select "Allow all SMS regions" (or enable India +91) and click Save. (You can also use Demo OTP: 123456 below).');
+        setLoginStep('otp');
+        setOtpMessage(`Testing Mode Active for ${formattedPhone}. (Demo OTP: 123456)`);
+        setCountdown(30);
+      } else if (err.code === 'auth/invalid-app-credential' || err.message?.includes('invalid-app-credential')) {
         setOtpError('⚠️ Firebase Authorized Domain Error. Please ensure "localhost" is added under Firebase Console -> Authentication -> Settings -> Authorized Domains. (You can also use Demo OTP: 123456).');
         setLoginStep('otp');
         setOtpMessage(`Testing Mode Active for ${formattedPhone}. (Demo OTP: 123456)`);
