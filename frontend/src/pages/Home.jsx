@@ -283,7 +283,6 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
           <div className="section-title-wrapper text-center" style={{ marginBottom: '40px' }}>
             <span className="section-subtitle" style={{ color: '#3b6e28', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em', fontSize: '0.85rem' }}>🌿 CULINARY HERITAGE & INSPIRATION</span>
             <h2 className="main-headline-title" style={{ fontFamily: 'var(--font-title)', fontSize: '2.4rem', color: '#1b2e13', margin: '8px 0' }}>Cook Authentic Recipes with Agnitra</h2>
-            <p className="main-headline-sub" style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: '600px', margin: '0 auto' }}>Explore classic Indian dishes crafted to bring out the rich essential oils and aroma of 100% pure stone-ground spices.</p>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '24px', marginBottom: '36px' }}>
