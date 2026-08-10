@@ -6,8 +6,63 @@ const router = express.Router();
 // In-memory OTP storage map (phone -> { otp, expiresAt })
 const otpStore = new Map();
 
+// Helper to dispatch Real SMS OTP via Fast2SMS or Twilio API
+async function sendRealSmsOtp(phone, otp) {
+  const cleanPhone = phone.replace(/\D/g, '').slice(-10);
+
+  // 1. Try Fast2SMS (India SMS Gateway)
+  if (process.env.FAST2SMS_API_KEY) {
+    try {
+      const response = await fetch('https://www.fast2sms.com/dev/bulkV2', {
+        method: 'POST',
+        headers: {
+          'authorization': process.env.FAST2SMS_API_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          route: 'otp',
+          variables_values: otp,
+          numbers: cleanPhone
+        })
+      });
+      const data = await response.json();
+      console.log(`📡 [FAST2SMS DISPATCH] +91 ${cleanPhone} -> status:`, data.return ? 'SUCCESS' : data.message || 'FAILED');
+      return { provider: 'Fast2SMS', success: data.return === true, details: data };
+    } catch (error) {
+      console.error('❌ Fast2SMS Dispatch Error:', error);
+    }
+  }
+
+  // 2. Try Twilio (Global SMS Gateway)
+  if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_PHONE_NUMBER) {
+    try {
+      const authHeader = 'Basic ' + Buffer.from(`${process.env.TWILIO_ACCOUNT_SID}:${process.env.TWILIO_AUTH_TOKEN}`).toString('base64');
+      const params = new URLSearchParams({
+        To: `+91${cleanPhone}`,
+        From: process.env.TWILIO_PHONE_NUMBER,
+        Body: `Your Agnitra Spices login OTP is: ${otp}. Valid for 5 minutes.`
+      });
+      const response = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${process.env.TWILIO_ACCOUNT_SID}/Messages.json`, {
+        method: 'POST',
+        headers: {
+          'Authorization': authHeader,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: params.toString()
+      });
+      const data = await response.json();
+      console.log(`📡 [TWILIO DISPATCH] +91 ${cleanPhone} -> SID:`, data.sid || 'FAILED');
+      return { provider: 'Twilio', success: !!data.sid, details: data };
+    } catch (error) {
+      console.error('❌ Twilio Dispatch Error:', error);
+    }
+  }
+
+  return { provider: 'Console Logging (Add FAST2SMS_API_KEY or TWILIO credentials to backend/.env for live mobile SMS)', success: false };
+}
+
 // POST Send OTP via Phone Number
-router.post('/auth/send-otp', (req, res) => {
+router.post('/auth/send-otp', async (req, res) => {
   try {
     const { phone } = req.body;
     if (!phone || phone.replace(/\D/g, '').length < 10) {
@@ -21,12 +76,18 @@ router.post('/auth/send-otp', (req, res) => {
 
     otpStore.set(cleanPhone, { otp: generatedOtp, expiresAt });
 
-    console.log(`📱 [OTP SENT] +91 ${cleanPhone} -> OTP: ${generatedOtp}`);
+    console.log(`📱 [OTP GENERATED] +91 ${cleanPhone} -> OTP: ${generatedOtp}`);
+
+    // Attempt real SMS gateway delivery
+    const smsResult = await sendRealSmsOtp(cleanPhone, generatedOtp);
 
     res.json({
       success: true,
-      message: `OTP sent successfully to +91 ${cleanPhone}.`,
-      otp: generatedOtp,
+      message: smsResult.success 
+        ? `Real SMS OTP delivered to +91 ${cleanPhone} via ${smsResult.provider}.`
+        : `OTP dispatched for +91 ${cleanPhone}.`,
+      otp: generatedOtp, // Included for testing until user adds real SMS API key
+      smsStatus: smsResult,
       expiresInSeconds: 300
     });
   } catch (err) {
