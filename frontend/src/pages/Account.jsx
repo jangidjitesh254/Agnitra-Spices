@@ -128,7 +128,13 @@ function Account({ orders, navigateTo }) {
       setCountdown(30);
     } catch (err) {
       console.error('Send OTP error:', err);
-      if (isFirebaseConfigured()) {
+      if (err.code === 'auth/operation-not-allowed' || err.message?.includes('operation-not-allowed')) {
+        setOtpError('🔑 Phone Authentication is DISABLED in Firebase Console. Please go to Firebase Console -> Authentication -> Sign-in method -> Enable "Phone" -> Click Save. (You can also use Demo OTP: 123456 below).');
+        // Allow user to test via backend fallback if phone provider is not yet enabled
+        setLoginStep('otp');
+        setOtpMessage(`Testing Mode Active for ${formattedPhone}. (Demo OTP: 123456)`);
+        setCountdown(30);
+      } else if (isFirebaseConfigured()) {
         setOtpError(err.message || 'Firebase SMS delivery failed. Make sure Phone Auth is enabled in Firebase Console.');
       } else {
         setLoginStep('otp');
