@@ -181,9 +181,7 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
       const totalItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
       const whatsappText = 
-`*NEW ORDER - AGNITRA SPICES*
-
-*Order ID:* ${formattedOrderId}
+`*Order ID:* ${formattedOrderId}
 
 ------------------------------------
 
@@ -213,7 +211,7 @@ ${formData.address}${formData.city ? `,\n${formData.city}` : ''}${formData.zipCo
 
 ------------------------------------
 
-Thank you for choosing Agnitra Spices!
+
 Please confirm my order.`;
 
       const encodedText = encodeURIComponent(whatsappText);
