@@ -3,15 +3,26 @@ import { useState } from 'react';
 function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error, searchQuery, setSearchQuery }) {
   const [filterCategory, setFilterCategory] = useState('All');
 
-  const categories = ['All', 'Powder', 'Whole', 'Blends', 'Seeds'];
+  const categories = ['All', 'Powder', 'Whole'];
 
   // Filter products by BOTH category and search query
   const filteredProducts = products.filter(product => {
     const matchesCategory = filterCategory === 'All' || 
       (product.category && product.category.toLowerCase().includes(filterCategory.toLowerCase())) ||
-      (filterCategory === 'Powder' && product.name.toLowerCase().includes('powder')) ||
-      (filterCategory === 'Whole' && product.name.toLowerCase().includes('seeds')) ||
-      (filterCategory === 'Blends' && product.name.toLowerCase().includes('masala'));
+      (filterCategory === 'Powder' && (
+        product.category === 'Chilli' || 
+        product.category === 'Turmeric' || 
+        product.category === 'Coriander' || 
+        product.name.toLowerCase().includes('mirchi') || 
+        product.name.toLowerCase().includes('haldi') || 
+        product.name.toLowerCase().includes('dhaniya')
+      ) && !product.name.toLowerCase().includes('khadi') && !product.name.toLowerCase().includes('sabut')) ||
+      (filterCategory === 'Whole' && (
+        product.category === 'Whole Spices' || 
+        product.name.toLowerCase().includes('khadi') || 
+        product.name.toLowerCase().includes('sabut') || 
+        product.name.toLowerCase().includes('whole')
+      ));
     const matchesSearch = searchQuery === '' || 
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
       product.description.toLowerCase().includes(searchQuery.toLowerCase());
