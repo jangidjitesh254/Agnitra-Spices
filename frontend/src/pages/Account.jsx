@@ -128,7 +128,12 @@ function Account({ orders, navigateTo }) {
       setCountdown(30);
     } catch (err) {
       console.error('Send OTP error:', err);
-      if (err.message?.includes('region') || err.code === 'auth/operation-not-allowed') {
+      if (err.code === 'auth/billing-not-enabled' || err.message?.includes('billing-not-enabled')) {
+        setOtpError('💳 Firebase Billing Notice: Live SMS sending requires adding a Free Test Phone Number in Firebase Console (or upgrading to Blaze plan). Switched to Test Mode for instant verification below.');
+        setLoginStep('otp');
+        setOtpMessage(`Testing Mode Active for ${formattedPhone}. (Use Demo OTP: 123456)`);
+        setCountdown(30);
+      } else if (err.message?.includes('region') || err.code === 'auth/operation-not-allowed') {
         setOtpError('🌐 Firebase SMS Region Restriction: Please go to Firebase Console -> Authentication -> Settings tab -> SMS Region Policy -> Select "Allow all SMS regions" (or enable India +91) and click Save. (You can also use Demo OTP: 123456 below).');
         setLoginStep('otp');
         setOtpMessage(`Testing Mode Active for ${formattedPhone}. (Demo OTP: 123456)`);
