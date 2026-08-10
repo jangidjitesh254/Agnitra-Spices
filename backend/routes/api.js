@@ -3,6 +3,70 @@ import { dbService } from '../db.js';
 
 const router = express.Router();
 
+// In-memory OTP storage map (phone -> { otp, expiresAt })
+const otpStore = new Map();
+
+// POST Send OTP via Phone Number
+router.post('/auth/send-otp', (req, res) => {
+  try {
+    const { phone } = req.body;
+    if (!phone || phone.replace(/\D/g, '').length < 10) {
+      return res.status(400).json({ error: 'Please enter a valid 10-digit mobile phone number.' });
+    }
+
+    const cleanPhone = phone.replace(/\D/g, '').slice(-10);
+    // Generate 6-digit OTP
+    const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = Date.now() + 5 * 60 * 1000; // 5 mins validity
+
+    otpStore.set(cleanPhone, { otp: generatedOtp, expiresAt });
+
+    console.log(`📱 [OTP SENT] +91 ${cleanPhone} -> OTP: ${generatedOtp}`);
+
+    res.json({
+      success: true,
+      message: `OTP sent successfully to +91 ${cleanPhone}.`,
+      otp: generatedOtp,
+      expiresInSeconds: 300
+    });
+  } catch (err) {
+    console.error('Error sending OTP:', err);
+    res.status(500).json({ error: 'Failed to send OTP. Please try again.' });
+  }
+});
+
+// POST Verify OTP
+router.post('/auth/verify-otp', (req, res) => {
+  try {
+    const { phone, otp } = req.body;
+    if (!phone || !otp) {
+      return res.status(400).json({ error: 'Phone number and 6-digit OTP are required.' });
+    }
+
+    const cleanPhone = phone.replace(/\D/g, '').slice(-10);
+    const storedData = otpStore.get(cleanPhone);
+
+    // Accept generated OTP or universal testing OTP '123456'
+    if (otp === '123456' || (storedData && storedData.otp === otp.toString() && Date.now() < storedData.expiresAt)) {
+      otpStore.delete(cleanPhone);
+
+      return res.json({
+        success: true,
+        message: 'Phone number verified! Login successful.',
+        user: {
+          phone: `+91 ${cleanPhone}`,
+          isLoggedIn: true
+        }
+      });
+    }
+
+    res.status(400).json({ error: 'Invalid or expired OTP. Please check the 6-digit OTP and try again.' });
+  } catch (err) {
+    console.error('Error verifying OTP:', err);
+    res.status(500).json({ error: 'OTP verification failed. Please try again.' });
+  }
+});
+
 // GET all products
 router.get('/products', async (req, res) => {
   try {
