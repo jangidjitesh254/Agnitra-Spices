@@ -12,25 +12,29 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
   });
   const [isAutoFilled, setIsAutoFilled] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [error, setError] = useState(null);
   const [isLocating, setIsLocating] = useState(false);
   const [locationError, setLocationError] = useState(null);
 
-  // Auto-fill customer details from saved account profile
+  // Auto-fill customer details ONLY if user is logged in
   useEffect(() => {
     try {
-      const savedUser = localStorage.getItem('agnitra_user_profile');
-      if (savedUser) {
-        const user = JSON.parse(savedUser);
-        setFormData(prev => ({
-          name: user.name || prev.name,
-          email: user.email || prev.email,
-          phone: user.phone || prev.phone,
-          address: user.address || prev.address,
-          city: user.city || prev.city,
-          zipCode: user.zipCode || user.pincode || prev.zipCode
-        }));
-        if (user.name || user.address) {
+      const loggedIn = localStorage.getItem('agnitra_user_logged_in') === 'true';
+      setIsUserLoggedIn(loggedIn);
+
+      if (loggedIn) {
+        const savedUser = localStorage.getItem('agnitra_user_profile');
+        if (savedUser) {
+          const user = JSON.parse(savedUser);
+          setFormData(prev => ({
+            name: user.name || prev.name,
+            email: user.email || prev.email,
+            phone: user.phone || prev.phone,
+            address: user.address || prev.address,
+            city: user.city || prev.city,
+            zipCode: user.zipCode || user.pincode || prev.zipCode
+          }));
           setIsAutoFilled(true);
         }
       }
@@ -339,7 +343,25 @@ Please confirm my order.`;
 
               {/* Checkout Form */}
               <form onSubmit={handleSubmitOrder} className="checkout-form" style={{ marginTop: '30px' }}>
-                <h4 className="checkout-section-title">Shipping & Billing Details</h4>
+                <h4 className="checkout-section-title" style={{ marginBottom: '12px' }}>Shipping & Billing Details</h4>
+                
+                {isUserLoggedIn ? (
+                  <div style={{ backgroundColor: 'rgba(59, 110, 40, 0.08)', border: '1px solid #3b6e28', color: '#2b3e1b', padding: '10px 14px', borderRadius: '10px', marginBottom: '20px', fontSize: '0.82rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2b3e1b" strokeWidth="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    <span>Logged in ({formData.phone || 'Account'}). Details auto-filled from your profile.</span>
+                  </div>
+                ) : (
+                  <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.08)', border: '1px dashed #d4af37', color: '#1b2e13', padding: '10px 14px', borderRadius: '10px', marginBottom: '20px', fontSize: '0.82rem', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
+                    <span>Guest Mode: Fill details manually below</span>
+                    <button 
+                      type="button" 
+                      onClick={() => navigateTo('orders')} 
+                      style={{ background: 'none', border: 'none', color: '#2b3e1b', fontWeight: 800, cursor: 'pointer', textDecoration: 'underline', padding: 0, fontSize: '0.82rem' }}
+                    >
+                      Login for Auto-Fill →
+                    </button>
+                  </div>
+                )}
                 
                 <div className="form-group">
                   <label className="form-label" htmlFor="name">Full Name</label>
