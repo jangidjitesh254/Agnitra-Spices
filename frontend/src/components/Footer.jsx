@@ -58,8 +58,8 @@ function Footer({ navigateTo }) {
           <div className="footer-col">
             <h4 className="footer-col-title">Customer Care</h4>
             <ul className="footer-links-list">
-              <li><a href="/account" onClick={(e) => handleLinkClick(e, 'account')}>My Account</a></li>
-              <li><a href="/account" onClick={(e) => handleLinkClick(e, 'account')}>Track Order</a></li>
+              <li><a href="/profile" onClick={(e) => handleLinkClick(e, 'profile')}>My Profile</a></li>
+              <li><a href="/profile" onClick={(e) => handleLinkClick(e, 'profile')}>Track Order</a></li>
               <li><a href="/admin" onClick={(e) => handleLinkClick(e, 'admin')}>Admin Portal</a></li>
               <li><a href="/about" onClick={(e) => handleLinkClick(e, 'about')}>Shipping & Delivery</a></li>
               <li><a href="/about" onClick={(e) => handleLinkClick(e, 'about')}>Returns & Refunds</a></li>

@@ -44,7 +44,10 @@ function App() {
         const id = path.split('/')[1];
         setActiveProductId(id);
         setCurrentPage('product');
-      } else if (['home', 'shop', 'about', 'contact', 'orders', 'account', 'cart', 'admin'].includes(path)) {
+      } else if (path === 'orders' || path === 'account') {
+        setCurrentPage('profile');
+        window.history.replaceState({}, '', '/profile');
+      } else if (['home', 'shop', 'about', 'contact', 'profile', 'cart', 'admin'].includes(path)) {
         setCurrentPage(path);
       } else if (path === '') {
         setCurrentPage('home');
@@ -207,6 +210,9 @@ const STANDARD_FALLBACK_PRODUCTS = [
     } else if (page === 'qr' || page === 'QR') {
       setCurrentPage('qr');
       window.history.pushState({}, '', '/QR');
+    } else if (page === 'orders' || page === 'account' || page === 'profile') {
+      setCurrentPage('profile');
+      window.history.pushState({}, '', '/profile');
     } else if (page === 'home') {
       setCurrentPage('home');
       window.history.pushState({}, '', '/');
@@ -270,6 +276,7 @@ const STANDARD_FALLBACK_PRODUCTS = [
             onOrderPlaced={fetchOrders}
           />
         );
+      case 'profile':
       case 'account':
       case 'orders':
         return <Account orders={orders} navigateTo={navigateTo} />;
