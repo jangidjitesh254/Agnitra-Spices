@@ -10,6 +10,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import QRPage from './pages/QRPage';
 import Account from './pages/Account';
+import Recipes from './pages/Recipes';
 import AdminDashboard from './pages/AdminDashboard';
 
 export const API_BASE_URL = typeof window !== 'undefined' 
@@ -47,7 +48,7 @@ function App() {
       } else if (path === 'orders' || path === 'account') {
         setCurrentPage('profile');
         window.history.replaceState({}, '', '/profile');
-      } else if (['home', 'shop', 'about', 'contact', 'profile', 'cart', 'admin'].includes(path)) {
+      } else if (['home', 'shop', 'about', 'contact', 'recipes', 'profile', 'cart', 'admin'].includes(path)) {
         setCurrentPage(path);
       } else if (path === '') {
         setCurrentPage('home');
@@ -282,6 +283,8 @@ const STANDARD_FALLBACK_PRODUCTS = [
         return <Account orders={orders} navigateTo={navigateTo} />;
       case 'about':
         return <About navigateTo={navigateTo} />;
+      case 'recipes':
+        return <Recipes navigateTo={navigateTo} />;
       case 'contact':
         return <Contact />;
       case 'qr':

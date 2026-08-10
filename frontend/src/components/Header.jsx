@@ -90,6 +90,15 @@ function Header({ currentPage, navigateTo, cartItemCount, searchQuery, setSearch
             </li>
             <li>
               <a 
+                href="/recipes" 
+                className={`nav-link ${currentPage === 'recipes' ? 'active' : ''}`}
+                onClick={(e) => { e.preventDefault(); handleNavClick('recipes'); }}
+              >
+                Recipes
+              </a>
+            </li>
+            <li>
+              <a 
                 href="/contact" 
                 className={`nav-link ${currentPage === 'contact' ? 'active' : ''}`}
                 onClick={(e) => { e.preventDefault(); handleNavClick('contact'); }}
