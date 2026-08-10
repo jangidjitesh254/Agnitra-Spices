@@ -295,11 +295,11 @@ function Account({ orders, navigateTo }) {
       <div className="section" style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 16px', background: 'var(--bg-primary)' }}>
         <div className="phone-login-card animate-fade-in" style={{ width: '100%', maxWidth: '450px', background: '#ffffff', borderRadius: '28px', padding: '40px 32px', border: '1.5px solid #ede6d8', boxShadow: '0 20px 50px rgba(37, 29, 24, 0.09)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
           
-          {/* Subtle Top Accent Line */}
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '5px', background: 'linear-gradient(90deg, #3b6e28 0%, #d4af37 100%)' }}></div>
+          {/* Solid Top Green Accent Line */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '5px', background: '#3b6e28' }}></div>
 
           {/* Agnitra Logo Avatar */}
-          <div style={{ width: '72px', height: '72px', borderRadius: '50%', background: '#faf6f0', border: '2px solid #d4af37', padding: '4px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '18px', boxShadow: '0 8px 20px rgba(0,0,0,0.06)' }}>
+          <div style={{ width: '72px', height: '72px', borderRadius: '50%', background: '#faf6f0', border: '2px solid #3b6e28', padding: '4px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '18px', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}>
             <img src="/images/Agnitra logo.jpg" alt="Agnitra Spices Logo" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
           </div>
 
@@ -332,7 +332,7 @@ function Account({ orders, navigateTo }) {
                   Mobile Phone Number
                 </label>
 
-                <div style={{ display: 'flex', alignItems: 'center', border: '2px solid #e0d8c8', borderRadius: '14px', overflow: 'hidden', background: '#faf6f0', transition: 'border-color 0.2s ease', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', border: '2px solid #e0d8c8', borderRadius: '14px', overflow: 'hidden', background: '#faf6f0', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)' }}>
                   <span style={{ padding: '15px 16px', fontWeight: '800', color: '#1b2e13', fontSize: '1.05rem', borderRight: '1.5px solid #e0d8c8', background: '#ede6d8', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     🇮🇳 +91
                   </span>
@@ -352,7 +352,7 @@ function Account({ orders, navigateTo }) {
                 type="submit" 
                 className="btn btn-primary"
                 disabled={authLoading}
-                style={{ width: '100%', padding: '15px', fontSize: '1.02rem', fontWeight: '800', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #3b6e28 0%, #1b2e13 100%)', boxShadow: '0 8px 20px rgba(59, 110, 40, 0.25)', border: 'none', cursor: 'pointer' }}
+                style={{ width: '100%', padding: '15px', fontSize: '1.02rem', fontWeight: '800', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#2b3e1b', color: '#ffffff', border: 'none', cursor: 'pointer' }}
               >
                 {authLoading ? 'Sending OTP...' : 'Send Verification OTP →'}
               </button>
@@ -360,7 +360,7 @@ function Account({ orders, navigateTo }) {
               <button 
                 type="button"
                 onClick={handleDemoFill}
-                style={{ width: '100%', marginTop: '14px', background: 'rgba(212, 175, 55, 0.08)', border: '1.5px dashed #d4af37', color: '#1b2e13', padding: '12px', borderRadius: '12px', fontSize: '0.85rem', fontWeight: '700', cursor: 'pointer', transition: 'all 0.2s ease' }}
+                style={{ width: '100%', marginTop: '14px', background: 'rgba(59, 110, 40, 0.08)', border: '1.5px dashed #3b6e28', color: '#1b2e13', padding: '12px', borderRadius: '12px', fontSize: '0.85rem', fontWeight: '700', cursor: 'pointer' }}
               >
                 ⚡ Quick Fill Demo Number: 9876543210
               </button>
@@ -387,7 +387,7 @@ function Account({ orders, navigateTo }) {
                 type="submit" 
                 className="btn btn-primary"
                 disabled={authLoading}
-                style={{ width: '100%', padding: '15px', fontSize: '1.02rem', fontWeight: '800', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #3b6e28 0%, #1b2e13 100%)', boxShadow: '0 8px 20px rgba(59, 110, 40, 0.25)', border: 'none', cursor: 'pointer' }}
+                style={{ width: '100%', padding: '15px', fontSize: '1.02rem', fontWeight: '800', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#2b3e1b', color: '#ffffff', border: 'none', cursor: 'pointer' }}
               >
                 {authLoading ? 'Verifying Code...' : 'Verify & Login Now →'}
               </button>
@@ -436,40 +436,29 @@ function Account({ orders, navigateTo }) {
         {currentView === 'dashboard' && (
           <div className="account-dashboard-wrapper animate-fade-in">
             
-            {/* Header Profile Cover Banner */}
+            {/* Header Profile Cover Banner - SOLID GREEN BACKGROUND */}
             <div 
               className="agnitra-profile-banner"
               style={{
-                background: 'linear-gradient(135deg, #1b2e13 0%, #2b3e1b 60%, #15240f 100%)',
+                background: '#1b2e13',
                 borderRadius: '24px',
                 padding: '32px 28px',
                 position: 'relative',
                 overflow: 'hidden',
-                border: '1.5px solid #d4af37',
-                boxShadow: '0 16px 40px rgba(27, 46, 19, 0.25)',
+                border: '1.5px solid #3b6e28',
+                boxShadow: '0 12px 30px rgba(27, 46, 19, 0.15)',
                 marginBottom: '28px'
               }}
             >
-              {/* Decorative Background Overlay */}
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                width: '240px',
-                height: '100%',
-                background: 'radial-gradient(circle at 100% 0%, rgba(212, 175, 55, 0.18) 0%, transparent 70%)',
-                pointerEvents: 'none'
-              }}></div>
-
               <div className="agnitra-banner-content" style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px', position: 'relative', zIndex: 2 }}>
-                <div className="agnitra-avatar-box" style={{ width: '68px', height: '68px', minWidth: '68px', borderRadius: '50%', background: 'linear-gradient(135deg, #d4af37 0%, #b89327 100%)', border: '2.5px solid #ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(0,0,0,0.2)' }}>
+                <div className="agnitra-avatar-box" style={{ width: '68px', height: '68px', minWidth: '68px', borderRadius: '50%', background: '#2b3e1b', border: '2.5px solid #ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 6px 16px rgba(0,0,0,0.2)' }}>
                   <span className="avatar-initials" style={{ fontSize: '1.8rem', fontWeight: '800', color: '#ffffff', textTransform: 'uppercase' }}>
                     {profile.name ? profile.name.charAt(0) : 'J'}
                   </span>
                 </div>
 
                 <div className="agnitra-profile-meta">
-                  <h1 className="agnitra-user-title" style={{ fontFamily: 'var(--font-title)', fontSize: '1.85rem', fontWeight: '800', color: '#ffffff', margin: '0 0 4px 0', textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
+                  <h1 className="agnitra-user-title" style={{ fontFamily: 'var(--font-title)', fontSize: '1.85rem', fontWeight: '800', color: '#ffffff', margin: '0 0 4px 0' }}>
                     {profile.name}
                   </h1>
                   <p className="agnitra-user-subtitle" style={{ color: '#d4af37', fontSize: '0.95rem', fontWeight: '700', margin: 0, letterSpacing: '0.02em' }}>
