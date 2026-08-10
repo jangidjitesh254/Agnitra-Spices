@@ -87,26 +87,36 @@ function Contact() {
       setSubmittingFeedback(true);
       setFeedbackSuccess(null);
 
-      const feedbackPayload = {
-        name: feedbackData.name,
-        email: feedbackData.email,
-        subject: `[Customer Feedback - ${feedbackData.rating} Stars] (${feedbackData.category})`,
-        message: `Rating: ${feedbackData.rating}/5 Stars\nCategory: ${feedbackData.category}\nFeedback: ${feedbackData.comments}`
-      };
-
-      const response = await fetch(`${API_BASE_URL}/contact`, {
+      const response = await fetch(`${API_BASE_URL}/feedback`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(feedbackPayload)
+        body: JSON.stringify(feedbackData)
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error('Failed to submit feedback.');
+        throw new Error(data.error || 'Failed to submit feedback.');
       }
 
-      setFeedbackSuccess('Thank you for your valuable feedback! Your review helps us preserve traditional spice purity.');
+      setFeedbackSuccess('Thank you! Your feedback has been sent directly to Agnitra Admin.');
+      
+      // Pre-format clean WhatsApp message for Agnitra Admin (+91 94618 39415) without problematic emojis
+      const adminWhatsAppMessage = `*CUSTOMER FEEDBACK - AGNITRA SPICES*
+
+Name: ${feedbackData.name}
+Email: ${feedbackData.email}
+Rating: ${feedbackData.rating}/5 Stars
+Category: ${feedbackData.category}
+
+Comments:
+${feedbackData.comments}`;
+
+      const waUrl = `https://wa.me/919461839415?text=${encodeURIComponent(adminWhatsAppMessage)}`;
+      window.open(waUrl, '_blank');
+
       setFeedbackData({
         name: '',
         email: '',
@@ -116,7 +126,20 @@ function Contact() {
       });
     } catch (err) {
       console.error('Feedback submission error:', err);
-      alert('Unable to submit feedback at the moment. Please try again.');
+      // Fallback: direct WhatsApp send if server offline
+      const adminWhatsAppMessage = `*CUSTOMER FEEDBACK - AGNITRA SPICES*
+
+Name: ${feedbackData.name}
+Email: ${feedbackData.email}
+Rating: ${feedbackData.rating}/5 Stars
+Category: ${feedbackData.category}
+
+Comments:
+${feedbackData.comments}`;
+      const waUrl = `https://wa.me/919461839415?text=${encodeURIComponent(adminWhatsAppMessage)}`;
+      window.open(waUrl, '_blank');
+
+      setFeedbackSuccess('Feedback sent directly to Agnitra Admin on WhatsApp!');
     } finally {
       setSubmittingFeedback(false);
     }

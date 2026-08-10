@@ -168,6 +168,30 @@ router.post('/contact', async (req, res) => {
   }
 });
 
+// POST submit customer feedback directly to Agnitra Admin
+router.post('/feedback', async (req, res) => {
+  try {
+    const { name, email, rating, category, comments } = req.body;
+    
+    if (!name || !email || !comments) {
+      return res.status(400).json({ error: 'Name, email, and feedback comments are required.' });
+    }
+
+    const subject = `[Customer Feedback - ${rating || 5} Stars] (${category || 'Spice Quality & Purity'})`;
+    const message = `Rating: ${rating || 5}/5 Stars\nCategory: ${category || 'Spice Quality & Purity'}\nComments: ${comments}`;
+
+    const savedMessage = await dbService.createMessage({ name, email, phone: '', subject, message });
+    res.status(201).json({
+      success: true,
+      message: 'Thank you! Your feedback has been sent directly to Agnitra Admin.',
+      savedMessage
+    });
+  } catch (error) {
+    console.error('Error submitting feedback:', error);
+    res.status(500).json({ error: 'Failed to submit feedback' });
+  }
+});
+
 // GET all submitted contact messages & feedbacks
 router.get('/messages', async (req, res) => {
   try {
