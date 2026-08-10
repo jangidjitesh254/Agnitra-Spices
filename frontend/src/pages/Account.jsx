@@ -292,45 +292,49 @@ function Account({ orders, navigateTo }) {
   // -------------------------------------------------------------
   if (!isLoggedIn) {
     return (
-      <div className="section" style={{ minHeight: '75vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 16px' }}>
-        <div className="phone-login-card animate-fade-in" style={{ width: '100%', maxWidth: '440px', background: '#ffffff', borderRadius: '24px', padding: '36px 28px', border: '1.5px solid #ede6d8', boxShadow: '0 16px 40px rgba(37, 29, 24, 0.08)', textAlign: 'center' }}>
+      <div className="section" style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 16px', background: 'var(--bg-primary)' }}>
+        <div className="phone-login-card animate-fade-in" style={{ width: '100%', maxWidth: '450px', background: '#ffffff', borderRadius: '28px', padding: '40px 32px', border: '1.5px solid #ede6d8', boxShadow: '0 20px 50px rgba(37, 29, 24, 0.09)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
           
-          <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'rgba(59, 110, 40, 0.1)', color: '#3b6e28', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          {/* Subtle Top Accent Line */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '5px', background: 'linear-gradient(90deg, #3b6e28 0%, #d4af37 100%)' }}></div>
+
+          {/* Agnitra Logo Avatar */}
+          <div style={{ width: '72px', height: '72px', borderRadius: '50%', background: '#faf6f0', border: '2px solid #d4af37', padding: '4px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '18px', boxShadow: '0 8px 20px rgba(0,0,0,0.06)' }}>
+            <img src="/images/Agnitra logo.jpg" alt="Agnitra Spices Logo" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
           </div>
 
-          <h2 style={{ fontFamily: 'var(--font-title)', fontSize: '1.75rem', fontWeight: '800', color: '#1b2e13', marginBottom: '8px' }}>
-            {loginStep === 'phone' ? 'Login with Phone Number' : 'Enter 6-Digit OTP'}
+          <h2 style={{ fontFamily: 'var(--font-title)', fontSize: '1.85rem', fontWeight: '800', color: '#1b2e13', marginBottom: '6px', lineHeight: '1.2' }}>
+            {loginStep === 'phone' ? 'Welcome to Agnitra' : 'Enter 6-Digit OTP'}
           </h2>
 
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', marginBottom: '24px', lineHeight: '1.5' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', marginBottom: '26px', lineHeight: '1.5' }}>
             {loginStep === 'phone' 
-              ? 'Enter your 10-digit mobile number to receive a secure OTP verification code.' 
+              ? 'Sign in or create your account using your mobile phone number' 
               : `Verification code sent to +91 ${phoneInput.slice(-10)}`}
           </p>
 
           {otpMessage && (
-            <div style={{ backgroundColor: 'rgba(59, 110, 40, 0.08)', border: '1px solid #3b6e28', color: '#3b6e28', padding: '12px 14px', borderRadius: '12px', marginBottom: '20px', fontSize: '0.85rem', fontWeight: '600', lineHeight: '1.4' }}>
+            <div style={{ backgroundColor: 'rgba(59, 110, 40, 0.08)', border: '1.5px solid #3b6e28', color: '#3b6e28', padding: '14px 16px', borderRadius: '14px', marginBottom: '22px', fontSize: '0.88rem', fontWeight: '700', lineHeight: '1.45', textAlign: 'left' }}>
               ✨ {otpMessage}
             </div>
           )}
 
           {otpError && (
-            <div style={{ backgroundColor: 'rgba(200, 62, 45, 0.08)', border: '1px solid var(--accent-red)', color: 'var(--accent-red)', padding: '12px 14px', borderRadius: '12px', marginBottom: '20px', fontSize: '0.85rem', fontWeight: '600' }}>
+            <div style={{ backgroundColor: 'rgba(200, 62, 45, 0.08)', border: '1.5px solid var(--accent-red)', color: 'var(--accent-red)', padding: '14px 16px', borderRadius: '14px', marginBottom: '22px', fontSize: '0.88rem', fontWeight: '700', textAlign: 'left' }}>
               ⚠️ {otpError}
             </div>
           )}
 
           {loginStep === 'phone' ? (
             <form onSubmit={handleSendOtp} style={{ textAlign: 'left' }}>
-              <div style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: '700', color: '#1b2e13', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <div style={{ marginBottom: '22px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '800', color: '#1b2e13', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                   Mobile Phone Number
                 </label>
 
-                <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid #dcd3c1', borderRadius: '12px', overflow: 'hidden', background: '#faf6f0' }}>
-                  <span style={{ padding: '14px 14px 14px 18px', fontWeight: '800', color: '#1b2e13', fontSize: '1rem', borderRight: '1px solid #e0d8c8', background: '#ede6d8' }}>
-                    +91
+                <div style={{ display: 'flex', alignItems: 'center', border: '2px solid #e0d8c8', borderRadius: '14px', overflow: 'hidden', background: '#faf6f0', transition: 'border-color 0.2s ease', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)' }}>
+                  <span style={{ padding: '15px 16px', fontWeight: '800', color: '#1b2e13', fontSize: '1.05rem', borderRight: '1.5px solid #e0d8c8', background: '#ede6d8', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    🇮🇳 +91
                   </span>
                   <input 
                     type="tel"
@@ -339,7 +343,7 @@ function Account({ orders, navigateTo }) {
                     onChange={(e) => setPhoneInput(e.target.value.replace(/\D/g, '').slice(0, 10))}
                     maxLength="10"
                     required
-                    style={{ flex: '1', border: 'none', background: 'transparent', padding: '14px 16px', fontSize: '1.05rem', fontWeight: '700', color: '#1b2e13', outline: 'none' }}
+                    style={{ flex: '1', border: 'none', background: 'transparent', padding: '15px 16px', fontSize: '1.1rem', fontWeight: '700', color: '#1b2e13', outline: 'none' }}
                   />
                 </div>
               </div>
@@ -348,34 +352,34 @@ function Account({ orders, navigateTo }) {
                 type="submit" 
                 className="btn btn-primary"
                 disabled={authLoading}
-                style={{ width: '100%', padding: '14px', fontSize: '1rem', fontWeight: '700', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+                style={{ width: '100%', padding: '15px', fontSize: '1.02rem', fontWeight: '800', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #3b6e28 0%, #1b2e13 100%)', boxShadow: '0 8px 20px rgba(59, 110, 40, 0.25)', border: 'none', cursor: 'pointer' }}
               >
-                {authLoading ? 'Sending OTP...' : 'Send OTP Code →'}
+                {authLoading ? 'Sending OTP...' : 'Send Verification OTP →'}
               </button>
 
               <button 
                 type="button"
                 onClick={handleDemoFill}
-                style={{ width: '100%', marginTop: '12px', background: 'transparent', border: '1px dashed #3b6e28', color: '#3b6e28', padding: '10px', borderRadius: '12px', fontSize: '0.82rem', fontWeight: '700', cursor: 'pointer' }}
+                style={{ width: '100%', marginTop: '14px', background: 'rgba(212, 175, 55, 0.08)', border: '1.5px dashed #d4af37', color: '#1b2e13', padding: '12px', borderRadius: '12px', fontSize: '0.85rem', fontWeight: '700', cursor: 'pointer', transition: 'all 0.2s ease' }}
               >
-                ⚡ Fill Demo Phone Number (9876543210)
+                ⚡ Quick Fill Demo Number: 9876543210
               </button>
             </form>
           ) : (
             <form onSubmit={handleVerifyOtp} style={{ textAlign: 'left' }}>
-              <div style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: '700', color: '#1b2e13', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  6-Digit OTP Code
+              <div style={{ marginBottom: '22px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '800', color: '#1b2e13', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                  6-Digit Verification OTP
                 </label>
 
                 <input 
                   type="text"
-                  placeholder="Enter 6-digit OTP (e.g. 123456)"
+                  placeholder="• • • • • •"
                   value={otpInput}
                   onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, '').slice(0, 6))}
                   maxLength="6"
                   required
-                  style={{ width: '100%', border: '1.5px solid #dcd3c1', borderRadius: '12px', padding: '14px 16px', fontSize: '1.2rem', fontWeight: '800', color: '#1b2e13', outline: 'none', textAlign: 'center', letterSpacing: '0.3em', background: '#faf6f0', boxSizing: 'border-box' }}
+                  style={{ width: '100%', border: '2px solid #e0d8c8', borderRadius: '14px', padding: '16px', fontSize: '1.35rem', fontWeight: '800', color: '#1b2e13', outline: 'none', textAlign: 'center', letterSpacing: '0.4em', background: '#faf6f0', boxSizing: 'border-box' }}
                 />
               </div>
 
@@ -383,30 +387,39 @@ function Account({ orders, navigateTo }) {
                 type="submit" 
                 className="btn btn-primary"
                 disabled={authLoading}
-                style={{ width: '100%', padding: '14px', fontSize: '1rem', fontWeight: '700', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+                style={{ width: '100%', padding: '15px', fontSize: '1.02rem', fontWeight: '800', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #3b6e28 0%, #1b2e13 100%)', boxShadow: '0 8px 20px rgba(59, 110, 40, 0.25)', border: 'none', cursor: 'pointer' }}
               >
-                {authLoading ? 'Verifying...' : 'Verify & Login →'}
+                {authLoading ? 'Verifying Code...' : 'Verify & Login Now →'}
               </button>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '16px', fontSize: '0.82rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '18px', fontSize: '0.85rem' }}>
                 <button 
                   type="button" 
                   onClick={() => setLoginStep('phone')} 
                   style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', textDecoration: 'underline', fontWeight: 600 }}
                 >
-                  Edit Phone Number
+                  ← Change Number
                 </button>
                 <button 
                   type="button" 
                   onClick={handleSendOtp} 
                   disabled={countdown > 0} 
-                  style={{ background: 'none', border: 'none', color: countdown > 0 ? 'var(--text-muted)' : '#3b6e28', cursor: countdown > 0 ? 'default' : 'pointer', fontWeight: 700 }}
+                  style={{ background: 'none', border: 'none', color: countdown > 0 ? 'var(--text-muted)' : '#3b6e28', cursor: countdown > 0 ? 'default' : 'pointer', fontWeight: 800 }}
                 >
-                  {countdown > 0 ? `Resend OTP in ${countdown}s` : 'Resend OTP'}
+                  {countdown > 0 ? `Resend OTP in ${countdown}s` : 'Resend OTP Now'}
                 </button>
               </div>
             </form>
           )}
+        </div>
+
+        {/* Security & Guarantee Footer Pill */}
+        <div style={{ marginTop: '24px', display: 'flex', alignItems: 'center', gap: '16px', color: 'var(--text-secondary)', fontSize: '0.82rem', fontWeight: '600', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <span>🔒 100% Safe &amp; Secure</span>
+          <span>•</span>
+          <span>⚡ Instant OTP Delivery</span>
+          <span>•</span>
+          <span>🌿 Agnitra Pure Guarantee</span>
         </div>
       </div>
     );
