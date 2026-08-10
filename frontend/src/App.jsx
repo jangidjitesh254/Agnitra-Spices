@@ -60,36 +60,63 @@ function App() {
 
 const STANDARD_FALLBACK_PRODUCTS = [
   {
-    _id: "agnitra_chilli_100g",
+    _id: "65f8a2f1c8e8d2a1b9e00001",
     name: "Lal Mirchi - Agnitra Spices",
     description: "100% pure sun-dehydrated red chilli powder with vibrant natural color & authentic spiciness.",
     price: 52,
     unit: "100g",
-    category: "Powder",
+    category: "Chilli",
+    traditionalMethod: "Low-temperature Stone-ground (Stone Chakki)",
     rating: 4.9,
     image: "/images/chilli.jpeg",
     inStock: true
   },
   {
-    _id: "agnitra_turmeric_100g",
+    _id: "65f8a2f1c8e8d2a1b9e00002",
     name: "Haldi - Agnitra Spices",
     description: "Cold-ground turmeric powder with high natural Curcumin content for rich aroma & immunity wellness.",
     price: 40,
     unit: "100g",
-    category: "Powder",
+    category: "Turmeric",
+    traditionalMethod: "Hand-Pounded (Okhli-Musar)",
     rating: 5.0,
     image: "/images/turmeric.jpeg",
     inStock: true
   },
   {
-    _id: "agnitra_coriander_100g",
+    _id: "65f8a2f1c8e8d2a1b9e00003",
     name: "Dhaniya - Agnitra Spices",
     description: "Freshly ground fragrant coriander powder harvested from organic farms in Rajasthan.",
     price: 35,
     unit: "100g",
-    category: "Powder",
+    category: "Coriander",
+    traditionalMethod: "Clay-Roasted & Stone-Ground",
     rating: 4.8,
     image: "/images/corainder.jpeg",
+    inStock: true
+  },
+  {
+    _id: "65f8a2f1c8e8d2a1b9e00004",
+    name: "Khadi Mirch - Agnitra Spices",
+    description: "Premium sun-dried whole red chillies carefully hand-picked from Byadgi farms. Retains natural stem and full capsaicin seeds.",
+    price: 65,
+    unit: "100g",
+    category: "Whole Spices",
+    traditionalMethod: "Sun-Dried & Hand-Sorted",
+    rating: 4.9,
+    image: "/images/khadi_mirch.png",
+    inStock: true
+  },
+  {
+    _id: "65f8a2f1c8e8d2a1b9e00005",
+    name: "Sabut Dhaniya - Agnitra Spices",
+    description: "Hand-harvested whole coriander seeds from Ramganj Mandi. Carefully sun-dried to preserve natural Linalool aromatic oils.",
+    price: 45,
+    unit: "100g",
+    category: "Whole Spices",
+    traditionalMethod: "Sun-Dried & Hand-Cleaned",
+    rating: 4.85,
+    image: "/images/sabut_dhaniya.png",
     inStock: true
   }
 ];

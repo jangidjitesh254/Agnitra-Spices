@@ -82,5 +82,61 @@
     "rating": 4.8,
     "image": "/images/corainder.jpeg",
     "stock": 150
+  },
+  {
+    "_id": "65f8a2f1c8e8d2a1b9e00004",
+    "name": "Khadi Mirch - Agnitra Spices",
+    "description": "Premium sun-dried whole red chillies carefully hand-picked from Byadgi farms. Retains natural stem and full capsaicin seeds for authentic Indian tempering (Tadka) and whole spice blends.",
+    "price": 65,
+    "unit": "100g",
+    "category": "Whole Spices",
+    "traditionalMethod": "Sun-Dried & Hand-Sorted",
+    "benefits": [
+      "100% Whole sun-dried red chillies with intact seeds",
+      "Rich in natural antioxidants and capsaicin",
+      "Ideal for aromatic tadka and homemade chili flakes"
+    ],
+    "specifications": {
+      "essentialOils": "1.8% Capsaicin oils intact",
+      "moisture": "Under 8%",
+      "origin": "Byadgi, Karnataka",
+      "type": "Sun-dried Whole Pods"
+    },
+    "usage": "Ideal for tempering dal, kadhai curries, pickles, or crushing for fresh chili flakes.",
+    "recipes": [
+      "Tadka: Crack 2 whole pods in hot ghee with cumin for dal tempering.",
+      "Grind into fresh coarse chilli flakes for pasta & pizza."
+    ],
+    "rating": 4.9,
+    "image": "/images/khadi_mirch.png",
+    "stock": 100
+  },
+  {
+    "_id": "65f8a2f1c8e8d2a1b9e00005",
+    "name": "Sabut Dhaniya - Agnitra Spices",
+    "description": "Hand-harvested whole coriander seeds from Ramganj Mandi. Carefully sun-dried to preserve natural Linalool aromatic oils. Perfect for freshly roasting and grinding at home.",
+    "price": 45,
+    "unit": "100g",
+    "category": "Whole Spices",
+    "traditionalMethod": "Sun-Dried & Hand-Cleaned",
+    "benefits": [
+      "Whole fragrant seeds rich in dietary fiber and essential oils",
+      "Naturally cooling digestive properties",
+      "Unpolished without artificial sulfur treatment"
+    ],
+    "specifications": {
+      "essentialOils": "1.1% Linalool oils retained",
+      "moisture": "Under 8.5%",
+      "origin": "Ramganj Mandi, Rajasthan",
+      "type": "Whole Cleaned Seeds"
+    },
+    "usage": "Roast lightly on a dry pan to unlock intense citrusy aromas before crushing or grinding.",
+    "recipes": [
+      "Dry roast 2 tbsp seeds and coarse crush for Kadhai Paneer.",
+      "Boil 1 tsp in water for a refreshing coriander detox tea."
+    ],
+    "rating": 4.85,
+    "image": "/images/sabut_dhaniya.png",
+    "stock": 110
   }
 ]

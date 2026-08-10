@@ -149,52 +149,51 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
         await onOrderPlaced();
       }
 
-      // Build formatted WhatsApp order message matching professional template
-      const numberEmojis = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
+      // Build clean, professional WhatsApp order message (NO problematic emojis that render as ? in WhatsApp)
       const itemsFormattedText = cart.map((item, index) => {
-        const emoji = numberEmojis[index] || `${index + 1}️⃣`;
+        const itemNum = index + 1;
         const unit = item.product.unit || '100g';
         const price = item.product.price;
         const subtotal = price * item.quantity;
-        return `${emoji} *${item.product.name}* (${unit})\n   Qty: ${item.quantity}\n   Price: ₹${price}\n   Subtotal: ₹${subtotal}`;
+        return `${itemNum}. *${item.product.name}* (${unit})\n   Qty: ${item.quantity}\n   Price: Rs. ${price}\n   Subtotal: Rs. ${subtotal}`;
       }).join('\n\n');
 
       const totalItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
       const whatsappText = 
-`🌿 *New Order - Agnitra Spices*
+`*NEW ORDER - AGNITRA SPICES*
 
-🆔 *Order ID:* ${formattedOrderId}
+*Order ID:* ${formattedOrderId}
 
-━━━━━━━━━━━━━━━━━━
+------------------------------------
 
-👤 *Customer Details*
+*CUSTOMER DETAILS*
 
 Name: ${formData.name}
 Phone: ${formData.phone}${formData.email ? `\nEmail: ${formData.email}` : ''}
 
-━━━━━━━━━━━━━━━━━━
+------------------------------------
 
-📦 *Ordered Items*
+*ORDERED ITEMS*
 
 ${itemsFormattedText}
 
-━━━━━━━━━━━━━━━━━━
+------------------------------------
 
-🛒 *Order Summary*
+*ORDER SUMMARY*
 
 Total Items: ${totalItemsCount}
-Grand Total: ₹${cartTotal}
+Grand Total: Rs. ${cartTotal}
 
-━━━━━━━━━━━━━━━━━━
+------------------------------------
 
-📍 *Delivery Address*
+*DELIVERY ADDRESS*
 
 ${formData.address}${formData.city ? `,\n${formData.city}` : ''}${formData.zipCode ? ` - ${formData.zipCode}` : ''}
 
-━━━━━━━━━━━━━━━━━━
+------------------------------------
 
-Thank you! 🌿
+Thank you for choosing Agnitra Spices!
 Please confirm my order.`;
 
       const encodedText = encodeURIComponent(whatsappText);
