@@ -25,22 +25,26 @@ export const auth = getAuth(app);
 
 // Setup invisible reCAPTCHA verifier
 export const setupRecaptcha = (containerId = 'recaptcha-container') => {
-  if (!window.recaptchaVerifier) {
-    window.recaptchaVerifier = new RecaptchaVerifier(auth, containerId, {
-      size: 'invisible',
-      callback: () => {
-        console.log('🛡️ reCAPTCHA verified successfully!');
-      },
-      'expired-callback': () => {
-        console.warn('⚠️ reCAPTCHA expired. Resetting verifier...');
-        if (window.recaptchaVerifier) {
-          window.recaptchaVerifier.render().then((widgetId) => {
-            if (window.grecaptcha) window.grecaptcha.reset(widgetId);
-          });
-        }
-      }
-    });
+  // Always clear previous verifier if present to prevent stale reCAPTCHA tokens
+  if (window.recaptchaVerifier) {
+    try {
+      window.recaptchaVerifier.clear();
+    } catch (e) {
+      console.warn('Recaptcha clear warning:', e);
+    }
+    window.recaptchaVerifier = null;
   }
+
+  window.recaptchaVerifier = new RecaptchaVerifier(auth, containerId, {
+    size: 'invisible',
+    callback: () => {
+      console.log('🛡️ reCAPTCHA verified successfully!');
+    },
+    'expired-callback': () => {
+      console.warn('⚠️ reCAPTCHA expired.');
+    }
+  });
+
   return window.recaptchaVerifier;
 };
 
@@ -53,14 +57,11 @@ export const sendFirebaseOtp = async (phoneNumberFormatted, containerId = 'recap
     return { success: true, confirmationResult };
   } catch (error) {
     console.error('❌ Firebase Phone Auth Error:', error);
-    // Reset recaptcha on error so user can retry
     if (window.recaptchaVerifier) {
       try {
         window.recaptchaVerifier.clear();
-        window.recaptchaVerifier = null;
-      } catch (e) {
-        console.warn('Recaptcha clear error:', e);
-      }
+      } catch (e) {}
+      window.recaptchaVerifier = null;
     }
     throw error;
   }

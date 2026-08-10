@@ -128,9 +128,13 @@ function Account({ orders, navigateTo }) {
       setCountdown(30);
     } catch (err) {
       console.error('Send OTP error:', err);
-      if (err.code === 'auth/operation-not-allowed' || err.message?.includes('operation-not-allowed')) {
-        setOtpError('🔑 Phone Authentication is DISABLED in Firebase Console. Please go to Firebase Console -> Authentication -> Sign-in method -> Enable "Phone" -> Click Save. (You can also use Demo OTP: 123456 below).');
-        // Allow user to test via backend fallback if phone provider is not yet enabled
+      if (err.code === 'auth/invalid-app-credential' || err.message?.includes('invalid-app-credential')) {
+        setOtpError('⚠️ Firebase Authorized Domain Error. Please ensure "localhost" is added under Firebase Console -> Authentication -> Settings -> Authorized Domains. (You can also use Demo OTP: 123456).');
+        setLoginStep('otp');
+        setOtpMessage(`Testing Mode Active for ${formattedPhone}. (Demo OTP: 123456)`);
+        setCountdown(30);
+      } else if (err.code === 'auth/too-many-requests' || err.message?.includes('too-many-requests')) {
+        setOtpError('⚠️ Firebase SMS Quota Exceeded for today. Use Demo OTP: 123456 below to test instantly.');
         setLoginStep('otp');
         setOtpMessage(`Testing Mode Active for ${formattedPhone}. (Demo OTP: 123456)`);
         setCountdown(30);
