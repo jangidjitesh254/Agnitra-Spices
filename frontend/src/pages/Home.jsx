@@ -1,4 +1,14 @@
+import { useRef } from 'react';
+
 function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading }) {
+  const scrollContainerRef = useRef(null);
+
+  const handleScroll = (direction) => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = direction === 'left' ? -310 : 310;
+      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   const getProductCartQty = (product) => {
     if (!cart || !Array.isArray(cart)) return 0;
@@ -91,150 +101,170 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
           {loading ? (
             <div className="loading-spinner"></div>
           ) : (
-            <div className="designer-products-grid" style={{ maxWidth: '1000px', margin: '0 auto' }}>
-              {products.slice(0, 3).map((product) => {
-                const productId = product._id || product.id;
-                const qty = getProductCartQty(product);
+            <div className="home-products-scroll-wrapper">
+              <button 
+                type="button" 
+                className="scroll-nav-btn prev" 
+                onClick={() => handleScroll('left')}
+                aria-label="Scroll left"
+              >
+                ‹
+              </button>
 
-                return (
-                  <div key={productId} className="designer-product-card animate-fade-in">
-                    <div 
-                      className="designer-product-img-box"
-                      onClick={() => navigateTo('product', { id: productId })}
-                    >
-                      <span className="product-badge-overlay">{product.unit || '100g'} Pure</span>
-                      <img 
-                        src={product.image || product.imageUrl} 
-                        alt={product.name} 
-                        className="designer-product-img" 
-                      />
-                    </div>
-                    
-                    <div className="designer-product-info">
-                      <h3 
-                        className="designer-product-name"
+              <div className="home-products-scroll-container" ref={scrollContainerRef}>
+                {products.map((product) => {
+                  const productId = product._id || product.id;
+                  const qty = getProductCartQty(product);
+
+                  return (
+                    <div key={productId} className="designer-product-card animate-fade-in">
+                      <div 
+                        className="designer-product-img-box"
                         onClick={() => navigateTo('product', { id: productId })}
                       >
-                        {product.name}
-                      </h3>
-
-                      <div style={{ marginBottom: '12px' }}>
-                        <span className="product-tech-badge">{product.traditionalMethod || product.traditional_method}</span>
+                        <span className="product-badge-overlay">{product.unit || '100g'} Pure</span>
+                        <img 
+                          src={product.image || product.imageUrl} 
+                          alt={product.name} 
+                          className="designer-product-img" 
+                        />
                       </div>
+                      
+                      <div className="designer-product-info">
+                        <h3 
+                          className="designer-product-name"
+                          onClick={() => navigateTo('product', { id: productId })}
+                        >
+                          {product.name}
+                        </h3>
 
-                      <div className="designer-product-bottom-row">
-                        <div className="price-tag-group">
-                          <span className="designer-product-price">₹{product.price}</span>
-                          <span className="designer-product-unit">/ {product.unit || '100g'}</span>
+                        <div style={{ marginBottom: '12px' }}>
+                          <span className="product-tech-badge">{product.traditionalMethod || product.traditional_method}</span>
                         </div>
 
-                        {qty > 0 ? (
-                          <div 
-                            className="product-qty-stepper animate-fade-in" 
-                            onClick={(e) => e.stopPropagation()}
-                            style={{
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              justifyContent: 'space-between',
-                              gap: '8px',
-                              background: 'linear-gradient(180deg, #f9f6f0 0%, #ede6d8 100%)',
-                              color: '#1b2a12',
-                              borderRadius: '50px',
-                              padding: '4px 10px',
-                              border: '1.5px solid #2b3e1b',
-                              boxShadow: '0 4px 12px rgba(37, 29, 24, 0.08)',
-                              boxSizing: 'border-box'
-                            }}
-                          >
-                            <button 
-                              type="button"
-                              className="stepper-btn minus"
-                              onClick={() => updateCartQty(productId, qty - 1)}
-                              aria-label="Decrease quantity"
-                              style={{
-                                appearance: 'none',
-                                WebkitAppearance: 'none',
-                                width: '28px',
-                                height: '28px',
-                                minWidth: '28px',
-                                minHeight: '28px',
-                                borderRadius: '50%',
-                                background: 'linear-gradient(135deg, #2b3e1b 0%, #1b2a12 100%)',
-                                color: '#ffffff',
-                                border: 'none',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                cursor: 'pointer',
-                                padding: '0',
-                                margin: '0',
-                                lineHeight: '1',
-                                outline: 'none',
-                                boxShadow: '0 2px 6px rgba(43, 62, 27, 0.3)'
-                              }}
-                            >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                            </button>
-
-                            <span 
-                              className="stepper-count"
-                              style={{
-                                fontFamily: 'var(--font-body), sans-serif',
-                                fontSize: '0.98rem',
-                                fontWeight: '800',
-                                color: '#1b2a12',
-                                minWidth: '20px',
-                                textAlign: 'center'
-                              }}
-                            >
-                              {qty}
-                            </span>
-
-                            <button 
-                              type="button"
-                              className="stepper-btn plus"
-                              onClick={() => updateCartQty(productId, qty + 1)}
-                              aria-label="Increase quantity"
-                              style={{
-                                appearance: 'none',
-                                WebkitAppearance: 'none',
-                                width: '28px',
-                                height: '28px',
-                                minWidth: '28px',
-                                minHeight: '28px',
-                                borderRadius: '50%',
-                                background: 'linear-gradient(135deg, #2b3e1b 0%, #1b2a12 100%)',
-                                color: '#ffffff',
-                                border: 'none',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                cursor: 'pointer',
-                                padding: '0',
-                                margin: '0',
-                                lineHeight: '1',
-                                outline: 'none',
-                                boxShadow: '0 2px 6px rgba(43, 62, 27, 0.3)'
-                              }}
-                            >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                            </button>
+                        <div className="designer-product-bottom-row">
+                          <div className="price-tag-group">
+                            <span className="designer-product-price">₹{product.price}</span>
+                            <span className="designer-product-unit">/ {product.unit || '100g'}</span>
                           </div>
-                        ) : (
-                          <button 
-                            className="add-to-cart-btn"
-                            onClick={() => addToCart(product, 1)}
-                            aria-label={`Add ${product.name} to Cart`}
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-                            <span>Add</span>
-                          </button>
-                        )}
+
+                          {qty > 0 ? (
+                            <div 
+                              className="product-qty-stepper animate-fade-in" 
+                              onClick={(e) => e.stopPropagation()}
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                gap: '8px',
+                                background: 'linear-gradient(180deg, #f9f6f0 0%, #ede6d8 100%)',
+                                color: '#1b2a12',
+                                borderRadius: '50px',
+                                padding: '4px 10px',
+                                border: '1.5px solid #2b3e1b',
+                                boxShadow: '0 4px 12px rgba(37, 29, 24, 0.08)',
+                                boxSizing: 'border-box'
+                              }}
+                            >
+                              <button 
+                                type="button"
+                                className="stepper-btn minus"
+                                onClick={() => updateCartQty(productId, qty - 1)}
+                                aria-label="Decrease quantity"
+                                style={{
+                                  appearance: 'none',
+                                  WebkitAppearance: 'none',
+                                  width: '28px',
+                                  height: '28px',
+                                  minWidth: '28px',
+                                  minHeight: '28px',
+                                  borderRadius: '50%',
+                                  background: 'linear-gradient(135deg, #2b3e1b 0%, #1b2a12 100%)',
+                                  color: '#ffffff',
+                                  border: 'none',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  cursor: 'pointer',
+                                  padding: '0',
+                                  margin: '0',
+                                  lineHeight: '1',
+                                  outline: 'none',
+                                  boxShadow: '0 2px 6px rgba(43, 62, 27, 0.3)'
+                                }}
+                              >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                              </button>
+
+                              <span 
+                                className="stepper-count"
+                                style={{
+                                  fontFamily: 'var(--font-body), sans-serif',
+                                  fontSize: '0.98rem',
+                                  fontWeight: '800',
+                                  color: '#1b2a12',
+                                  minWidth: '20px',
+                                  textAlign: 'center'
+                                }}
+                              >
+                                {qty}
+                              </span>
+
+                              <button 
+                                type="button"
+                                className="stepper-btn plus"
+                                onClick={() => updateCartQty(productId, qty + 1)}
+                                aria-label="Increase quantity"
+                                style={{
+                                  appearance: 'none',
+                                  WebkitAppearance: 'none',
+                                  width: '28px',
+                                  height: '28px',
+                                  minWidth: '28px',
+                                  minHeight: '28px',
+                                  borderRadius: '50%',
+                                  background: 'linear-gradient(135deg, #2b3e1b 0%, #1b2a12 100%)',
+                                  color: '#ffffff',
+                                  border: 'none',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  cursor: 'pointer',
+                                  padding: '0',
+                                  margin: '0',
+                                  lineHeight: '1',
+                                  outline: 'none',
+                                  boxShadow: '0 2px 6px rgba(43, 62, 27, 0.3)'
+                                }}
+                              >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                              </button>
+                            </div>
+                          ) : (
+                            <button 
+                              className="add-to-cart-btn"
+                              onClick={() => addToCart(product, 1)}
+                              aria-label={`Add ${product.name} to Cart`}
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                              <span>Add</span>
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
+
+              <button 
+                type="button" 
+                className="scroll-nav-btn next" 
+                onClick={() => handleScroll('right')}
+                aria-label="Scroll right"
+              >
+                ›
+              </button>
             </div>
           )}
 

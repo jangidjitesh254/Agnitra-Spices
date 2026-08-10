@@ -6116,4 +6116,84 @@ img {
   }
 }
 
+/* Home Page Side Scrolling Products Carousel */
+.home-products-scroll-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.home-products-scroll-container {
+  display: flex !important;
+  flex-direction: row !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  gap: 24px !important;
+  padding: 12px 6px 28px 6px !important;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.home-products-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.home-products-scroll-container::-webkit-scrollbar-track {
+  background: rgba(229, 223, 210, 0.6);
+  border-radius: 10px;
+}
+
+.home-products-scroll-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #3b6e28 0%, #d4af37 100%);
+  border-radius: 10px;
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.15);
+}
+
+.home-products-scroll-container .designer-product-card {
+  flex: 0 0 290px !important;
+  max-width: 290px !important;
+  min-width: 280px !important;
+  scroll-snap-align: start;
+}
+
+.scroll-nav-btn {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1.5px solid #ede6d8;
+  color: #1b2e13;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(37, 29, 24, 0.12);
+  transition: all 0.25s ease;
+}
+
+.scroll-nav-btn:hover {
+  background: #3b6e28;
+  color: #ffffff;
+  border-color: #3b6e28;
+}
+
+.scroll-nav-btn.prev {
+  left: -20px;
+}
+
+.scroll-nav-btn.next {
+  right: -20px;
+}
+
+@media (max-width: 640px) {
+  .scroll-nav-btn {
+    display: none;
+  }
+}
+
 
