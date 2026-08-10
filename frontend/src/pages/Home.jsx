@@ -278,14 +278,16 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
 
 
       {/* Traditional Recipes Showcase Section */}
-      <section className="section" style={{ background: '#FAF6F0', padding: '60px 0', borderTop: '1px solid #EDE6D8', borderBottom: '1px solid #EDE6D8' }}>
+      <section className="section" style={{ background: 'var(--bg-primary)', padding: '70px 0 75px 0', borderTop: '1px solid #EDE6D8', borderBottom: '1px solid #EDE6D8' }}>
         <div className="container">
-          <div className="section-title-wrapper text-center" style={{ marginBottom: '40px' }}>
-            <span className="section-subtitle" style={{ color: '#3b6e28', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em', fontSize: '0.85rem' }}>🌿 CULINARY HERITAGE & INSPIRATION</span>
-            <h2 className="main-headline-title" style={{ fontFamily: 'var(--font-title)', fontSize: '2.4rem', color: '#1b2e13', margin: '8px 0' }}>Cook Authentic Recipes with Agnitra</h2>
+          
+          {/* Header Title Section matching Three Pillars style */}
+          <div className="section-title-wrapper">
+            <span className="section-subtitle">Culinary Heritage &amp; Inspiration</span>
+            <h2 className="section-title">Cook Authentic Recipes with Agnitra</h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '24px', marginBottom: '36px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '28px', marginTop: '45px', marginBottom: '40px' }}>
             {[
               {
                 id: 1,
@@ -322,35 +324,36 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
             ].map((recipe) => (
               <div 
                 key={recipe.id}
+                className="animate-fade-in"
                 onClick={() => navigateTo('recipes')}
                 style={{
                   background: '#ffffff',
-                  borderRadius: '20px',
+                  borderRadius: '24px',
                   overflow: 'hidden',
                   border: '1.5px solid #ede6d8',
-                  boxShadow: '0 8px 24px rgba(37, 29, 24, 0.05)',
+                  boxShadow: '0 10px 30px rgba(37, 29, 24, 0.05)',
                   cursor: 'pointer',
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                  transition: 'all 0.3s ease'
                 }}
               >
-                <div style={{ position: 'relative', height: '180px', overflow: 'hidden' }}>
+                <div style={{ position: 'relative', height: '190px', overflow: 'hidden' }}>
                   <img src={recipe.image} alt={recipe.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  <span style={{ position: 'absolute', top: '12px', left: '12px', background: '#2b3e1b', color: '#ffffff', padding: '3px 10px', borderRadius: '50px', fontSize: '0.75rem', fontWeight: '800', textTransform: 'uppercase' }}>
+                  <span style={{ position: 'absolute', top: '12px', left: '12px', background: '#2b3e1b', color: '#ffffff', padding: '4px 12px', borderRadius: '50px', fontSize: '0.75rem', fontWeight: '800', textTransform: 'uppercase' }}>
                     {recipe.category}
                   </span>
-                  <span style={{ position: 'absolute', top: '12px', right: '12px', background: '#ffffff', color: '#1b2e13', padding: '3px 10px', borderRadius: '50px', fontSize: '0.75rem', fontWeight: '800' }}>
+                  <span style={{ position: 'absolute', top: '12px', right: '12px', background: '#ffffff', color: '#1b2e13', padding: '4px 12px', borderRadius: '50px', fontSize: '0.75rem', fontWeight: '800', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
                     ⏱ {recipe.time}
                   </span>
                 </div>
 
-                <div style={{ padding: '18px' }}>
-                  <h3 style={{ fontFamily: 'var(--font-title)', fontSize: '1.15rem', fontWeight: '800', color: '#1b2e13', marginBottom: '6px' }}>
+                <div style={{ padding: '20px' }}>
+                  <h3 style={{ fontFamily: 'var(--font-title)', fontSize: '1.2rem', fontWeight: '800', color: '#1b2e13', marginBottom: '8px', lineHeight: '1.3' }}>
                     {recipe.title}
                   </h3>
-                  <p style={{ fontSize: '0.8rem', color: '#3b6e28', fontWeight: '700', margin: '0 0 12px 0' }}>
-                    Agnitra Spices: {recipe.spices}
+                  <p style={{ fontSize: '0.82rem', color: 'var(--accent-orange)', fontWeight: '700', margin: '0 0 14px 0' }}>
+                    Spices: {recipe.spices}
                   </p>
-                  <span style={{ fontSize: '0.85rem', fontWeight: '800', color: '#1b2e13', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <span style={{ fontSize: '0.88rem', fontWeight: '800', color: '#1b2e13', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                     View Ingredients &amp; Recipe →
                   </span>
                 </div>
@@ -358,11 +361,11 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
             ))}
           </div>
 
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center', marginTop: '40px' }}>
             <button 
               className="btn btn-primary"
               onClick={() => navigateTo('recipes')}
-              style={{ padding: '14px 32px', fontSize: '0.98rem', fontWeight: '800', background: '#2b3e1b', color: '#ffffff', border: 'none', borderRadius: '12px' }}
+              style={{ padding: '16px 36px', fontSize: '1rem', fontWeight: '800', background: '#2b3e1b', color: '#ffffff', border: 'none', borderRadius: '14px', boxShadow: '0 8px 20px rgba(43, 62, 27, 0.2)' }}
             >
               Explore All Traditional Recipes →
             </button>
