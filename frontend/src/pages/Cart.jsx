@@ -351,14 +351,14 @@ Please confirm my order.`;
                     <span>Logged in ({formData.phone || 'Account'}). Details auto-filled from your profile.</span>
                   </div>
                 ) : (
-                  <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.08)', border: '1px dashed #d4af37', color: '#1b2e13', padding: '10px 14px', borderRadius: '10px', marginBottom: '20px', fontSize: '0.82rem', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
-                    <span>Guest Mode: Fill details manually below</span>
+                  <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'flex-end' }}>
                     <button 
                       type="button" 
                       onClick={() => navigateTo('orders')} 
-                      style={{ background: 'none', border: 'none', color: '#2b3e1b', fontWeight: 800, cursor: 'pointer', textDecoration: 'underline', padding: 0, fontSize: '0.82rem' }}
+                      style={{ background: 'rgba(59, 110, 40, 0.08)', border: '1.5px solid #3b6e28', color: '#2b3e1b', padding: '8px 14px', borderRadius: '8px', fontWeight: 800, cursor: 'pointer', fontSize: '0.82rem', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
                     >
-                      Login for Auto-Fill →
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                      Login for Auto-fill →
                     </button>
                   </div>
                 )}
