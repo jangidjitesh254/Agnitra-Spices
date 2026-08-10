@@ -27,19 +27,20 @@ function Account({ orders, navigateTo }) {
     const saved = localStorage.getItem('agnitra_user_profile');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === 'object') return parsed;
       } catch (e) {
         // Fallback
       }
     }
     return {
-      name: 'Jitesh Jangid',
-      email: 'jitesh@agnitraspices.com',
-      phone: '+91 98765 43210',
-      address: 'Plot 45, Heritage Colony, Mansarovar',
-      city: 'Jaipur',
-      state: 'Rajasthan',
-      zipCode: '302020'
+      name: '',
+      email: '',
+      phone: '',
+      address: '',
+      city: '',
+      state: '',
+      zipCode: ''
     };
   });
 
@@ -51,6 +52,39 @@ function Account({ orders, navigateTo }) {
     }
     return () => clearInterval(timer);
   }, [countdown]);
+
+  // Helper to handle post-OTP verification onboarding check
+  const completeVerificationAndProceed = (verifiedPhone) => {
+    const saved = localStorage.getItem('agnitra_user_profile');
+    let parsed = null;
+    if (saved) {
+      try { parsed = JSON.parse(saved); } catch (e) {}
+    }
+
+    // Check if user already has a completed profile (name & address populated)
+    if (parsed && parsed.name && parsed.name.trim().length > 0 && parsed.address && parsed.address.trim().length > 0) {
+      const updatedProfile = { ...parsed, phone: verifiedPhone };
+      localStorage.setItem('agnitra_user_profile', JSON.stringify(updatedProfile));
+      localStorage.setItem('agnitra_user_logged_in', 'true');
+      setProfile(updatedProfile);
+      setIsLoggedIn(true);
+      setOtpMessage(null);
+    } else {
+      // First-time user sign-in -> Prompt Name, Delivery Location & Email (Optional)
+      setProfile(prev => ({
+        ...prev,
+        phone: verifiedPhone,
+        name: prev?.name || '',
+        email: prev?.email || '',
+        address: prev?.address || '',
+        city: prev?.city || '',
+        state: prev?.state || '',
+        zipCode: prev?.zipCode || ''
+      }));
+      setLoginStep('onboarding');
+      setOtpMessage('🎉 Mobile number verified! Please set up your name & shipping address below.');
+    }
+  };
 
   // Handle Send OTP (Firebase or Backend API)
   const handleSendOtp = async (e) => {
@@ -119,21 +153,13 @@ function Account({ orders, navigateTo }) {
     try {
       setAuthLoading(true);
       const cleanPhone = phoneInput.replace(/\D/g, '').slice(-10);
+      const userPhoneFormatted = `+91 ${cleanPhone}`;
 
       // Firebase Verification Flow
       if (isFirebaseConfigured() && window.confirmationResult) {
         const user = await verifyFirebaseOtp(otpInput);
         console.log('✅ Firebase Phone Authentication Success:', user);
-
-        localStorage.setItem('agnitra_user_logged_in', 'true');
-        const updatedProfile = {
-          ...profile,
-          phone: user.phoneNumber || `+91 ${cleanPhone}`
-        };
-        localStorage.setItem('agnitra_user_profile', JSON.stringify(updatedProfile));
-        setProfile(updatedProfile);
-        setIsLoggedIn(true);
-        setOtpMessage(null);
+        completeVerificationAndProceed(user.phoneNumber || userPhoneFormatted);
         return;
       }
 
@@ -149,28 +175,41 @@ function Account({ orders, navigateTo }) {
         throw new Error(data.error || 'Invalid OTP code.');
       }
 
-      // Successful Authentication
-      localStorage.setItem('agnitra_user_logged_in', 'true');
-      const updatedProfile = {
-        ...profile,
-        phone: `+91 ${cleanPhone}`
-      };
-      localStorage.setItem('agnitra_user_profile', JSON.stringify(updatedProfile));
-      setProfile(updatedProfile);
-      setIsLoggedIn(true);
-      setOtpMessage(null);
+      // Proceed to Onboarding check
+      completeVerificationAndProceed(userPhoneFormatted);
     } catch (err) {
       console.error('Verify OTP error:', err);
       if (otpInput === '123456') {
         // Fallback demo OTP bypass
-        localStorage.setItem('agnitra_user_logged_in', 'true');
-        setIsLoggedIn(true);
+        completeVerificationAndProceed(`+91 ${phoneInput.replace(/\D/g, '').slice(-10)}`);
       } else {
         setOtpError(err.message || 'Invalid OTP code. Use 123456 for instant testing.');
       }
     } finally {
       setAuthLoading(false);
     }
+  };
+
+  // Handle First-Time User Onboarding Form Submit
+  const handleOnboardingSubmit = (e) => {
+    if (e) e.preventDefault();
+    setOtpError(null);
+
+    if (!profile.name || !profile.name.trim()) {
+      setOtpError('Please enter your full name.');
+      return;
+    }
+    if (!profile.address || !profile.address.trim()) {
+      setOtpError('Please enter your delivery location/address.');
+      return;
+    }
+
+    // Save final profile & complete login
+    localStorage.setItem('agnitra_user_profile', JSON.stringify(profile));
+    localStorage.setItem('agnitra_user_logged_in', 'true');
+    setIsLoggedIn(true);
+    setOtpMessage(null);
+    setOtpError(null);
   };
 
   // Handle Quick Demo Fill
@@ -338,13 +377,15 @@ function Account({ orders, navigateTo }) {
           </div>
 
           <h2 style={{ fontFamily: 'var(--font-title)', fontSize: '1.85rem', fontWeight: '800', color: '#1b2e13', marginBottom: '6px', lineHeight: '1.2' }}>
-            {loginStep === 'phone' ? 'Welcome to Agnitra' : 'Enter 6-Digit OTP'}
+            {loginStep === 'phone' ? 'Welcome to Agnitra' : loginStep === 'otp' ? 'Enter 6-Digit OTP' : 'Create Your Profile'}
           </h2>
 
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', marginBottom: '26px', lineHeight: '1.5' }}>
             {loginStep === 'phone' 
               ? 'Sign in or create your account using your mobile phone number' 
-              : `Verification code sent to +91 ${phoneInput.slice(-10)}`}
+              : loginStep === 'otp'
+              ? `Verification code sent to +91 ${phoneInput.slice(-10)}`
+              : 'Enter your name, shipping location, and optional email to complete setup.'}
           </p>
 
           {otpMessage && (
@@ -402,7 +443,7 @@ function Account({ orders, navigateTo }) {
                 ⚡ Quick Fill Demo Number: 9876543210
               </button>
             </form>
-          ) : (
+          ) : loginStep === 'otp' ? (
             <form onSubmit={handleVerifyOtp} style={{ textAlign: 'left' }}>
               <div style={{ marginBottom: '22px' }}>
                 <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '800', color: '#1b2e13', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
@@ -426,7 +467,7 @@ function Account({ orders, navigateTo }) {
                 disabled={authLoading}
                 style={{ width: '100%', padding: '15px', fontSize: '1.02rem', fontWeight: '800', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#2b3e1b', color: '#ffffff', border: 'none', cursor: 'pointer' }}
               >
-                {authLoading ? 'Verifying Code...' : 'Verify & Login Now →'}
+                {authLoading ? 'Verifying Code...' : 'Verify OTP & Continue →'}
               </button>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '18px', fontSize: '0.85rem' }}>
@@ -441,11 +482,108 @@ function Account({ orders, navigateTo }) {
                   type="button" 
                   onClick={handleSendOtp} 
                   disabled={countdown > 0} 
-                  style={{ background: 'none', border: 'none', color: countdown > 0 ? 'var(--text-muted)' : '#3b6e28', cursor: countdown > 0 ? 'default' : 'pointer', fontWeight: 800 }}
+                  style={{ background: 'none', border: 'none', color: countdown > 0 ? 'var(--text-muted)' : '#3b6e28', cursor: countdown > 0 ? 'default' : 'pointer', fontWeight: 700 }}
                 >
-                  {countdown > 0 ? `Resend OTP in ${countdown}s` : 'Resend OTP Now'}
+                  {countdown > 0 ? `Resend in ${countdown}s` : 'Resend OTP'}
                 </button>
               </div>
+            </form>
+          ) : (
+            /* STEP 3: FIRST-TIME USER ONBOARDING FORM */
+            <form onSubmit={handleOnboardingSubmit} style={{ textAlign: 'left' }}>
+              
+              {/* Full Name */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '800', color: '#1b2e13', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  Full Name <span style={{ color: 'var(--accent-red)' }}>*</span>
+                </label>
+                <input 
+                  type="text"
+                  placeholder="e.g. Rahul Sharma"
+                  value={profile.name}
+                  onChange={(e) => setProfile(prev => ({ ...prev, name: e.target.value }))}
+                  required
+                  style={{ width: '100%', border: '2px solid #e0d8c8', borderRadius: '12px', padding: '12px 14px', fontSize: '0.95rem', fontWeight: '700', color: '#1b2e13', background: '#faf6f0', outline: 'none', boxSizing: 'border-box' }}
+                />
+              </div>
+
+              {/* Delivery Address & GPS */}
+              <div style={{ marginBottom: '16px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <label style={{ fontSize: '0.8rem', fontWeight: '800', color: '#1b2e13', textTransform: 'uppercase', letterSpacing: '0.04em', margin: 0 }}>
+                    Delivery Location / Address <span style={{ color: 'var(--accent-red)' }}>*</span>
+                  </label>
+                  <button 
+                    type="button"
+                    onClick={handleFetchGPSLocation}
+                    disabled={isLocating}
+                    style={{ background: '#3b6e28', color: '#ffffff', border: 'none', borderRadius: '50px', padding: '3px 10px', fontSize: '0.72rem', fontWeight: '800', cursor: 'pointer' }}
+                  >
+                    {isLocating ? 'Locating...' : '📍 Auto-Fill GPS'}
+                  </button>
+                </div>
+                <textarea 
+                  rows="2"
+                  placeholder="House / Flat No., Street, Area, Colony..."
+                  value={profile.address}
+                  onChange={(e) => setProfile(prev => ({ ...prev, address: e.target.value }))}
+                  required
+                  style={{ width: '100%', border: '2px solid #e0d8c8', borderRadius: '12px', padding: '12px 14px', fontSize: '0.9rem', fontWeight: '600', color: '#1b2e13', background: '#faf6f0', outline: 'none', boxSizing: 'border-box', resize: 'vertical' }}
+                />
+                {locationError && <p style={{ color: 'var(--accent-red)', fontSize: '0.78rem', margin: '4px 0 0 0', fontWeight: '700' }}>{locationError}</p>}
+              </div>
+
+              {/* City & Pincode Grid */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: '800', color: '#1b2e13', marginBottom: '4px', textTransform: 'uppercase' }}>
+                    City <span style={{ color: 'var(--accent-red)' }}>*</span>
+                  </label>
+                  <input 
+                    type="text"
+                    placeholder="e.g. Jaipur"
+                    value={profile.city}
+                    onChange={(e) => setProfile(prev => ({ ...prev, city: e.target.value }))}
+                    required
+                    style={{ width: '100%', border: '2px solid #e0d8c8', borderRadius: '12px', padding: '10px 12px', fontSize: '0.88rem', fontWeight: '700', color: '#1b2e13', background: '#faf6f0', outline: 'none', boxSizing: 'border-box' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: '800', color: '#1b2e13', marginBottom: '4px', textTransform: 'uppercase' }}>
+                    Pincode <span style={{ color: 'var(--accent-red)' }}>*</span>
+                  </label>
+                  <input 
+                    type="text"
+                    placeholder="e.g. 302020"
+                    value={profile.zipCode}
+                    onChange={(e) => setProfile(prev => ({ ...prev, zipCode: e.target.value }))}
+                    required
+                    style={{ width: '100%', border: '2px solid #e0d8c8', borderRadius: '12px', padding: '10px 12px', fontSize: '0.88rem', fontWeight: '700', color: '#1b2e13', background: '#faf6f0', outline: 'none', boxSizing: 'border-box' }}
+                  />
+                </div>
+              </div>
+
+              {/* Email Address (OPTIONAL) */}
+              <div style={{ marginBottom: '22px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '800', color: '#1b2e13', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  Email Address <span style={{ color: 'var(--text-muted)', fontWeight: '600', textTransform: 'none' }}>(Optional)</span>
+                </label>
+                <input 
+                  type="email"
+                  placeholder="rahul@example.com (Optional)"
+                  value={profile.email}
+                  onChange={(e) => setProfile(prev => ({ ...prev, email: e.target.value }))}
+                  style={{ width: '100%', border: '2px solid #e0d8c8', borderRadius: '12px', padding: '12px 14px', fontSize: '0.92rem', fontWeight: '600', color: '#1b2e13', background: '#faf6f0', outline: 'none', boxSizing: 'border-box' }}
+                />
+              </div>
+
+              <button 
+                type="submit" 
+                className="btn btn-primary"
+                style={{ width: '100%', padding: '15px', fontSize: '1.02rem', fontWeight: '800', borderRadius: '14px', background: '#2b3e1b', color: '#ffffff', border: 'none', cursor: 'pointer' }}
+              >
+                Complete Profile &amp; Login →
+              </button>
             </form>
           )}
         </div>
