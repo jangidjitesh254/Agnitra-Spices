@@ -437,33 +437,73 @@ function Account({ orders, navigateTo }) {
           <div className="account-dashboard-wrapper animate-fade-in">
             
             {/* Header Profile Cover Banner */}
-            <div className="agnitra-profile-banner">
-              <div className="agnitra-banner-content">
-                <div className="agnitra-avatar-box">
-                  <span className="avatar-initials">{profile.name ? profile.name.charAt(0) : 'J'}</span>
+            <div 
+              className="agnitra-profile-banner"
+              style={{
+                background: 'linear-gradient(135deg, #1b2e13 0%, #2b3e1b 60%, #15240f 100%)',
+                borderRadius: '24px',
+                padding: '32px 28px',
+                position: 'relative',
+                overflow: 'hidden',
+                border: '1.5px solid #d4af37',
+                boxShadow: '0 16px 40px rgba(27, 46, 19, 0.25)',
+                marginBottom: '28px'
+              }}
+            >
+              {/* Decorative Background Overlay */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                width: '240px',
+                height: '100%',
+                background: 'radial-gradient(circle at 100% 0%, rgba(212, 175, 55, 0.18) 0%, transparent 70%)',
+                pointerEvents: 'none'
+              }}></div>
+
+              <div className="agnitra-banner-content" style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px', position: 'relative', zIndex: 2 }}>
+                <div className="agnitra-avatar-box" style={{ width: '68px', height: '68px', minWidth: '68px', borderRadius: '50%', background: 'linear-gradient(135deg, #d4af37 0%, #b89327 100%)', border: '2.5px solid #ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(0,0,0,0.2)' }}>
+                  <span className="avatar-initials" style={{ fontSize: '1.8rem', fontWeight: '800', color: '#ffffff', textTransform: 'uppercase' }}>
+                    {profile.name ? profile.name.charAt(0) : 'J'}
+                  </span>
                 </div>
 
                 <div className="agnitra-profile-meta">
-                  <h1 className="agnitra-user-title">{profile.name}</h1>
-                  <p className="agnitra-user-subtitle">{profile.phone} • {profile.city || 'Jaipur'}</p>
+                  <h1 className="agnitra-user-title" style={{ fontFamily: 'var(--font-title)', fontSize: '1.85rem', fontWeight: '800', color: '#ffffff', margin: '0 0 4px 0', textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
+                    {profile.name}
+                  </h1>
+                  <p className="agnitra-user-subtitle" style={{ color: '#d4af37', fontSize: '0.95rem', fontWeight: '700', margin: 0, letterSpacing: '0.02em' }}>
+                    {profile.phone} • {profile.city || 'Jaipur'}
+                  </p>
                 </div>
               </div>
 
               {/* 3 Column Statistics Bar */}
-              <div className="agnitra-stats-bar">
-                <div className="agnitra-stat-col">
-                  <span className="agnitra-stat-value">5</span>
-                  <span className="agnitra-stat-label">Spices</span>
+              <div 
+                className="agnitra-stats-bar"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
+                  background: 'rgba(0, 0, 0, 0.35)',
+                  backdropFilter: 'blur(8px)',
+                  borderRadius: '16px',
+                  padding: '16px 12px',
+                  border: '1px solid rgba(212, 175, 55, 0.35)',
+                  position: 'relative',
+                  zIndex: 2
+                }}
+              >
+                <div className="agnitra-stat-col" style={{ textAlign: 'center' }}>
+                  <span className="agnitra-stat-value" style={{ display: 'block', fontSize: '1.3rem', fontWeight: '800', color: '#ffffff' }}>5</span>
+                  <span className="agnitra-stat-label" style={{ display: 'block', fontSize: '0.78rem', fontWeight: '700', color: '#d8ceba', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>Spices</span>
                 </div>
-                <div className="agnitra-stat-divider"></div>
-                <div className="agnitra-stat-col">
-                  <span className="agnitra-stat-value">4.9 ★</span>
-                  <span className="agnitra-stat-label">Rating</span>
+                <div className="agnitra-stat-col" style={{ textAlign: 'center', borderLeft: '1px solid rgba(255, 255, 255, 0.15)', borderRight: '1px solid rgba(255, 255, 255, 0.15)' }}>
+                  <span className="agnitra-stat-value" style={{ display: 'block', fontSize: '1.3rem', fontWeight: '800', color: '#ffffff' }}>4.9 ★</span>
+                  <span className="agnitra-stat-label" style={{ display: 'block', fontSize: '0.78rem', fontWeight: '700', color: '#d8ceba', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>Rating</span>
                 </div>
-                <div className="agnitra-stat-divider"></div>
-                <div className="agnitra-stat-col">
-                  <span className="agnitra-stat-value">2.4K</span>
-                  <span className="agnitra-stat-label">Happy Customers</span>
+                <div className="agnitra-stat-col" style={{ textAlign: 'center' }}>
+                  <span className="agnitra-stat-value" style={{ display: 'block', fontSize: '1.3rem', fontWeight: '800', color: '#ffffff' }}>2.4K</span>
+                  <span className="agnitra-stat-label" style={{ display: 'block', fontSize: '0.78rem', fontWeight: '700', color: '#d8ceba', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>Happy Customers</span>
                 </div>
               </div>
             </div>
