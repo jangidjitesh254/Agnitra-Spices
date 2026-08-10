@@ -371,7 +371,24 @@ function Account({ orders, navigateTo }) {
   const [orderFilter, setOrderFilter] = useState('all'); 
   const [expandedOrderId, setExpandedOrderId] = useState(null);
 
-  const filteredOrders = orders.filter(order => {
+  const localOrders = (() => {
+    try {
+      return JSON.parse(localStorage.getItem('agnitra_local_orders') || '[]');
+    } catch (e) {
+      return [];
+    }
+  })();
+
+  // Deduplicate orders by orderId
+  const allCombinedOrders = [...localOrders, ...orders].reduce((acc, current) => {
+    const id = current.orderId || current.id;
+    if (id && !acc.some(item => (item.orderId || item.id) === id)) {
+      acc.push(current);
+    }
+    return acc;
+  }, []);
+
+  const filteredOrders = allCombinedOrders.filter(order => {
     if (orderFilter === 'all') return true;
     const st = (order.status || 'processing').toLowerCase();
     if (orderFilter === 'pending' || orderFilter === 'processing') {

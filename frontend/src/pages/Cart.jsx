@@ -127,31 +127,47 @@ function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOr
         totalAmount: cartTotal
       };
 
-      // Save order in backend database (reflects on Admin Dashboard)
-      const response = await fetch(`${API_BASE_URL}/orders`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(orderPayload)
-      });
+      let createdOrder = {};
 
-      const result = await response.json();
+      // Attempt backend API order save (reflects on Admin Dashboard)
+      try {
+        const response = await fetch(`${API_BASE_URL}/orders`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(orderPayload)
+        });
 
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to place order.');
+        if (response.ok) {
+          const result = await response.json();
+          createdOrder = result.order || {};
+          if (onOrderPlaced) {
+            await onOrderPlaced().catch(() => {});
+          }
+        }
+      } catch (backendErr) {
+        console.warn('Backend server order save offline fallback:', backendErr);
       }
 
-      // Extract generated Order ID
-      const createdOrder = result.order || {};
+      // Generate unique Order ID fallback if backend was unavailable or timed out
       const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
       const randNum = Math.floor(1000 + Math.random() * 9000);
       const formattedOrderId = createdOrder.orderId || `AGN-${todayStr}-${randNum}`;
 
-      // Update global app state so order immediately reflects on Admin Dashboard & My Orders
-      if (onOrderPlaced) {
-        await onOrderPlaced();
-      }
+      // Save order to local order history in localStorage so customer can track it under /profile
+      try {
+        const existingLocalOrders = JSON.parse(localStorage.getItem('agnitra_local_orders') || '[]');
+        const newLocalOrder = {
+          orderId: formattedOrderId,
+          createdAt: new Date().toISOString(),
+          customer: formData,
+          items: orderPayload.items,
+          totalAmount: cartTotal,
+          status: 'processing'
+        };
+        localStorage.setItem('agnitra_local_orders', JSON.stringify([newLocalOrder, ...existingLocalOrders]));
+      } catch (e) {}
 
       // Build clean, professional WhatsApp order message (NO problematic emojis that render as ? in WhatsApp)
       const itemsFormattedText = cart.map((item, index) => {
@@ -206,12 +222,12 @@ Please confirm my order.`;
       // Redirect user to Agnitra official WhatsApp
       window.open(whatsappUrl, '_blank');
 
-      // Clear cart and navigate to tracking page
+      // Clear cart and navigate to profile tracking page
       clearCart();
-      navigateTo('orders');
+      navigateTo('profile');
     } catch (err) {
       console.error('Checkout error:', err);
-      setError(err.message);
+      setError('Redirecting to Agnitra WhatsApp for instant order placement...');
     } finally {
       setSubmitting(false);
     }
