@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../App';
+import { isFirebaseConfigured, sendFirebaseOtp, verifyFirebaseOtp } from '../firebase';
 
 function Account({ orders, navigateTo }) {
   // Authentication & Login State
@@ -51,7 +52,7 @@ function Account({ orders, navigateTo }) {
     return () => clearInterval(timer);
   }, [countdown]);
 
-  // Handle Send OTP
+  // Handle Send OTP (Firebase or Backend API)
   const handleSendOtp = async (e) => {
     if (e) e.preventDefault();
     setOtpError(null);
@@ -63,8 +64,20 @@ function Account({ orders, navigateTo }) {
       return;
     }
 
+    const formattedPhone = `+91${cleanPhone.slice(-10)}`;
+
     try {
       setAuthLoading(true);
+
+      if (isFirebaseConfigured()) {
+        await sendFirebaseOtp(formattedPhone, 'recaptcha-container');
+        setLoginStep('otp');
+        setOtpMessage(`🔥 Real SMS OTP sent via Firebase to ${formattedPhone}. Please check your mobile messages.`);
+        setCountdown(30);
+        return;
+      }
+
+      // Backend API OTP fallback
       const res = await fetch(`${API_BASE_URL}/auth/send-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -77,20 +90,23 @@ function Account({ orders, navigateTo }) {
       }
 
       setLoginStep('otp');
-      setOtpMessage(`OTP sent to +91 ${cleanPhone.slice(-10)}. (Demo OTP: ${data.otp || '123456'})`);
+      setOtpMessage(`OTP sent to ${formattedPhone}. (Demo OTP: ${data.otp || '123456'})`);
       setCountdown(30);
     } catch (err) {
       console.error('Send OTP error:', err);
-      // Fallback for offline mode: allow demo testing
-      setLoginStep('otp');
-      setOtpMessage(`OTP sent to +91 ${cleanPhone.slice(-10)}. (Demo OTP: 123456)`);
-      setCountdown(30);
+      if (isFirebaseConfigured()) {
+        setOtpError(err.message || 'Firebase SMS delivery failed. Make sure Phone Auth is enabled in Firebase Console.');
+      } else {
+        setLoginStep('otp');
+        setOtpMessage(`OTP sent to ${formattedPhone}. (Demo OTP: 123456)`);
+        setCountdown(30);
+      }
     } finally {
       setAuthLoading(false);
     }
   };
 
-  // Handle Verify OTP
+  // Handle Verify OTP (Firebase or Backend API)
   const handleVerifyOtp = async (e) => {
     if (e) e.preventDefault();
     setOtpError(null);
@@ -104,6 +120,24 @@ function Account({ orders, navigateTo }) {
       setAuthLoading(true);
       const cleanPhone = phoneInput.replace(/\D/g, '').slice(-10);
 
+      // Firebase Verification Flow
+      if (isFirebaseConfigured() && window.confirmationResult) {
+        const user = await verifyFirebaseOtp(otpInput);
+        console.log('✅ Firebase Phone Authentication Success:', user);
+
+        localStorage.setItem('agnitra_user_logged_in', 'true');
+        const updatedProfile = {
+          ...profile,
+          phone: user.phoneNumber || `+91 ${cleanPhone}`
+        };
+        localStorage.setItem('agnitra_user_profile', JSON.stringify(updatedProfile));
+        setProfile(updatedProfile);
+        setIsLoggedIn(true);
+        setOtpMessage(null);
+        return;
+      }
+
+      // Backend API Verification Fallback
       const res = await fetch(`${API_BASE_URL}/auth/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -324,6 +358,9 @@ function Account({ orders, navigateTo }) {
               ⚠️ {otpError}
             </div>
           )}
+
+          {/* Invisible Firebase reCAPTCHA Container */}
+          <div id="recaptcha-container"></div>
 
           {loginStep === 'phone' ? (
             <form onSubmit={handleSendOtp} style={{ textAlign: 'left' }}>
