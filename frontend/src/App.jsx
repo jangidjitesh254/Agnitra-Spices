@@ -13,9 +13,15 @@ import Account from './pages/Account';
 import Recipes from './pages/Recipes';
 import AdminDashboard from './pages/AdminDashboard';
 
-export const API_BASE_URL = typeof window !== 'undefined' 
-  ? `http://${window.location.hostname}:5000/api`
-  : 'http://localhost:5000/api';
+// In production the site is served by the same Express app behind nginx, so a
+// same-origin path works and avoids mixed-content blocking on HTTPS (and does not
+// depend on port 5000 being open publicly). Only the Vite dev server, which runs on
+// a different port, needs the absolute backend URL.
+export const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.DEV && typeof window !== 'undefined'
+    ? `http://${window.location.hostname}:5000/api`
+    : '/api');
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home'); // home, shop, product/:id, cart, orders, account, about, contact, qr, admin

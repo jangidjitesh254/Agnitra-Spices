@@ -30,7 +30,18 @@ app.get('/health', (req, res) => {
 
 // Serve frontend build in production (optional, if they build it)
 const frontendBuildPath = path.join(__dirname, '../frontend/dist');
-app.use(express.static(frontendBuildPath));
+app.use(express.static(frontendBuildPath, {
+  // Vite fingerprints everything under /assets, so those can be cached hard.
+  // index.html must never be cached or clients keep booting the old bundle.
+  maxAge: '7d',
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('index.html')) {
+      res.setHeader('Cache-Control', 'no-cache');
+    } else if (filePath.includes(`${path.sep}assets${path.sep}`)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+  }
+}));
 
 // Fallback for SPA routing in production
 app.get('*', (req, res, next) => {
