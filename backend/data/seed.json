@@ -2,21 +2,21 @@
   {
     "_id": "65f8a2f1c8e8d2a1b9e00001",
     "name": "Lal Mirchi - Agnitra Spices",
-    "description": "Sun-dried Kashmiri chillies ground in slow-rotating stone chakkis. Keeps grinding temperatures below 38°C to retain natural red pigment and pure capsaicin oils. Gives mild heat with rich deep red color and sweet aroma.",
+    "description": "Sun-dried Kashmiri chillies cold ground in slow-rotating stone chakkis. Cold grinding keeps temperatures below 38°C to retain natural red pigment and pure capsaicin oils. Gives mild heat with rich deep red color and sweet aroma.",
     "price": 52,
     "unit": "100g",
     "category": "Chilli",
-    "traditionalMethod": "Low-temperature Stone-ground (Stone Chakki)",
+    "traditionalMethod": "Cold-Ground (Stone Chakki)",
     "benefits": [
       "Rich in Vitamin C and natural antioxidants",
-      "Locks essential oils without artificial colors",
+      "Cold grinding locks essential oils without artificial colors",
       "100% pure cold-ground purity"
     ],
     "specifications": {
       "essentialOils": "1.5% Essential Capsaicin Oils preserved",
       "moisture": "Under 8% (Max Aroma Lock)",
       "origin": "Byadgi region, Karnataka",
-      "grindingTemp": "Below 38°C (Cold Process)"
+      "grindingTemp": "Below 38°C (Cold Grinding)"
     },
     "usage": "Perfect for curries, tandoori marinades, stews, and daily cooking where rich red color and warmth are desired.",
     "recipes": [
@@ -72,7 +72,7 @@
       "essentialOils": "0.9% Linalool oils retained",
       "moisture": "Under 9%",
       "origin": "Ramganj Mandi, Rajasthan",
-      "grindingTemp": "Below 35°C (Slow rotation)"
+      "grindingTemp": "Below 35°C (Cold Grinding)"
     },
     "usage": "A cooling base spice for gravies, vegetable stir-fries, lentil dal, and traditional spice rubs.",
     "recipes": [

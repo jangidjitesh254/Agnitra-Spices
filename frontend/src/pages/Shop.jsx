@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SpiceDoodleLayer from '../components/SpiceDoodles';
 
 function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error, searchQuery, setSearchQuery }) {
   const [filterCategory, setFilterCategory] = useState('All');
@@ -36,7 +37,10 @@ function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error
   };
 
   return (
-    <div className="shop-page section">
+    <div className="shop-page section doodle-host">
+      {/* Hand-drawn spice doodles layered behind the products grid */}
+      <SpiceDoodleLayer variant="page" doodles={['chilli', 'coriander', 'turmeric', 'mortar', 'ginger', 'starAnise', 'peppercorn', 'chakki']} />
+
       <div className="container">
         
         {/* Title (Matching Screen 2) */}

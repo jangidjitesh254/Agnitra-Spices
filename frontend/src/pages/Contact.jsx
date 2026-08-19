@@ -1,7 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../App';
+import SpiceDoodleLayer from '../components/SpiceDoodles';
 
-function Contact() {
+// Official Agnitra Spices contact channels
+const AGNITRA_SUPPORT_EMAIL = 'it.agnitraspices@gmail.com';
+const AGNITRA_WHATSAPP_NUMBER = '919461839415';
+
+const EMPTY_FEEDBACK = {
+  name: '',
+  email: '',
+  rating: 5,
+  category: 'Spice Quality & Purity',
+  comments: ''
+};
+
+function Contact({ navigateTo }) {
   // Inquiry Form State
   const [formData, setFormData] = useState({
     name: '',
@@ -14,19 +27,54 @@ function Contact() {
   const [successMsg, setSuccessMsg] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
+  // Logged-in customer auto-fill state
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isAutoFilled, setIsAutoFilled] = useState(false);
+
   // Feedback Form State
-  const [feedbackData, setFeedbackData] = useState({
-    name: '',
-    email: '',
-    rating: 5,
-    category: 'Spice Quality & Purity',
-    comments: ''
-  });
+  const [feedbackData, setFeedbackData] = useState(EMPTY_FEEDBACK);
   const [submittingFeedback, setSubmittingFeedback] = useState(false);
   const [feedbackSuccess, setFeedbackSuccess] = useState(null);
+  const [feedbackError, setFeedbackError] = useState(null);
+  // Holds the WhatsApp link when the browser blocks the automatic popup
+  const [feedbackWhatsAppUrl, setFeedbackWhatsAppUrl] = useState(null);
 
   // Modal State for Google Review Submission
   const [showGoogleReviewModal, setShowGoogleReviewModal] = useState(false);
+
+  // Auto-fill both forms from the saved Agnitra profile when the customer is logged in
+  useEffect(() => {
+    try {
+      const loggedIn = localStorage.getItem('agnitra_user_logged_in') === 'true';
+      setIsUserLoggedIn(loggedIn);
+      if (!loggedIn) return;
+
+      const savedUser = localStorage.getItem('agnitra_user_profile');
+      if (!savedUser) return;
+
+      const user = JSON.parse(savedUser);
+      if (!user || typeof user !== 'object') return;
+
+      setFormData(prev => ({
+        ...prev,
+        name: user.name || prev.name,
+        email: user.email || prev.email,
+        phone: user.phone || prev.phone
+      }));
+
+      setFeedbackData(prev => ({
+        ...prev,
+        name: user.name || prev.name,
+        email: user.email || prev.email
+      }));
+
+      if (user.name || user.email || user.phone) {
+        setIsAutoFilled(true);
+      }
+    } catch (err) {
+      console.error('Error auto-filling Agnitra profile into contact forms:', err);
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,6 +92,16 @@ function Contact() {
     }));
   };
 
+  // Server responses are not guaranteed to be JSON (offline server, HTML error page, proxy),
+  // so never let a parse failure masquerade as a submission failure.
+  const readJsonSafely = async (response) => {
+    try {
+      return await response.json();
+    } catch {
+      return null;
+    }
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -59,90 +117,120 @@ function Contact() {
         body: JSON.stringify(formData)
       });
 
-      const result = await response.json();
+      const result = await readJsonSafely(response);
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to submit message.');
+        throw new Error((result && result.error) || 'Failed to submit message.');
       }
 
-      setSuccessMsg(result.message);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
+      setSuccessMsg((result && result.message) || 'Inquiry received. A spice specialist will connect with you shortly.');
+      setFormData(prev => ({
+        // Keep the identity fields populated for logged-in customers
+        name: isUserLoggedIn ? prev.name : '',
+        email: isUserLoggedIn ? prev.email : '',
+        phone: isUserLoggedIn ? prev.phone : '',
         subject: '',
         message: ''
-      });
+      }));
     } catch (err) {
       console.error('Contact submission error:', err);
-      setErrorMsg(err.message);
+      setErrorMsg(
+        err.message === 'Failed to fetch'
+          ? `Could not reach the Agnitra server. Please WhatsApp us on +91 94618 39415 or email ${AGNITRA_SUPPORT_EMAIL}.`
+          : err.message
+      );
     } finally {
       setSubmitting(false);
     }
   };
 
+  // Clean WhatsApp message for Agnitra Admin (+91 94618 39415) without emojis that render as "?" in WhatsApp
+  const buildFeedbackWhatsAppUrl = (data) => {
+    const adminWhatsAppMessage = `*CUSTOMER FEEDBACK - AGNITRA SPICES*
+
+Name: ${data.name}
+Email: ${data.email}
+Rating: ${data.rating}/5 Stars
+Category: ${data.category}
+
+Comments:
+${data.comments}`;
+
+    return `https://wa.me/${AGNITRA_WHATSAPP_NUMBER}?text=${encodeURIComponent(adminWhatsAppMessage)}`;
+  };
+
   const handleFeedbackSubmit = async (e) => {
     e.preventDefault();
-    try {
-      setSubmittingFeedback(true);
-      setFeedbackSuccess(null);
 
+    const trimmed = {
+      ...feedbackData,
+      name: feedbackData.name.trim(),
+      email: feedbackData.email.trim(),
+      comments: feedbackData.comments.trim()
+    };
+
+    if (!trimmed.name || !trimmed.email || !trimmed.comments) {
+      setFeedbackSuccess(null);
+      setFeedbackWhatsAppUrl(null);
+      setFeedbackError('Please add your name, email and review before submitting.');
+      return;
+    }
+
+    // Build the WhatsApp link up-front so it is available regardless of how the server responds
+    const waUrl = buildFeedbackWhatsAppUrl(trimmed);
+
+    setSubmittingFeedback(true);
+    setFeedbackError(null);
+    setFeedbackSuccess(null);
+    setFeedbackWhatsAppUrl(null);
+
+    let savedToServer = false;
+    try {
       const response = await fetch(`${API_BASE_URL}/feedback`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(feedbackData)
+        body: JSON.stringify(trimmed)
       });
 
-      const data = await response.json();
+      savedToServer = response.ok;
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit feedback.');
+        const data = await readJsonSafely(response);
+        console.warn('Feedback server rejected the submission:', (data && data.error) || response.status);
       }
-
-      setFeedbackSuccess('Thank you! Your feedback has been sent directly to Agnitra Admin.');
-      
-      // Pre-format clean WhatsApp message for Agnitra Admin (+91 94618 39415) without problematic emojis
-      const adminWhatsAppMessage = `*CUSTOMER FEEDBACK - AGNITRA SPICES*
-
-Name: ${feedbackData.name}
-Email: ${feedbackData.email}
-Rating: ${feedbackData.rating}/5 Stars
-Category: ${feedbackData.category}
-
-Comments:
-${feedbackData.comments}`;
-
-      const waUrl = `https://wa.me/919461839415?text=${encodeURIComponent(adminWhatsAppMessage)}`;
-      window.open(waUrl, '_blank');
-
-      setFeedbackData({
-        name: '',
-        email: '',
-        rating: 5,
-        category: 'Spice Quality & Purity',
-        comments: ''
-      });
     } catch (err) {
-      console.error('Feedback submission error:', err);
-      // Fallback: direct WhatsApp send if server offline
-      const adminWhatsAppMessage = `*CUSTOMER FEEDBACK - AGNITRA SPICES*
-
-Name: ${feedbackData.name}
-Email: ${feedbackData.email}
-Rating: ${feedbackData.rating}/5 Stars
-Category: ${feedbackData.category}
-
-Comments:
-${feedbackData.comments}`;
-      const waUrl = `https://wa.me/919461839415?text=${encodeURIComponent(adminWhatsAppMessage)}`;
-      window.open(waUrl, '_blank');
-
-      setFeedbackSuccess('Feedback sent directly to Agnitra Admin on WhatsApp!');
-    } finally {
-      setSubmittingFeedback(false);
+      // Server offline or blocked (e.g. mixed content on an HTTPS deployment) - WhatsApp still delivers it
+      console.warn('Feedback server unavailable, falling back to WhatsApp delivery:', err);
     }
+
+    // Popup blockers reject window.open once the click gesture has expired during the await above,
+    // so keep a visible link on screen whenever the tab did not actually open.
+    let popup = null;
+    try {
+      popup = window.open(waUrl, '_blank');
+    } catch {
+      popup = null;
+    }
+    if (!popup) {
+      setFeedbackWhatsAppUrl(waUrl);
+    }
+
+    setFeedbackSuccess(
+      savedToServer
+        ? 'Thank you! Your feedback has been recorded and sent to the Agnitra Admin team.'
+        : 'Thank you! Your feedback is ready to reach the Agnitra Admin team on WhatsApp.'
+    );
+
+    setFeedbackData({
+      ...EMPTY_FEEDBACK,
+      // Keep the identity fields populated for logged-in customers
+      name: isUserLoggedIn ? trimmed.name : '',
+      email: isUserLoggedIn ? trimmed.email : ''
+    });
+
+    setSubmittingFeedback(false);
   };
 
   const sampleReviews = [
@@ -173,7 +261,8 @@ ${feedbackData.comments}`;
   ];
 
   return (
-    <div className="contact-page section">
+    <div className="contact-page section doodle-host">
+      <SpiceDoodleLayer variant="page" doodles={['cardamom', 'coriander', 'starAnise', 'bayleaf', 'cinnamon', 'peppercorn']} />
       <div className="container">
         
         {/* Page Header */}
@@ -289,8 +378,12 @@ ${feedbackData.comments}`;
               </div>
               <div>
                 <h4 className="contact-title">Email Us</h4>
-                <p className="contact-desc">purity@agnitraspices.com</p>
-                <p className="contact-desc">care@agnitraspices.com</p>
+                <p className="contact-desc">
+                  <a href={`mailto:${AGNITRA_SUPPORT_EMAIL}?subject=Agnitra%20Spices%20Inquiry`} style={{ color: 'inherit', textDecoration: 'underline' }}>
+                    {AGNITRA_SUPPORT_EMAIL}
+                  </a>
+                </p>
+                <p className="contact-desc">Official inquiry, order &amp; support inbox</p>
               </div>
             </div>
 
@@ -300,8 +393,12 @@ ${feedbackData.comments}`;
               </div>
               <div>
                 <h4 className="contact-title">Call / WhatsApp</h4>
-                <p className="contact-desc">+91 98765 43210 (Bulk Orders)</p>
-                <p className="contact-desc">+91 141 223344 (Customer Support)</p>
+                <p className="contact-desc">
+                  <a href={`https://wa.me/${AGNITRA_WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>
+                    +91 94618 39415
+                  </a> (Orders &amp; Support)
+                </p>
+                <p className="contact-desc">Same number for bulk &amp; restaurant enquiries</p>
               </div>
             </div>
 
@@ -322,6 +419,25 @@ ${feedbackData.comments}`;
             <h3 style={{ fontFamily: 'var(--font-title)', fontSize: '1.5rem', marginBottom: '20px' }}>
               Send An Inquiry
             </h3>
+
+            {/* Logged-in customers get their saved profile details filled in automatically */}
+            {isUserLoggedIn && isAutoFilled ? (
+              <div style={{ backgroundColor: 'rgba(59, 110, 40, 0.08)', border: '1px solid #3b6e28', color: '#2b3e1b', padding: '10px 14px', borderRadius: '10px', marginBottom: '20px', fontSize: '0.82rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2b3e1b" strokeWidth="2.5" style={{ flexShrink: 0 }}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Your name, email and phone are auto-filled from your Agnitra profile.</span>
+              </div>
+            ) : (
+              <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'flex-end' }}>
+                <button
+                  type="button"
+                  onClick={() => navigateTo && navigateTo('profile')}
+                  style={{ background: 'rgba(59, 110, 40, 0.08)', border: '1.5px solid #3b6e28', color: '#2b3e1b', padding: '8px 14px', borderRadius: '8px', fontWeight: 800, cursor: 'pointer', fontSize: '0.82rem', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Login for Auto-fill →
+                </button>
+              </div>
+            )}
 
             {successMsg && (
               <div style={{ backgroundColor: 'rgba(54, 82, 39, 0.12)', border: '1px solid var(--accent-green)', padding: '16px', borderRadius: '10px', marginBottom: '20px', color: 'var(--accent-green)', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.92rem' }}>
@@ -447,8 +563,33 @@ ${feedbackData.comments}`;
             </div>
 
             {feedbackSuccess && (
-              <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.2)', border: '1px solid #d4af37', padding: '16px', borderRadius: '12px', marginBottom: '25px', color: '#ffffff', fontSize: '0.95rem', textAlign: 'center', fontWeight: 600 }}>
+              <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.2)', border: '1px solid #d4af37', padding: '16px', borderRadius: '12px', marginBottom: feedbackWhatsAppUrl ? '14px' : '25px', color: '#ffffff', fontSize: '0.95rem', textAlign: 'center', fontWeight: 600 }}>
                 ✨ {feedbackSuccess}
+              </div>
+            )}
+
+            {/* Shown when the browser blocked the automatic WhatsApp tab - a real link is never blocked */}
+            {feedbackWhatsAppUrl && (
+              <div style={{ marginBottom: '25px', textAlign: 'center' }}>
+                <a
+                  href={feedbackWhatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setFeedbackWhatsAppUrl(null)}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#25D366', color: '#ffffff', padding: '12px 24px', borderRadius: '50px', fontWeight: 800, fontSize: '0.92rem', textDecoration: 'none', boxShadow: '0 4px 14px rgba(37, 211, 102, 0.3)' }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <span>Tap To Send On WhatsApp</span>
+                </a>
+                <p style={{ color: '#d5cbbd', fontSize: '0.8rem', marginTop: '8px' }}>
+                  Your browser blocked the automatic popup, so tap the button to finish sending.
+                </p>
+              </div>
+            )}
+
+            {feedbackError && (
+              <div style={{ backgroundColor: 'rgba(200, 62, 45, 0.18)', border: '1px solid #bd593c', padding: '14px 16px', borderRadius: '12px', marginBottom: '25px', color: '#ffffff', fontSize: '0.9rem', textAlign: 'center', fontWeight: 700 }}>
+                ⚠️ {feedbackError}
               </div>
             )}
 
@@ -604,90 +745,89 @@ ${feedbackData.comments}`;
             </form>
           </div>
         </div>
+      </div>
 
-        {/* 4. Write Google Review Modal */}
-        {showGoogleReviewModal && (
+      {/* 4. Write Google Review Modal */}
+      {showGoogleReviewModal && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0,0,0,0.65)',
+            backdropFilter: 'blur(4px)',
+            zIndex: 10000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+          onClick={() => setShowGoogleReviewModal(false)}
+        >
           <div 
             style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100vw',
-              height: '100vh',
-              background: 'rgba(0,0,0,0.65)',
-              backdropFilter: 'blur(4px)',
-              zIndex: 10000,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '20px'
+              background: '#ffffff',
+              borderRadius: '20px',
+              padding: '30px 24px',
+              maxWidth: '500px',
+              width: '100%',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.25)',
+              textAlign: 'center',
+              position: 'relative'
             }}
-            onClick={() => setShowGoogleReviewModal(false)}
+            onClick={(e) => e.stopPropagation()}
           >
-            <div 
+            <button
+              type="button"
+              onClick={() => setShowGoogleReviewModal(false)}
               style={{
-                background: '#ffffff',
-                borderRadius: '20px',
-                padding: '30px 24px',
-                maxWidth: '500px',
-                width: '100%',
-                boxShadow: '0 20px 50px rgba(0,0,0,0.25)',
-                textAlign: 'center',
-                position: 'relative'
+                position: 'absolute',
+                top: '16px',
+                right: '16px',
+                background: 'rgba(0,0,0,0.06)',
+                border: 'none',
+                borderRadius: '50%',
+                width: '32px',
+                height: '32px',
+                cursor: 'pointer',
+                fontSize: '1rem',
+                fontWeight: 800
               }}
-              onClick={(e) => e.stopPropagation()}
             >
-              <button
-                type="button"
-                onClick={() => setShowGoogleReviewModal(false)}
-                style={{
-                  position: 'absolute',
-                  top: '16px',
-                  right: '16px',
-                  background: 'rgba(0,0,0,0.06)',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '32px',
-                  height: '32px',
-                  cursor: 'pointer',
-                  fontSize: '1rem',
-                  fontWeight: 800
-                }}
-              >
-                ✕
-              </button>
+              ✕
+            </button>
 
-              <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(66, 133, 244, 0.1)', color: '#4285F4', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-                <svg width="32" height="32" viewBox="0 0 48 48">
-                  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.13-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-                </svg>
-              </div>
-
-              <h3 style={{ fontFamily: 'var(--font-title)', fontSize: '1.4rem', marginBottom: '8px' }}>
-                Review Agnitra Spices on Google
-              </h3>
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.5', marginBottom: '24px' }}>
-                Your review helps families across India choose pure, authentic stone-ground spices over machine-milled heat powders.
-              </p>
-
-              <a
-                href="https://search.google.com/local/writereview?placeid=agnitraspices"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-designer-green"
-                style={{ width: '100%', padding: '14px', fontSize: '0.95rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textDecoration: 'none' }}
-                onClick={() => setShowGoogleReviewModal(false)}
-              >
-                <span>Continue to Google Reviews ↗</span>
-              </a>
+            <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(66, 133, 244, 0.1)', color: '#4285F4', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+              <svg width="32" height="32" viewBox="0 0 48 48">
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.13-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+              </svg>
             </div>
-          </div>
-        )}
 
-      </div>
+            <h3 style={{ fontFamily: 'var(--font-title)', fontSize: '1.4rem', marginBottom: '8px' }}>
+              Review Agnitra Spices on Google
+            </h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.5', marginBottom: '24px' }}>
+              Your review helps families across India choose pure, authentic stone-ground spices over machine-milled heat powders.
+            </p>
+
+            <a
+              href="https://search.google.com/local/writereview?placeid=agnitraspices"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-designer-green"
+              style={{ width: '100%', padding: '14px', fontSize: '0.95rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textDecoration: 'none' }}
+              onClick={() => setShowGoogleReviewModal(false)}
+            >
+              <span>Continue to Google Reviews ↗</span>
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

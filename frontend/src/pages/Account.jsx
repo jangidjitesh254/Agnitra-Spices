@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../App';
+import SpiceDoodleLayer from '../components/SpiceDoodles';
 import { isFirebaseConfigured, sendFirebaseOtp, verifyFirebaseOtp } from '../firebase';
 
 function Account({ orders, navigateTo }) {
@@ -402,7 +403,8 @@ function Account({ orders, navigateTo }) {
   // -------------------------------------------------------------
   if (!isLoggedIn) {
     return (
-      <div className="section" style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 16px', background: 'var(--bg-primary)' }}>
+      <div className="section doodle-host" style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 16px', background: 'var(--bg-primary)' }}>
+        <SpiceDoodleLayer variant="page" doodles={['coriander', 'cardamom', 'starAnise']} />
         <div className="phone-login-card animate-fade-in" style={{ width: '100%', maxWidth: '450px', background: '#ffffff', borderRadius: '28px', padding: '40px 32px', border: '1.5px solid #ede6d8', boxShadow: '0 20px 50px rgba(37, 29, 24, 0.09)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
           
           {/* Solid Top Green Accent Line */}
@@ -626,7 +628,7 @@ function Account({ orders, navigateTo }) {
         </div>
 
         {/* Security & Guarantee Footer Pill */}
-        <div style={{ marginTop: '24px', display: 'flex', alignItems: 'center', gap: '16px', color: 'var(--text-secondary)', fontSize: '0.82rem', fontWeight: '600', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div className="login-assurance-row" style={{ marginTop: '24px', display: 'flex', alignItems: 'center', gap: '16px', color: 'var(--text-secondary)', fontSize: '0.82rem', fontWeight: '600', flexWrap: 'wrap', justifyContent: 'center' }}>
           <span>🔒 100% Safe &amp; Secure</span>
           <span>•</span>
           <span>⚡ Instant OTP Delivery</span>
@@ -641,7 +643,8 @@ function Account({ orders, navigateTo }) {
   // RENDER: USER PROFILE DASHBOARD (WHEN LOGGED IN)
   // -------------------------------------------------------------
   return (
-    <div className="account-page section">
+    <div className="account-page section doodle-host">
+      <SpiceDoodleLayer variant="page" doodles={['coriander', 'turmeric', 'mortar', 'bayleaf']} />
       <div className="container">
         
         {/* VIEW 1: DASHBOARD MAIN */}

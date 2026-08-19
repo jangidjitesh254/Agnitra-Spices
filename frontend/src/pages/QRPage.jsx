@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SpiceDoodleLayer from '../components/SpiceDoodles';
 
 function QRPage({ navigateTo }) {
   const [copied, setCopied] = useState(false);
@@ -11,7 +12,7 @@ function QRPage({ navigateTo }) {
   const instagramUrl = 'https://www.instagram.com/agnitraspices/';
   const facebookUrl = 'https://www.facebook.com/profile.php?id=61592174644388';
   const whatsappUrl = 'https://wa.me/919461839415?text=Hello%20Agnitra%20Spices!%20I%20would%20like%20to%20connect%20with%20you.';
-  const emailUrl = 'mailto:purity@agnitraspices.com?subject=Agnitra%20Spices%20Inquiry';
+  const emailUrl = 'mailto:it.agnitraspices@gmail.com?subject=Agnitra%20Spices%20Inquiry';
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
@@ -20,7 +21,8 @@ function QRPage({ navigateTo }) {
   };
 
   return (
-    <div className="qr-landing-page">
+    <div className="qr-landing-page doodle-host">
+      <SpiceDoodleLayer variant="page" doodles={['chilli', 'coriander', 'starAnise', 'cardamom']} />
       {/* Decorative Drifting Floating 3D Spice Icons */}
       <img src="/images/mint_leaf_icon.png" className="floating-leaf leaf-1" aria-hidden="true" alt="" />
       <img src="/images/turmeric_icon.png" className="floating-leaf leaf-4" aria-hidden="true" alt="" />

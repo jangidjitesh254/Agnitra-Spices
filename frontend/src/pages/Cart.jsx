@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../App';
+import SpiceDoodleLayer from '../components/SpiceDoodles';
 
 function Cart({ cart, updateCartQty, removeFromCart, clearCart, navigateTo, onOrderPlaced }) {
   const [formData, setFormData] = useState({
@@ -233,7 +234,8 @@ Please confirm my order.`;
 
   if (cart.length === 0) {
     return (
-      <div className="container empty-state section">
+      <div className="container empty-state section doodle-host">
+        <SpiceDoodleLayer variant="page" doodles={['cinnamon', 'coriander', 'starAnise']} />
         <div className="empty-icon-box" style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'rgba(189, 89, 60, 0.1)', color: 'var(--accent-orange)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
         </div>
@@ -247,7 +249,8 @@ Please confirm my order.`;
   }
 
   return (
-    <div className="cart-page section">
+    <div className="cart-page section doodle-host">
+      <SpiceDoodleLayer variant="page" doodles={['cinnamon', 'starAnise', 'bayleaf', 'cardamom', 'peppercorn']} />
       <div className="container">
         <div className="section-title-wrapper">
           <span className="section-subtitle">Aroma Preservation Checkout</span>

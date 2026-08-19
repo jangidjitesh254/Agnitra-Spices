@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../App';
+import SpiceDoodleLayer from '../components/SpiceDoodles';
 
 function AdminDashboard({ products, orders, fetchOrders, navigateTo }) {
   // Admin Auth State
@@ -97,7 +98,8 @@ function AdminDashboard({ products, orders, fetchOrders, navigateTo }) {
   // Render Admin Login Form if not authenticated
   if (!isAdminLoggedIn) {
     return (
-      <div className="section" style={{ minHeight: '75vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="section doodle-host" style={{ minHeight: '75vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <SpiceDoodleLayer variant="page" doodles={['chakki', 'mortar']} />
         <div className="container" style={{ maxWidth: '440px' }}>
           <div 
             className="animate-fade-in"
@@ -192,7 +194,8 @@ function AdminDashboard({ products, orders, fetchOrders, navigateTo }) {
 
   // Logged In Admin Dashboard View
   return (
-    <div className="admin-dashboard-page section">
+    <div className="admin-dashboard-page section doodle-host">
+      <SpiceDoodleLayer variant="page" doodles={['chakki', 'peppercorn', 'mortar', 'starAnise']} />
       <div className="container">
         
         {/* Top Header Controls */}

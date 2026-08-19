@@ -6196,4 +6196,255 @@ img {
   }
 }
 
+/* ==========================================================================
+   Additional Floating Transparent Spice Products (Home Page)
+   Coriander, ginger, turmeric and mint drifting alongside the existing chillies.
 
+   Vertical offsets are in px, not %, because a % top resolves against the
+   viewport height while the hero/ribbon layout below is content-sized - a %
+   would slide these over the headline on tall screens. Values below sit in the
+   gaps between the hero copy, the feature ribbon and the section heading.
+   ========================================================================== */
+
+@keyframes drift-slow-3 {
+  0% { transform: translateY(0) rotate(0deg) scale(1); }
+  50% { transform: translateY(-18px) rotate(-6deg) scale(1.04); }
+  100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+/* Left gutter - sits clear of the hero headline, subtitle and CTA */
+.coriander-drift-1 {
+  top: 454px;
+  left: 3%;
+  width: 56px;
+  animation: drift-slow-3 9.5s ease-in-out infinite;
+  opacity: 0.85;
+}
+
+.ginger-drift-1 {
+  top: 468px;
+  left: 9%;
+  width: 62px;
+  animation: drift-slow-2 10.5s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+.coriander-drift-3 {
+  top: 634px;
+  left: 2%;
+  width: 50px;
+  animation: drift-slow-1 11.5s ease-in-out infinite;
+  opacity: 0.7;
+}
+
+.mint-drift-2 {
+  top: 652px;
+  left: 9.5%;
+  width: 48px;
+  animation: drift-slow-3 12.5s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+/* Right gutter - free to drift over the hero product visual */
+.ginger-drift-2 {
+  top: 266px;
+  right: 2.5%;
+  width: 64px;
+  animation: drift-slow-3 10s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+.coriander-drift-2 {
+  top: 452px;
+  right: 3.5%;
+  width: 56px;
+  animation: drift-slow-1 12s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+.turmeric-drift-2 {
+  top: 490px;
+  right: 9%;
+  width: 50px;
+  animation: drift-slow-2 13s ease-in-out infinite;
+  opacity: 0.65;
+}
+
+/* The hero stacks into a single column below 992px and these offsets no longer
+   line up, so the added spices step aside and the original set carries the page. */
+@media (max-width: 992px) {
+  .coriander-drift-1,
+  .coriander-drift-2,
+  .coriander-drift-3,
+  .ginger-drift-1,
+  .ginger-drift-2,
+  .mint-drift-2,
+  .turmeric-drift-2 {
+    display: none;
+  }
+}
+
+/* Respect users who ask for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .floating-leaf {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   Hand-Drawn Spice Doodle Layer (Home Page)
+
+   Faint sketchbook line art sitting BEHIND the section content, as a counterpart
+   to the photoreal floating PNGs that sit on top. The layer is z-index 0 and the
+   sibling .container is lifted to z-index 1, so doodles can never wash over copy.
+   ========================================================================== */
+
+.doodle-host > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.spice-doodle-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.spice-doodle {
+  position: absolute;
+  width: 120px;
+  height: auto;
+  color: var(--accent-green);
+  opacity: 0.13;
+  stroke-width: 1.6;
+}
+
+@keyframes doodle-sway {
+  0% { transform: translate3d(0, 0, 0) rotate(var(--doodle-tilt, 0deg)); }
+  50% { transform: translate3d(0, -10px, 0) rotate(calc(var(--doodle-tilt, 0deg) + 3deg)); }
+  100% { transform: translate3d(0, 0, 0) rotate(var(--doodle-tilt, 0deg)); }
+}
+
+.spice-doodle {
+  transform: rotate(var(--doodle-tilt, 0deg));
+  animation: doodle-sway 22s ease-in-out infinite;
+}
+
+/* ---- Hero ---- */
+.doodle-hero-1 { top: 6%; left: 2%; width: 132px; --doodle-tilt: -14deg; color: var(--accent-red); animation-duration: 24s; }
+.doodle-hero-2 { top: 58%; left: 6%; width: 104px; --doodle-tilt: 10deg; animation-duration: 27s; }
+.doodle-hero-3 { top: 10%; right: 4%; width: 96px; --doodle-tilt: 12deg; color: var(--accent-gold); animation-duration: 21s; }
+.doodle-hero-4 { top: 62%; right: 2%; width: 88px; --doodle-tilt: -8deg; color: var(--accent-orange); animation-duration: 25s; }
+
+/* ---- Three Pillars ---- */
+.doodle-pillars-1 { top: 8%; left: 3%; width: 140px; --doodle-tilt: -8deg; animation-duration: 26s; }
+.doodle-pillars-2 { bottom: 8%; left: 8%; width: 112px; --doodle-tilt: 12deg; color: var(--accent-gold); animation-duration: 23s; }
+.doodle-pillars-3 { top: 12%; right: 4%; width: 108px; --doodle-tilt: 14deg; color: var(--accent-orange); animation-duration: 28s; }
+.doodle-pillars-4 { bottom: 10%; right: 6%; width: 124px; --doodle-tilt: -16deg; animation-duration: 22s; }
+
+/* ---- Recipes showcase ---- */
+.doodle-recipes-1 { top: 7%; left: 2%; width: 104px; --doodle-tilt: -12deg; color: var(--accent-gold); animation-duration: 25s; }
+.doodle-recipes-2 { bottom: 9%; left: 6%; width: 128px; --doodle-tilt: 9deg; animation-duration: 27s; }
+.doodle-recipes-3 { top: 10%; right: 3%; width: 112px; --doodle-tilt: 15deg; animation-duration: 23s; }
+.doodle-recipes-4 { bottom: 8%; right: 7%; width: 92px; --doodle-tilt: -10deg; color: var(--accent-orange); animation-duration: 29s; }
+
+/* ---- Storytelling / CTA ---- */
+.doodle-story-1 { top: 14%; left: 5%; width: 148px; --doodle-tilt: -6deg; color: var(--accent-gold); animation-duration: 30s; }
+.doodle-story-2 { bottom: 12%; left: 12%; width: 100px; --doodle-tilt: 13deg; animation-duration: 24s; }
+.doodle-story-3 { top: 18%; right: 6%; width: 116px; --doodle-tilt: 16deg; color: var(--accent-red); animation-duration: 26s; }
+
+/* Tablets: scale back so the doodles stay a texture, not a distraction */
+@media (max-width: 992px) {
+  .spice-doodle {
+    opacity: 0.1;
+  }
+  .doodle-hero-1, .doodle-pillars-1, .doodle-recipes-2, .doodle-story-1 { width: 96px; }
+  .doodle-hero-2, .doodle-hero-4, .doodle-pillars-3, .doodle-recipes-4, .doodle-story-2 { display: none; }
+}
+
+/* Phones: keep one faint doodle per section so the texture survives without crowding */
+@media (max-width: 768px) {
+  .spice-doodle {
+    width: 76px;
+    opacity: 0.09;
+  }
+  .doodle-hero-3,
+  .doodle-pillars-2,
+  .doodle-pillars-4,
+  .doodle-recipes-1,
+  .doodle-recipes-3,
+  .doodle-story-3 {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spice-doodle {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   Site-Wide Doodle Placement (every page outside the home page)
+
+   One shared set of slots, spread down whichever page hosts them. Each page
+   passes its own mix of doodles, so the placement code stays in one place while
+   no two pages look alike. Offsets are percentages of the host, so they stay
+   distributed however tall the page grows.
+   ========================================================================== */
+
+/* Lift page content above the doodle layer. Listed explicitly rather than with a
+   blanket child selector, because some page roots also hold absolutely positioned
+   decorations (the QR page floating spices) that must not be forced back in flow. */
+.doodle-host > .container,
+.detail-container.doodle-host > .detail-back-link,
+.detail-container.doodle-host > .grid-2,
+.doodle-host > .empty-icon,
+.doodle-host > .empty-title,
+.doodle-host > .empty-desc,
+.doodle-host > .empty-icon-box,
+.doodle-host > .btn,
+.qr-landing-page.doodle-host > .qr-container,
+.qr-landing-page.doodle-host > .qr-bottom-bar-banner,
+.doodle-host > .phone-login-card,
+.doodle-host > .login-assurance-row {
+  position: relative;
+  z-index: 1;
+}
+
+/* Shared slots, top to bottom, alternating sides */
+.doodle-page-1 { top: 2.5%; left: 2%; width: 118px; --doodle-tilt: -12deg; animation-duration: 24s; }
+.doodle-page-2 { top: 12%; right: 2.5%; width: 96px; --doodle-tilt: 14deg; color: var(--accent-gold); animation-duration: 27s; }
+.doodle-page-3 { top: 27%; left: 3%; width: 108px; --doodle-tilt: 9deg; color: var(--accent-orange); animation-duration: 22s; }
+.doodle-page-4 { top: 41%; right: 2%; width: 124px; --doodle-tilt: -15deg; animation-duration: 29s; }
+.doodle-page-5 { top: 56%; left: 2.5%; width: 100px; --doodle-tilt: 11deg; color: var(--accent-gold); animation-duration: 25s; }
+.doodle-page-6 { top: 69%; right: 3%; width: 112px; --doodle-tilt: -9deg; animation-duration: 31s; }
+.doodle-page-7 { top: 82%; left: 3.5%; width: 92px; --doodle-tilt: 16deg; color: var(--accent-red); animation-duration: 23s; }
+.doodle-page-8 { top: 93%; right: 4%; width: 106px; --doodle-tilt: -7deg; animation-duration: 28s; }
+
+/* The QR page is a white card layout, so its doodles stay lighter still */
+.qr-landing-page .spice-doodle {
+  opacity: 0.08;
+}
+
+/* Tablets: thin the set out so the narrower gutters do not get busy */
+@media (max-width: 992px) {
+  .doodle-page-2,
+  .doodle-page-4,
+  .doodle-page-6,
+  .doodle-page-8 {
+    display: none;
+  }
+  .doodle-page-1, .doodle-page-3, .doodle-page-5, .doodle-page-7 { width: 88px; }
+}
+
+/* Phones: content runs edge to edge, so keep only two faint marks per page */
+@media (max-width: 768px) {
+  .doodle-page-3,
+  .doodle-page-7 {
+    display: none;
+  }
+  .doodle-page-1, .doodle-page-5 { width: 72px; }
+}

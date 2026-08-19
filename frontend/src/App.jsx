@@ -70,7 +70,7 @@ const STANDARD_FALLBACK_PRODUCTS = [
     price: 52,
     unit: "100g",
     category: "Chilli",
-    traditionalMethod: "Low-temperature Stone-ground (Stone Chakki)",
+    traditionalMethod: "Cold-Ground (Stone Chakki)",
     rating: 4.9,
     image: "/images/chilli.jpeg",
     inStock: true
@@ -78,7 +78,7 @@ const STANDARD_FALLBACK_PRODUCTS = [
   {
     _id: "65f8a2f1c8e8d2a1b9e00002",
     name: "Haldi - Agnitra Spices",
-    description: "Cold-ground turmeric powder with high natural Curcumin content for rich aroma & immunity wellness.",
+    description: "Cold ground turmeric powder with high natural Curcumin content for rich aroma & immunity wellness.",
     price: 40,
     unit: "100g",
     category: "Turmeric",
@@ -286,7 +286,7 @@ const STANDARD_FALLBACK_PRODUCTS = [
       case 'recipes':
         return <Recipes navigateTo={navigateTo} />;
       case 'contact':
-        return <Contact />;
+        return <Contact navigateTo={navigateTo} />;
       case 'qr':
         return <QRPage navigateTo={navigateTo} />;
       case 'admin':

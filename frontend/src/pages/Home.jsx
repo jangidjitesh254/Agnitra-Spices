@@ -1,4 +1,8 @@
 import { useRef } from 'react';
+import FloatingSpices from '../components/FloatingSpices';
+import { HOME_FLOATING_SPICES } from '../components/floatingSpiceConfig';
+import SpiceDoodleLayer from '../components/SpiceDoodles';
+
 
 function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading }) {
   const scrollContainerRef = useRef(null);
@@ -19,16 +23,12 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
 
   return (
     <div className="home-page">
-      {/* Decorative Drifting Spices & Leaves */}
-      <img src="/images/mint_leaf_icon.png" className="floating-leaf leaf-1" aria-hidden="true" alt="Floating mint leaf" />
-      <img src="/images/mint_leaf_icon.png" className="floating-leaf leaf-2" aria-hidden="true" alt="Floating mint leaf" />
-      <img src="/images/turmeric_icon.png" className="floating-leaf leaf-4" aria-hidden="true" alt="Floating turmeric root" />
-      <img src="/images/chilli_icon.png" className="floating-leaf chilli-drift" aria-hidden="true" alt="Floating red chilli left" />
-      <img src="/images/chilli_icon.png" className="floating-leaf chilli-right-1" aria-hidden="true" alt="Floating red chilli right top" />
-      <img src="/images/chilli_icon.png" className="floating-leaf chilli-right-2" aria-hidden="true" alt="Floating red chilli right mid" />
+      {/* Decorative Drifting Spices & Leaves (transparent PNG products) */}
+      <FloatingSpices spices={HOME_FLOATING_SPICES} />
 
       {/* Hero Section - Matching Designer Screen 1 */}
-      <section className="designer-hero">
+      <section className="designer-hero doodle-host">
+        <SpiceDoodleLayer variant="hero" doodles={['chilli', 'coriander', 'starAnise', 'cinnamon']} />
         <div className="container">
           <div className="hero-grid-2">
             
@@ -91,7 +91,8 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
       </section>
 
       {/* Featured Spices Section */}
-      <section className="section">
+      <section className="section doodle-host">
+        <SpiceDoodleLayer variant="pillars" doodles={['mortar', 'turmeric', 'peppercorn', 'bayleaf']} />
         <div className="container">
           <div className="section-title-wrapper">
             <span className="section-subtitle">Our Signature Collection</span>
@@ -278,7 +279,8 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
 
 
       {/* Traditional Recipes Showcase Section */}
-      <section className="section" style={{ background: 'var(--bg-primary)', padding: '70px 0 75px 0', borderTop: '1px solid #EDE6D8', borderBottom: '1px solid #EDE6D8' }}>
+      <section className="section doodle-host" style={{ background: 'var(--bg-primary)', padding: '70px 0 75px 0', borderTop: '1px solid #EDE6D8', borderBottom: '1px solid #EDE6D8' }}>
+        <SpiceDoodleLayer variant="recipes" doodles={['cardamom', 'ginger', 'garlic', 'starAnise']} />
         <div className="container">
           
           {/* Header Title Section matching Three Pillars style */}
@@ -374,7 +376,8 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
       </section>
 
       {/* Storytelling & Call to Action */}
-      <section className="section" style={{ background: 'var(--bg-secondary)', textAlign: 'center' }}>
+      <section className="section doodle-host" style={{ background: 'var(--bg-secondary)', textAlign: 'center' }}>
+        <SpiceDoodleLayer variant="story" doodles={['chakki', 'coriander', 'chilli']} />
         <div className="container" style={{ maxWidth: '800px' }}>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '20px', fontFamily: 'var(--font-title)' }}>Experience Real Heritage Flavor</h2>
           <p className="about-text" style={{ fontSize: '1.1rem', marginBottom: '35px' }}>

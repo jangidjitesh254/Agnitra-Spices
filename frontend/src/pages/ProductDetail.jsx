@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SpiceDoodleLayer from '../components/SpiceDoodles';
 
 function ProductDetail({ productId, products, addToCart, navigateTo }) {
   const [qty, setQty] = useState(1);
@@ -7,7 +8,8 @@ function ProductDetail({ productId, products, addToCart, navigateTo }) {
 
   if (!product) {
     return (
-      <div className="container empty-state section" style={{ minHeight: '60vh', textAlign: 'center', paddingTop: '60px' }}>
+      <div className="container empty-state section doodle-host" style={{ minHeight: '60vh', textAlign: 'center', paddingTop: '60px' }}>
+        <SpiceDoodleLayer variant="page" doodles={['coriander', 'starAnise']} />
         <span className="empty-icon" style={{ fontSize: '3rem', display: 'block', marginBottom: '16px' }}>🔍</span>
         <h2 className="empty-title" style={{ fontFamily: 'var(--font-title)', fontSize: '1.8rem', color: '#1b2e13', marginBottom: '10px' }}>Spice Not Found</h2>
         <p className="empty-desc" style={{ color: 'var(--text-secondary)', marginBottom: '24px' }}>The spice you are looking for does not exist in our heritage inventory.</p>
@@ -27,11 +29,11 @@ function ProductDetail({ productId, products, addToCart, navigateTo }) {
     essentialOils: "Essential Oils Preserved",
     moisture: "Under 8% (Max Aroma Lock)",
     origin: "Heritage Farms, India",
-    grindingTemp: "Low-Temperature Process"
+    grindingTemp: "Cold Grinding Process"
   };
 
   const benefits = (product.benefits && product.benefits.length > 0) ? product.benefits : [
-    "100% Pure & Traditionally Processed",
+    "100% Pure, Cold Ground & Traditionally Processed",
     "Zero chemical preservatives, lead chromate, or starch fillers",
     "High essential oil retention with aroma lock seal"
   ];
@@ -44,7 +46,8 @@ function ProductDetail({ productId, products, addToCart, navigateTo }) {
   ];
 
   return (
-    <div className="detail-container container section" style={{ paddingTop: '40px', paddingBottom: '80px' }}>
+    <div className="detail-container container section doodle-host" style={{ paddingTop: '40px', paddingBottom: '80px' }}>
+      <SpiceDoodleLayer variant="page" doodles={['mortar', 'cinnamon', 'cardamom', 'coriander', 'chakki']} />
       {/* Back Button */}
       <a 
         href="#shop" 
@@ -113,8 +116,8 @@ function ProductDetail({ productId, products, addToCart, navigateTo }) {
                   <td style={{ padding: '10px 16px', fontWeight: '800', color: '#1b2e13', fontSize: '0.88rem' }}>{specs.origin || 'Selected Farms, India'}</td>
                 </tr>
                 <tr>
-                  <td style={{ padding: '10px 16px', fontWeight: '700', color: 'var(--text-secondary)', fontSize: '0.88rem' }}>Grinding / Drying Temp</td>
-                  <td style={{ padding: '10px 16px', fontWeight: '800', color: '#1b2e13', fontSize: '0.88rem' }}>{specs.grindingTemp || specs.type || 'Low-Temperature Cold Process'}</td>
+                  <td style={{ padding: '10px 16px', fontWeight: '700', color: 'var(--text-secondary)', fontSize: '0.88rem' }}>Cold Grinding / Drying Temp</td>
+                  <td style={{ padding: '10px 16px', fontWeight: '800', color: '#1b2e13', fontSize: '0.88rem' }}>{specs.grindingTemp || specs.type || 'Cold Grinding Process'}</td>
                 </tr>
               </tbody>
             </table>
