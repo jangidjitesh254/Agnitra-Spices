@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Shop from './pages/Shop';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 import Orders from './pages/Orders';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -54,7 +55,7 @@ function App() {
       } else if (path === 'orders' || path === 'account') {
         setCurrentPage('profile');
         window.history.replaceState({}, '', '/profile');
-      } else if (['home', 'shop', 'about', 'contact', 'recipes', 'profile', 'cart', 'admin'].includes(path)) {
+      } else if (['home', 'shop', 'about', 'contact', 'recipes', 'profile', 'cart', 'checkout', 'admin'].includes(path)) {
         setCurrentPage(path);
       } else if (path === '') {
         setCurrentPage('home');
@@ -278,6 +279,13 @@ const STANDARD_FALLBACK_PRODUCTS = [
             cart={cart}
             updateCartQty={updateCartQty}
             removeFromCart={removeFromCart}
+            navigateTo={navigateTo}
+          />
+        );
+      case 'checkout':
+        return (
+          <Checkout
+            cart={cart}
             clearCart={clearCart}
             navigateTo={navigateTo}
             onOrderPlaced={fetchOrders}
@@ -316,7 +324,7 @@ const STANDARD_FALLBACK_PRODUCTS = [
     }
   };
 
-  const isStandalonePage = currentPage === 'qr';
+  const isStandalonePage = currentPage === 'qr' || currentPage === 'checkout';
   const cartTotalAmount = cart.reduce((total, item) => total + (item.product.price * item.quantity), 0);
   // Deliberately excludes 'cart': once the shopper is on the cart/checkout page the
   // bar would just duplicate the on-page CTA and cover the sticky mobile action bar.
