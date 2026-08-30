@@ -651,51 +651,57 @@ img {
   justify-content: center;
 }
 
-.mobile-menu-btn {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
 @media (max-width: 992px) {
   .header-search-form, .header-socials {
     display: none;
   }
-  .mobile-menu-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: 1px solid var(--border-color);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
+
+  /* No toggle here: the links drop to their own row inside the pill so every
+     destination stays one tap away. */
+  .header-container {
+    flex-wrap: wrap;
+    height: auto;
+    row-gap: 2px;
+    padding: 9px 18px 10px;
+    border-radius: 26px;
   }
+
+  .logo-wrapper { order: 1; }
+  .header-right { order: 2; }
+
+  .nav-center-wrapper {
+    order: 3;
+    width: 100%;
+    min-width: 0;
+  }
+
   .nav-menu {
-    display: none;
-  }
-  .nav-menu.mobile-open {
     display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 74px;
-    left: 10px;
-    right: 10px;
-    width: calc(100% - 20px);
-    background-color: rgba(255, 255, 255, 0.97);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    padding: 24px;
-    border-radius: 24px;
-    border: 1.5px solid rgba(229, 223, 210, 0.9);
-    gap: 16px;
-    box-shadow: 0 16px 40px rgba(37, 29, 24, 0.12);
-    z-index: 1000;
+    width: 100%;
+    justify-content: center;
+    gap: 18px;
+    padding-top: 9px;
+    border-top: 1px solid rgba(229, 223, 210, 0.85);
+    /* Safety net for longer labels or large text settings. */
+    overflow-x: auto;
+    scrollbar-width: none;
   }
+
+  .nav-menu::-webkit-scrollbar { display: none; }
+
+  .nav-link {
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  /* The pill is two rows tall now, so the search drawer has to clear it. */
+  .header-search-overlay-bar { top: 112px; }
+}
+
+@media (max-width: 400px) {
+  .nav-menu { gap: 8px; padding-top: 7px; }
+  .nav-link { font-size: 0.62rem; letter-spacing: 0.015em; }
 }
 
 /* ==========================================================================
@@ -3015,8 +3021,8 @@ img {
   }
 
   .header-container {
-    height: 56px;
-    padding: 0 12px;
+    height: auto;
+    padding: 8px 12px 9px;
     gap: 8px;
   }
 
@@ -3051,14 +3057,14 @@ img {
     flex-shrink: 0;
   }
 
-  .header-icon-btn, .cart-icon-btn, .mobile-menu-btn {
+  .header-icon-btn, .cart-icon-btn {
     width: 34px;
     height: 34px;
     padding: 0;
     flex-shrink: 0;
   }
 
-  .header-icon-btn svg, .cart-icon-btn svg, .mobile-menu-btn svg {
+  .header-icon-btn svg, .cart-icon-btn svg {
     width: 18px;
     height: 18px;
   }
@@ -6583,8 +6589,8 @@ img {
   }
 
   .header-container {
-    padding: 0 14px !important;
-    height: 60px !important;
+    padding: 8px 14px 9px !important;
+    height: auto !important;
   }
 
   .logo-img {
