@@ -159,7 +159,9 @@ router.post('/orders', async (req, res) => {
     const { customer, items, totalAmount } = req.body;
     
     // Validation
-    if (!customer || !customer.name || !customer.email || !customer.phone || !customer.address) {
+    // Email is optional: orders are confirmed over WhatsApp, so the phone number
+    // is the contact we actually need.
+    if (!customer || !customer.name || !customer.phone || !customer.address) {
       return res.status(400).json({ error: 'Customer billing details are incomplete.' });
     }
     if (!items || !Array.isArray(items) || items.length === 0) {
