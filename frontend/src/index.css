@@ -4733,6 +4733,13 @@ img {
   align-items: start;
 }
 
+/* Grid items default to min-width:auto, so the nowrap collapsed-step summary
+   sets the column's min-content width and pushes the layout past the viewport.
+   Every descendant that truncates or wraps needs the chain of 0 minimums. */
+.cart-layout-grid > * {
+  min-width: 0;
+}
+
 .cart-card-header-title {
   font-family: var(--font-body);
   font-weight: 700;
@@ -5518,6 +5525,7 @@ img {
   font-size: 0.95rem;
   font-weight: 800;
   color: var(--text-primary);
+  overflow-wrap: anywhere;
 }
 
 .review-address-lines {
@@ -5525,6 +5533,7 @@ img {
   font-size: 0.86rem;
   line-height: 1.55;
   color: var(--text-secondary);
+  overflow-wrap: anywhere;
 }
 
 .review-eta {
