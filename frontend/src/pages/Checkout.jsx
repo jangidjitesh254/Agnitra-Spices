@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { API_BASE_URL } from '../App';
+import { LAUNCH_OFFER, getOfferStatus, applyCoupon } from '../offers';
 
 // Step 1 (the cart itself) lives on /cart. It still appears in the rail so the
 // shopper can see where they are in the whole journey and jump back to it.
@@ -60,9 +61,13 @@ function Checkout({ cart, clearCart, navigateTo, onOrderPlaced }) {
   const [error, setError] = useState(null);
   const [isLocating, setIsLocating] = useState(false);
   const [locationError, setLocationError] = useState(null);
+  const [couponInput, setCouponInput] = useState('');
+  const [coupon, setCoupon] = useState(null);
+  const [couponError, setCouponError] = useState(null);
   const hasInteracted = useRef(false);
 
   const deliveryEstimate = getDeliveryEstimate();
+  const offerStatus = getOfferStatus();
 
   // Auto-fill customer details ONLY if user is logged in
   useEffect(() => {
@@ -158,6 +163,30 @@ function Checkout({ cart, clearCart, navigateTo, onOrderPlaced }) {
   const cartTotal = cart.reduce((total, item) => total + (item.product.price * item.quantity), 0);
   const totalItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
+  // Re-evaluated against the live subtotal, so editing the cart after applying a
+  // coupon can never leave a stale discount attached to the order.
+  const couponResult = coupon ? applyCoupon(coupon.code, cartTotal) : null;
+  const discount = couponResult && couponResult.ok ? couponResult.discount : 0;
+  const payableTotal = Math.max(0, cartTotal - discount);
+
+  const handleApplyCoupon = (e) => {
+    e.preventDefault();
+    const result = applyCoupon(couponInput, cartTotal);
+    if (result.ok) {
+      setCoupon({ code: result.code, percentOff: result.percentOff });
+      setCouponError(null);
+      setCouponInput('');
+    } else {
+      setCoupon(null);
+      setCouponError(result.message);
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setCoupon(null);
+    setCouponError(null);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -252,7 +281,9 @@ ${itemsFormattedText}
 *ORDER SUMMARY*
 
 Total Items: ${totalItemsCount}
-Grand Total: Rs. ${cartTotal}
+Items Total: Rs. ${cartTotal}${discount ? `
+Coupon (${coupon.code}): -Rs. ${discount}` : ''}
+Grand Total: Rs. ${payableTotal}
 Payment Mode: ${paymentLabel}
 Expected Delivery: ${deliveryEstimate}
 
@@ -277,7 +308,11 @@ Please confirm my order.`
       setError(null);
 
       const orderPayload = {
-        customer: { ...formData, paymentMethod },
+        customer: {
+          ...formData,
+          paymentMethod,
+          ...(discount ? { couponCode: coupon.code, discount, subtotal: cartTotal } : {})
+        },
         items: cart.map(item => ({
           productId: item.product._id || item.product.id,
           name: item.product.name,
@@ -285,7 +320,7 @@ Please confirm my order.`
           price: item.product.price,
           image: item.product.image || item.product.imageUrl
         })),
-        totalAmount: cartTotal
+        totalAmount: payableTotal
       };
 
       let createdOrder = {};
@@ -320,9 +355,9 @@ Please confirm my order.`
         const newLocalOrder = {
           orderId: formattedOrderId,
           createdAt: new Date().toISOString(),
-          customer: { ...formData, paymentMethod },
+          customer: orderPayload.customer,
           items: orderPayload.items,
-          totalAmount: cartTotal,
+          totalAmount: payableTotal,
           status: 'processing'
         };
         localStorage.setItem('agnitra_local_orders', JSON.stringify([newLocalOrder, ...existingLocalOrders]));
@@ -337,7 +372,9 @@ Please confirm my order.`
       setPlacedOrder({
         orderId: formattedOrderId,
         itemCount: totalItemsCount,
-        totalAmount: cartTotal,
+        totalAmount: payableTotal,
+        discount,
+        couponCode: discount ? coupon.code : null,
         whatsappUrl,
         customer: { ...formData },
         paymentMethod
@@ -393,6 +430,12 @@ Please confirm my order.`
                 <span className="oss-label">Amount</span>
                 <span className="oss-value">₹{placedOrder.totalAmount}</span>
               </div>
+              {placedOrder.discount > 0 && (
+                <div className="order-success-meta-item">
+                  <span className="oss-label">Saved</span>
+                  <span className="oss-value text-gold">₹{placedOrder.discount}</span>
+                </div>
+              )}
               <div className="order-success-meta-item">
                 <span className="oss-label">Payment</span>
                 <span className="oss-value">{paymentLabel}</span>
@@ -449,7 +492,7 @@ Please confirm my order.`
   /* -------------------------------------------------------- Step summaries */
 
   const stepSummary = (id) => {
-    if (id === 1) return `${totalItemsCount} ${totalItemsCount === 1 ? 'item' : 'items'} · ₹${cartTotal}`;
+    if (id === 1) return `${totalItemsCount} ${totalItemsCount === 1 ? 'item' : 'items'} · ₹${payableTotal}`;
     if (id === 2) {
       return `${formData.name}, ${formData.address}${formData.city ? `, ${formData.city}` : ''}${formData.zipCode ? ` - ${formData.zipCode}` : ''}`;
     }
@@ -765,7 +808,7 @@ Please confirm my order.`
                         type="button" className="btn btn-primary checkout-cta"
                         onClick={handleContinue} disabled={submitting}
                       >
-                        {submitting ? 'Placing Order...' : `Place Order · ₹${cartTotal}`}
+                        {submitting ? 'Placing Order...' : `Place Order · ₹${payableTotal}`}
                       </button>
                     </div>
                   </div>
@@ -792,9 +835,58 @@ Please confirm my order.`
                 <span className="text-gold" style={{ fontWeight: 600 }}>FREE</span>
               </div>
 
+              {discount > 0 && (
+                <div className="summary-row summary-row-discount">
+                  <span>Coupon ({coupon.code})</span>
+                  <span>&minus;₹{discount}</span>
+                </div>
+              )}
+
               <div className="summary-row total">
                 <span>Total Amount</span>
-                <span className="summary-total-val">₹{cartTotal}</span>
+                <span className="summary-total-val">₹{payableTotal}</span>
+              </div>
+
+              {discount > 0 && (
+                <p className="coupon-saved">You save ₹{discount} on this order</p>
+              )}
+
+              {/* Coupon */}
+              <div className="coupon-box">
+                {coupon ? (
+                  <div className="coupon-applied">
+                    <span className="coupon-applied-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                    </span>
+                    <span className="coupon-applied-text">
+                      <strong>{coupon.code}</strong> applied &middot; {coupon.percentOff}% off
+                    </span>
+                    <button type="button" className="coupon-remove" onClick={handleRemoveCoupon}>Remove</button>
+                  </div>
+                ) : (
+                  <form className="coupon-form" onSubmit={handleApplyCoupon}>
+                    <label className="form-label" htmlFor="coupon">Have a coupon?</label>
+                    <div className="coupon-input-row">
+                      <input
+                        type="text"
+                        id="coupon"
+                        className={`form-input coupon-input${couponError ? ' has-error' : ''}`}
+                        value={couponInput}
+                        onChange={(e) => { setCouponInput(e.target.value); setCouponError(null); }}
+                        placeholder="Enter code"
+                        autoComplete="off"
+                        autoCapitalize="characters"
+                      />
+                      <button type="submit" className="coupon-apply-btn">Apply</button>
+                    </div>
+                    {couponError && <p className="field-error">{couponError}</p>}
+                    {!couponError && offerStatus === 'live' && (
+                      <p className="coupon-hint">
+                        Launch offer: use <strong>{LAUNCH_OFFER.code}</strong> for {LAUNCH_OFFER.percentOff}% off
+                      </p>
+                    )}
+                  </form>
+                )}
               </div>
 
               <div className="summary-trust">
@@ -810,7 +902,7 @@ Please confirm my order.`
       <div className="checkout-mobile-bar">
         <div className="checkout-mobile-total">
           <span className="cmb-label">Total</span>
-          <span className="cmb-value">₹{cartTotal}</span>
+          <span className="cmb-value">₹{payableTotal}</span>
         </div>
         <button
           type="button" className="btn btn-primary checkout-mobile-cta"

@@ -5023,6 +5023,311 @@ img {
 }
 
 /* ==========================================================================
+   Launch offer banner (home) + coupon box (checkout)
+   ========================================================================== */
+.launch-offer-section {
+  padding: 0 0 10px;
+  margin-top: -10px;
+}
+
+.launch-offer-banner {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+  background: linear-gradient(135deg, #1b3017 0%, #2d4522 55%, #3a5527 100%);
+  border: 2px solid var(--accent-orange);
+  border-radius: 24px;
+  padding: 30px 34px;
+  box-shadow: 0 16px 44px rgba(27, 48, 23, 0.24);
+}
+
+/* Warm bloom behind the code chip so the right half does not read as flat green */
+.launch-offer-glow {
+  position: absolute;
+  right: -70px;
+  top: -90px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--accent-gold-rgb), 0.28) 0%, rgba(var(--accent-gold-rgb), 0) 68%);
+  pointer-events: none;
+}
+
+.launch-offer-left {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 340px;
+  min-width: 0;
+}
+
+.launch-offer-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f7e6a1;
+  background: rgba(var(--accent-gold-rgb), 0.16);
+  border: 1px solid rgba(var(--accent-gold-rgb), 0.4);
+  border-radius: 50px;
+  padding: 5px 15px;
+  margin-bottom: 13px;
+}
+
+.launch-offer-headline {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+  margin: 0 0 10px;
+}
+
+.launch-offer-sub {
+  margin: 0;
+  color: #d5cbbd;
+  font-size: 0.93rem;
+  line-height: 1.6;
+  max-width: 52ch;
+}
+
+.launch-offer-right {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.launch-offer-countdown {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #d5cbbd;
+  white-space: nowrap;
+}
+
+.launch-offer-countdown strong {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+  display: block;
+  line-height: 1.1;
+}
+
+/* Dashed edge reads as a tear-off voucher */
+.launch-offer-code {
+  appearance: none;
+  -webkit-appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 2px dashed rgba(var(--accent-gold-rgb), 0.65);
+  border-radius: 14px;
+  padding: 11px 24px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.2s ease;
+}
+
+.launch-offer-code:hover {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: var(--accent-gold);
+}
+
+.launch-offer-code.is-copied {
+  border-style: solid;
+  border-color: var(--accent-gold);
+  background: rgba(var(--accent-gold-rgb), 0.16);
+}
+
+.loc-label {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #b9ae9d;
+}
+
+.loc-value {
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--accent-gold);
+  line-height: 1.1;
+}
+
+.loc-action {
+  font-size: 0.63rem;
+  font-weight: 700;
+  color: #d5cbbd;
+}
+
+.launch-offer-cta {
+  white-space: nowrap;
+}
+
+/* --- Coupon box in the checkout price panel ----------------------------- */
+.summary-row-discount {
+  color: var(--accent-green);
+  font-weight: 700;
+}
+
+.coupon-saved {
+  margin: 10px 0 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-green);
+  text-align: right;
+}
+
+.coupon-box {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--border-color);
+}
+
+.coupon-form .form-label {
+  margin-bottom: 8px;
+}
+
+.coupon-input-row {
+  display: flex;
+  gap: 9px;
+}
+
+.coupon-input {
+  flex: 1;
+  min-width: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.coupon-apply-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  flex-shrink: 0;
+  background: var(--accent-green);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--border-radius-md);
+  padding: 0 22px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.coupon-apply-btn:hover {
+  background: var(--bg-dark-green-hover);
+}
+
+.coupon-hint {
+  margin: 9px 0 0;
+  font-size: 0.79rem;
+  color: var(--text-secondary);
+}
+
+.coupon-hint strong {
+  color: var(--accent-orange);
+  letter-spacing: 0.04em;
+}
+
+.coupon-applied {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(var(--accent-green-rgb), 0.07);
+  border: 1.5px solid rgba(var(--accent-green-rgb), 0.4);
+  border-radius: var(--border-radius-md);
+  padding: 12px 14px;
+}
+
+.coupon-applied-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coupon-applied-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: #2b3e1b;
+}
+
+.coupon-applied-text strong {
+  letter-spacing: 0.05em;
+}
+
+.coupon-remove {
+  appearance: none;
+  -webkit-appearance: none;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 0.79rem;
+  font-weight: 800;
+  color: var(--accent-red);
+  cursor: pointer;
+}
+
+.coupon-remove:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .launch-offer-banner {
+    padding: 26px 22px;
+    gap: 22px;
+  }
+
+  .launch-offer-headline { font-size: 1.6rem; }
+  .launch-offer-right { width: 100%; }
+  .launch-offer-cta { flex: 1; }
+}
+
+@media (max-width: 560px) {
+  .launch-offer-banner {
+    border-radius: 20px;
+    padding: 22px 18px;
+  }
+
+  .launch-offer-headline { font-size: 1.38rem; }
+  .launch-offer-sub { font-size: 0.87rem; }
+
+  .launch-offer-right {
+    gap: 12px;
+  }
+
+  .launch-offer-code { flex: 1; padding: 10px 16px; }
+  .loc-value { font-size: 1.2rem; }
+  .launch-offer-countdown { order: -1; }
+  .launch-offer-countdown strong { display: inline; font-size: 1rem; }
+  .launch-offer-cta { width: 100%; flex: none; }
+}
+
+/* ==========================================================================
    About page — founding facts, journey, sourcing regions, FAQ, company card
    ========================================================================== */
 

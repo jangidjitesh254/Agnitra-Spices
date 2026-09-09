@@ -1,11 +1,32 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import FloatingSpices from '../components/FloatingSpices';
 import { HOME_FLOATING_SPICES } from '../components/floatingSpiceConfig';
 import SpiceDoodleLayer from '../components/SpiceDoodles';
+import {
+  LAUNCH_OFFER,
+  LAUNCH_START_LABEL,
+  LAUNCH_END_LABEL,
+  getOfferStatus,
+  daysUntilLaunch
+} from '../offers';
 
 
 function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading }) {
   const scrollContainerRef = useRef(null);
+  const [codeCopied, setCodeCopied] = useState(false);
+
+  const offerStatus = getOfferStatus();
+  const daysToGo = daysUntilLaunch();
+
+  const handleCopyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(LAUNCH_OFFER.code);
+      setCodeCopied(true);
+      setTimeout(() => setCodeCopied(false), 2000);
+    } catch {
+      // Clipboard is blocked on some mobile browsers; the code is on screen anyway.
+    }
+  };
 
   const handleScroll = (direction) => {
     if (scrollContainerRef.current) {
@@ -65,6 +86,58 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
           </div>
         </div>
       </section>
+
+      {/* Launch Offer Banner */}
+      {offerStatus !== 'expired' && (
+        <section className="launch-offer-section">
+          <div className="container">
+            <div className="launch-offer-banner animate-fade-in">
+              <span className="launch-offer-glow" aria-hidden="true" />
+
+              <div className="launch-offer-left">
+                <span className="launch-offer-tag">
+                  {offerStatus === 'live' ? 'Launch Offer · Live Now' : 'Launching Soon'}
+                </span>
+                <h2 className="launch-offer-headline">
+                  Flat {LAUNCH_OFFER.percentOff}% off your first order
+                </h2>
+                <p className="launch-offer-sub">
+                  {offerStatus === 'live'
+                    ? `Our launch offer is live. Use the code at checkout — valid till ${LAUNCH_END_LABEL}.`
+                    : `We open on ${LAUNCH_START_LABEL}. Save the code now and use it at checkout from launch day till ${LAUNCH_END_LABEL}.`}
+                </p>
+              </div>
+
+              <div className="launch-offer-right">
+                {offerStatus === 'upcoming' && (
+                  <span className="launch-offer-countdown">
+                    <strong>{daysToGo}</strong> {daysToGo === 1 ? 'day' : 'days'} to go
+                  </span>
+                )}
+
+                <button
+                  type="button"
+                  className={`launch-offer-code${codeCopied ? ' is-copied' : ''}`}
+                  onClick={handleCopyCode}
+                  title="Copy coupon code"
+                >
+                  <span className="loc-label">Coupon Code</span>
+                  <span className="loc-value">{LAUNCH_OFFER.code}</span>
+                  <span className="loc-action">{codeCopied ? 'Copied!' : 'Tap to copy'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="btn btn-primary launch-offer-cta"
+                  onClick={() => navigateTo('shop')}
+                >
+                  Shop the Range
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Feature Badges Green Ribbon (Matching Designer Screen 1) */}
       <section className="hero-feature-ribbon">
