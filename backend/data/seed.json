@@ -138,5 +138,33 @@
     "rating": 4.85,
     "image": "/images/sabut_dhaniya.png",
     "stock": 110
+  },
+  {
+    "_id": "65f8a2f1c8e8d2a1b9e00006",
+    "name": "Agnitra Combo (x3)",
+    "description": "Complete Agnitra Spice Trio bundle featuring all 3 pure traditional spices: Cold-Ground Kashmiri Lal Mirch, Hand-Pounded High-Curcumin Haldi, and Clay-Roasted Dhaniya. 100% stone-ground with no artificial colors or additives.",
+    "price": 149,
+    "unit": "300g (3x100g Pack)",
+    "category": "Combo Pack",
+    "traditionalMethod": "Stone-Ground & Hand-Pounded Trio",
+    "benefits": [
+      "Includes all 3 essential Agnitra pure spices (Lal Mirch, Haldi & Dhaniya)",
+      "Save more with the complete kitchen essential combo pack",
+      "100% natural, cold-ground in slow-rotating stone chakkis and wooden mortar-pestles"
+    ],
+    "specifications": {
+      "includedItems": "Lal Mirchi (100g) + Haldi (100g) + Dhaniya (100g)",
+      "totalWeight": "300g (3 Packs)",
+      "purity": "100% Pure, Zero Additives & Artificial Colors",
+      "preservation": "Cold-Ground under 38°C to retain natural aroma & essential oils"
+    },
+    "usage": "Complete spice solution for everyday Indian cooking, curries, marinades, dals, and vegetable stir-fries.",
+    "recipes": [
+      "Use Haldi for healthy morning turmeric milk & daily tadka.",
+      "Combine Dhaniya and Lal Mirchi for rich, aromatic Indian curry bases."
+    ],
+    "rating": 5.0,
+    "image": "/images/combo.png",
+    "stock": 150
   }
 ]

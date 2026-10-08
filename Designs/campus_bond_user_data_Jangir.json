@@ -1,0 +1,15 @@
+{
+  "id": "usr_1786480546543",
+  "name": "Jitesh",
+  "email": "jangidjitesh254@gmail.com",
+  "studentId": "Jangir",
+  "password": "12345678",
+  "role": "student",
+  "department": "Computer engineering.",
+  "year": "1st Year",
+  "cgpa": "N/A",
+  "attendance": "100%",
+  "status": "active",
+  "joinedDate": "2026-08-11",
+  "bio": "Campus enthusiast & active learner."
+}

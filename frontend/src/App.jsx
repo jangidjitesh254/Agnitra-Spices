@@ -129,6 +129,18 @@ const STANDARD_FALLBACK_PRODUCTS = [
     rating: 4.85,
     image: "/images/sabut_dhaniya.png",
     inStock: true
+  },
+  {
+    _id: "65f8a2f1c8e8d2a1b9e00006",
+    name: "Agnitra Combo (x3)",
+    description: "Complete Agnitra Spice Trio bundle featuring all 3 pure traditional spices: Cold-Ground Kashmiri Lal Mirch, Hand-Pounded High-Curcumin Haldi, and Clay-Roasted Dhaniya.",
+    price: 149,
+    unit: "300g (3x100g Pack)",
+    category: "Combo Pack",
+    traditionalMethod: "Stone-Ground & Hand-Pounded Trio",
+    rating: 5.0,
+    image: "/images/combo.png",
+    inStock: true
   }
 ];
 
