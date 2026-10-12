@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SpiceDoodleLayer from '../components/SpiceDoodles';
+import ProductImageViewer from '../components/ProductImageViewer';
 
 function ProductDetail({ productId, products, addToCart, navigateTo }) {
   const [qty, setQty] = useState(1);
@@ -70,14 +71,9 @@ function ProductDetail({ productId, products, addToCart, navigateTo }) {
 
       {/* Main product card */}
       <div className="grid-2" style={{ gap: '44px', alignItems: 'start' }}>
-        {/* Left: Product Image */}
-        <div className="detail-img-card" style={{ background: '#ffffff', borderRadius: '24px', padding: '24px', border: '1.5px solid rgba(229, 223, 210, 0.95)', boxShadow: '0 10px 30px rgba(37, 29, 24, 0.06)', textAlign: 'center' }}>
-          <img 
-            src={product.image || product.imageUrl} 
-            alt={product.name} 
-            className="detail-img" 
-            style={{ width: '100%', maxHeight: '420px', objectFit: 'contain', borderRadius: '16px' }}
-          />
+        {/* Left: Interactive Product Image Viewer (Zoom Magnifier & 360° View) */}
+        <div>
+          <ProductImageViewer product={product} height={460} />
         </div>
 
         {/* Right: Product Info details */}

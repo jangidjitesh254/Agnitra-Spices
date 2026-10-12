@@ -7962,3 +7962,67 @@ img {
   }
   .doodle-page-1, .doodle-page-5 { width: 72px; }
 }
+
+/* ==========================================================================
+   INTERACTIVE 360° TURNTABLE & ZOOM MAGNIFIER STYLES
+   ========================================================================== */
+.product-card-360-trigger {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(27, 46, 19, 0.92);
+  color: #ffffff;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-family: var(--font-body, inherit);
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  z-index: 4;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.22s cubic-bezier(0.25, 0.8, 0.25, 1);
+  outline: none;
+}
+
+.product-card-360-trigger:hover {
+  background: #1b2e13;
+  color: #fff9e6;
+  border-color: #d4af37;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.product-card-360-trigger:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.product-360-modal-content {
+  animation: modalScaleIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .product-card-360-trigger {
+    padding: 4px 9px;
+    font-size: 0.68rem;
+    bottom: 8px;
+    right: 8px;
+  }
+}

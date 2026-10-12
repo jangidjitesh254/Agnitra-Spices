@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import SpiceDoodleLayer from '../components/SpiceDoodles';
+import Product360Modal from '../components/Product360Modal';
 
 function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error, searchQuery, setSearchQuery }) {
   const [filterCategory, setFilterCategory] = useState('All');
+  const [preview360Product, setPreview360Product] = useState(null);
 
   const categories = ['All', 'Powder', 'Whole'];
 
@@ -103,6 +105,19 @@ function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error
                     alt={product.name} 
                     className="designer-product-img" 
                   />
+                  <button
+                    type="button"
+                    className="product-card-360-trigger"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setPreview360Product(product);
+                    }}
+                    aria-label={`Open 360 degree view and zoom for ${product.name}`}
+                    title="360° Turntable & Zoom Magnifier"
+                  >
+                    <span>🔄</span>
+                    <span>360° &amp; Zoom</span>
+                  </button>
                 </div>
                 
                 <div className="designer-product-info">
@@ -238,6 +253,16 @@ function Shop({ products, navigateTo, addToCart, updateCartQty, cart = [], error
         )}
 
       </div>
+
+      {/* 360 & Zoom Quick Inspection Modal */}
+      {preview360Product && (
+        <Product360Modal
+          product={preview360Product}
+          onClose={() => setPreview360Product(null)}
+          addToCart={addToCart}
+          navigateTo={navigateTo}
+        />
+      )}
     </div>
   );
 }
