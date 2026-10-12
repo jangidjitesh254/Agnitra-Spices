@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import FloatingSpices from '../components/FloatingSpices';
 import { HOME_FLOATING_SPICES } from '../components/floatingSpiceConfig';
 import SpiceDoodleLayer from '../components/SpiceDoodles';
-import Product360Modal from '../components/Product360Modal';
 import {
   LAUNCH_OFFER,
   LAUNCH_START_LABEL,
@@ -15,7 +14,6 @@ import {
 function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading }) {
   const scrollContainerRef = useRef(null);
   const [codeCopied, setCodeCopied] = useState(false);
-  const [preview360Product, setPreview360Product] = useState(null);
 
   const offerStatus = getOfferStatus();
   const daysToGo = daysUntilLaunch();
@@ -204,19 +202,6 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
                           alt={product.name} 
                           className="designer-product-img" 
                         />
-                        <button
-                          type="button"
-                          className="product-card-360-trigger"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setPreview360Product(product);
-                          }}
-                          aria-label={`Open 360 degree view and zoom for ${product.name}`}
-                          title="360° Turntable & Zoom Magnifier"
-                        >
-                          <span>🔄</span>
-                          <span>360° &amp; Zoom</span>
-                        </button>
                       </div>
                       
                       <div className="designer-product-info">
@@ -480,16 +465,6 @@ function Home({ products, navigateTo, addToCart, updateCartQty, cart, loading })
           </button>
         </div>
       </section>
-
-      {/* 360 & Zoom Quick Inspection Modal */}
-      {preview360Product && (
-        <Product360Modal
-          product={preview360Product}
-          onClose={() => setPreview360Product(null)}
-          addToCart={addToCart}
-          navigateTo={navigateTo}
-        />
-      )}
     </div>
   );
 }

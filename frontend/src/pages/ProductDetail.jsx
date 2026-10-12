@@ -71,8 +71,8 @@ function ProductDetail({ productId, products, addToCart, navigateTo }) {
 
       {/* Main product card */}
       <div className="grid-2" style={{ gap: '44px', alignItems: 'start' }}>
-        {/* Left: Interactive Product Image Viewer (Zoom Magnifier & 360° View) */}
-        <div>
+        {/* Left: Amazon & Flipkart Style Product Image & Zoom Magnifier Viewer */}
+        <div style={{ position: 'relative' }}>
           <ProductImageViewer product={product} height={460} />
         </div>
 

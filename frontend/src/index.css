@@ -7964,65 +7964,119 @@ img {
 }
 
 /* ==========================================================================
-   INTERACTIVE 360° TURNTABLE & ZOOM MAGNIFIER STYLES
+   AMAZON & FLIPKART STYLE PRODUCT ZOOM VIEWER & GALLERY
    ========================================================================== */
-.product-card-360-trigger {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background: rgba(27, 46, 19, 0.92);
-  color: #ffffff;
-  border: 1px solid rgba(212, 175, 55, 0.65);
-  border-radius: 20px;
-  padding: 5px 12px;
-  font-family: var(--font-body, inherit);
-  font-size: 0.73rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
-  z-index: 4;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  transition: all 0.22s cubic-bezier(0.25, 0.8, 0.25, 1);
-  outline: none;
+.amazon-zoom-gallery-wrapper {
+  position: relative;
+  width: 100%;
 }
 
-.product-card-360-trigger:hover {
-  background: #1b2e13;
-  color: #fff9e6;
-  border-color: #d4af37;
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+.amazon-zoom-layout {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  position: relative;
 }
 
-.product-card-360-trigger:active {
-  transform: translateY(0) scale(0.98);
+.amazon-thumbnails-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 72px;
+  max-width: 82px;
 }
 
-.product-360-modal-content {
-  animation: modalScaleIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.amazon-thumb-btn {
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-@keyframes modalScaleIn {
+.amazon-thumb-btn:hover {
+  border-color: #2b3e1b !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(43, 62, 27, 0.16) !important;
+}
+
+.amazon-thumb-btn.active {
+  border-color: #2b3e1b !important;
+  box-shadow: 0 4px 14px rgba(43, 62, 27, 0.24) !important;
+}
+
+.amazon-main-image-viewport {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.amazon-main-image-viewport:hover {
+  border-color: #d8c8b8 !important;
+  box-shadow: 0 12px 36px rgba(37, 29, 24, 0.1) !important;
+}
+
+.amazon-viewfinder-lens {
+  animation: lensFadeIn 0.15s ease-out;
+}
+
+@keyframes lensFadeIn {
   from {
     opacity: 0;
-    transform: scale(0.94) translateY(8px);
+    transform: scale(0.96);
   }
   to {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: scale(1);
   }
 }
 
-@media (max-width: 600px) {
-  .product-card-360-trigger {
-    padding: 4px 9px;
-    font-size: 0.68rem;
-    bottom: 8px;
-    right: 8px;
+.amazon-zoom-flyout {
+  animation: flyoutSlideIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes flyoutSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
   }
 }
+
+.amazon-lightbox-overlay {
+  animation: modalOverlayFade 0.2s ease-out forwards;
+}
+
+@keyframes modalOverlayFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Tablet & Mobile Layout for Amazon Gallery */
+@media (max-width: 991px) {
+  .amazon-zoom-layout {
+    flex-direction: column-reverse;
+  }
+
+  .amazon-thumbnails-strip {
+    flex-direction: row;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    gap: 8px;
+  }
+
+  .amazon-thumb-btn {
+    width: 60px !important;
+    height: 60px !important;
+    min-width: 60px !important;
+    flex-shrink: 0;
+  }
+
+  .amazon-main-image-viewport {
+    height: 380px !important;
+  }
+}
+
