@@ -437,7 +437,7 @@ Please confirm my order.`
         }
 
         const rzpOptions = {
-          key: data.keyId || import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_TmsOCkoldsWfni',
+          key: data.keyId || import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_live_Tn3gxqHYVJ7T78',
           amount: data.amount,
           currency: data.currency || 'INR',
           name: 'Agnitra Spices',
