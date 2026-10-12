@@ -1,7 +1,19 @@
 import express from 'express';
+import crypto from 'crypto';
+import Razorpay from 'razorpay';
 import { dbService } from '../db.js';
 
 const router = express.Router();
+
+// Initialize Razorpay instance lazily
+const getRazorpayInstance = () => {
+  const key_id = process.env.RAZORPAY_KEY_ID;
+  const key_secret = process.env.RAZORPAY_KEY_SECRET;
+  if (!key_id || !key_secret) {
+    throw new Error('Razorpay keys not configured in backend/.env');
+  }
+  return new Razorpay({ key_id, key_secret });
+};
 
 // In-memory OTP storage map (phone -> { otp, expiresAt })
 const otpStore = new Map();
@@ -263,6 +275,121 @@ router.get('/messages', async (req, res) => {
   } catch (error) {
     console.error('Error fetching messages:', error);
     res.status(500).json({ error: 'Failed to retrieve messages' });
+  }
+});
+
+// =========================================================================
+// RAZORPAY PAYMENT GATEWAY ENDPOINTS
+// =========================================================================
+
+// GET Razorpay Public Key ID
+router.get('/payment/key', (req, res) => {
+  const keyId = process.env.RAZORPAY_KEY_ID || '';
+  res.json({ keyId });
+});
+
+// POST Create Razorpay Order
+router.post('/payment/create-order', async (req, res) => {
+  try {
+    const { amount, currency = 'INR', receipt, notes } = req.body;
+
+    if (!amount || Number(amount) <= 0) {
+      return res.status(400).json({ error: 'Valid amount is required.' });
+    }
+
+    const razorpay = getRazorpayInstance();
+    // Amount in smallest currency unit (paise for INR)
+    const amountInPaise = Math.round(Number(amount) * 100);
+
+    const options = {
+      amount: amountInPaise,
+      currency: currency || 'INR',
+      receipt: receipt || `rcpt_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
+      notes: notes || { store: 'Agnitra Spices' }
+    };
+
+    const order = await razorpay.orders.create(options);
+    console.log(`💳 [RAZORPAY ORDER CREATED] ID: ${order.id}, Amount: ₹${amount}`);
+
+    res.status(201).json({
+      success: true,
+      orderId: order.id,
+      amount: order.amount,
+      currency: order.currency,
+      keyId: process.env.RAZORPAY_KEY_ID
+    });
+  } catch (error) {
+    console.error('❌ Error creating Razorpay order:', error);
+    res.status(500).json({ error: error.message || 'Failed to create payment order.' });
+  }
+});
+
+// POST Verify Razorpay Payment Signature and Save Order
+router.post('/payment/verify', async (req, res) => {
+  try {
+    const {
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature,
+      orderPayload
+    } = req.body;
+
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+      return res.status(400).json({ error: 'Payment details are missing.' });
+    }
+
+    const key_secret = process.env.RAZORPAY_KEY_SECRET;
+    if (!key_secret) {
+      return res.status(500).json({ error: 'Razorpay secret key not configured.' });
+    }
+
+    // Verify HMAC SHA256 Signature
+    const body = `${razorpay_order_id}|${razorpay_payment_id}`;
+    const expectedSignature = crypto
+      .createHmac('sha256', key_secret)
+      .update(body.toString())
+      .digest('hex');
+
+    const isAuthentic = expectedSignature === razorpay_signature;
+
+    if (!isAuthentic) {
+      console.warn('⚠️ [RAZORPAY VERIFICATION FAILED] Invalid signature for payment:', razorpay_payment_id);
+      return res.status(400).json({ success: false, error: 'Payment signature verification failed.' });
+    }
+
+    console.log(`✅ [RAZORPAY PAYMENT VERIFIED] Payment ID: ${razorpay_payment_id}, Order ID: ${razorpay_order_id}`);
+
+    // If orderPayload was sent, save order directly into the database as Paid / Processing
+    let savedOrder = null;
+    if (orderPayload) {
+      const enrichedOrderData = {
+        ...orderPayload,
+        customer: {
+          ...orderPayload.customer,
+          paymentMethod: 'razorpay',
+          paymentStatus: 'Paid',
+          razorpayPaymentId: razorpay_payment_id,
+          razorpayOrderId: razorpay_order_id
+        }
+      };
+
+      try {
+        savedOrder = await dbService.createOrder(enrichedOrderData);
+      } catch (dbErr) {
+        console.warn('⚠️ Could not save paid order to Postgres directly, will fallback to local storage:', dbErr.message);
+      }
+    }
+
+    res.json({
+      success: true,
+      message: 'Payment verified successfully.',
+      order: savedOrder,
+      paymentId: razorpay_payment_id,
+      orderId: razorpay_order_id
+    });
+  } catch (error) {
+    console.error('❌ Error verifying Razorpay payment:', error);
+    res.status(500).json({ error: error.message || 'Payment verification failed.' });
   }
 });
 

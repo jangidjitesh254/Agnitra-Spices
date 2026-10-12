@@ -13,17 +13,38 @@ const CHECKOUT_STEPS = [
 
 const PAYMENT_METHODS = [
   {
+    id: 'razorpay',
+    title: 'Pay Online (Razorpay)',
+    desc: 'Instant & secure payment via UPI (Google Pay, PhonePe, Paytm, BHIM), Debit/Credit Cards, or NetBanking.',
+    badge: 'Recommended'
+  },
+  {
     id: 'cod',
     title: 'Cash on Delivery',
     desc: 'Pay in cash when the sealed pack reaches your door.',
-    badge: 'Most popular'
+    badge: 'Popular'
   },
   {
     id: 'upi',
-    title: 'UPI / Bank Transfer',
-    desc: 'We share a UPI link on WhatsApp right after you confirm.'
+    title: 'Direct UPI / WhatsApp',
+    desc: 'We share our official UPI payment details on WhatsApp right after you confirm.'
   }
 ];
+
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    if (typeof window !== 'undefined' && window.Razorpay) {
+      resolve(true);
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
 
 const ADDRESS_TYPES = ['Home', 'Work', 'Other'];
 
@@ -251,14 +272,17 @@ function Checkout({ cart, clearCart, navigateTo, onOrderPlaced }) {
   // Back always retreats one step, and steps off the flow entirely at the top.
   const handleBack = () => openStep(activeStep - 1);
 
-  const buildWhatsappText = (orderId) => {
+  const buildWhatsappText = (orderId, paymentId = null) => {
     const itemsFormattedText = cart.map((item, index) => {
       const unit = item.product.unit || '100g';
       const price = item.product.price;
       return `${index + 1}. *${item.product.name}* (${unit})\n   Qty: ${item.quantity}\n   Price: Rs. ${price}\n   Subtotal: Rs. ${price * item.quantity}`;
     }).join('\n\n');
 
-    const paymentLabel = PAYMENT_METHODS.find(m => m.id === paymentMethod)?.title || 'Cash on Delivery';
+    let paymentLabel = PAYMENT_METHODS.find(m => m.id === paymentMethod)?.title || 'Cash on Delivery';
+    if (paymentId) {
+      paymentLabel = `Paid Online via Razorpay (Payment ID: ${paymentId})`;
+    }
 
     return (
 `*Order ID:* ${orderId}
@@ -300,6 +324,62 @@ Please confirm my order.`
     );
   };
 
+  const finalizeOrder = async (orderId, paymentId = null, methodUsed = paymentMethod) => {
+    const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const randNum = Math.floor(1000 + Math.random() * 9000);
+    const finalOrderId = orderId || `AGN-${todayStr}-${randNum}`;
+
+    // Save order to local order history so the customer can track it under /profile
+    try {
+      const existingLocalOrders = JSON.parse(localStorage.getItem('agnitra_local_orders') || '[]');
+      const newLocalOrder = {
+        orderId: finalOrderId,
+        createdAt: new Date().toISOString(),
+        customer: {
+          ...formData,
+          paymentMethod: methodUsed,
+          ...(paymentId ? { paymentId, paymentStatus: 'Paid' } : {}),
+          ...(discount ? { couponCode: coupon.code, discount, subtotal: cartTotal } : {})
+        },
+        items: cart.map(item => ({
+          productId: item.product._id || item.product.id,
+          name: item.product.name,
+          quantity: item.quantity,
+          price: item.product.price,
+          image: item.product.image || item.product.imageUrl
+        })),
+        totalAmount: payableTotal,
+        status: paymentId ? 'processing' : 'processing'
+      };
+      localStorage.setItem('agnitra_local_orders', JSON.stringify([newLocalOrder, ...existingLocalOrders]));
+    } catch (e) {
+      console.error('Could not save order to local history:', e);
+    }
+
+    if (onOrderPlaced) {
+      await onOrderPlaced().catch(() => {});
+    }
+
+    const whatsappUrl = `https://wa.me/919461839415?text=${encodeURIComponent(buildWhatsappText(finalOrderId, paymentId))}`;
+
+    // Snapshot the order before the cart is emptied
+    setPlacedOrder({
+      orderId: finalOrderId,
+      itemCount: totalItemsCount,
+      totalAmount: payableTotal,
+      discount,
+      couponCode: discount ? coupon.code : null,
+      whatsappUrl,
+      customer: { ...formData },
+      paymentMethod: methodUsed,
+      paymentId
+    });
+
+    window.open(whatsappUrl, '_blank');
+    clearCart();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handlePlaceOrder = async () => {
     if (cart.length === 0) return;
 
@@ -323,9 +403,105 @@ Please confirm my order.`
         totalAmount: payableTotal
       };
 
-      let createdOrder = {};
+      const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      const randNum = Math.floor(1000 + Math.random() * 9000);
+      const tempOrderId = `AGN-${todayStr}-${randNum}`;
 
-      // Attempt backend API order save (reflects on Admin Dashboard)
+      // ========================================================
+      // 1. RAZORPAY ONLINE PAYMENT GATEWAY FLOW
+      // ========================================================
+      if (paymentMethod === 'razorpay') {
+        const isLoaded = await loadRazorpayScript();
+        if (!isLoaded) {
+          throw new Error('Unable to connect to Razorpay payment gateway. Please check your connection or choose Cash on Delivery.');
+        }
+
+        // Call backend to create Razorpay Order
+        const res = await fetch(`${API_BASE_URL}/payment/create-order`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: payableTotal,
+            receipt: tempOrderId,
+            notes: {
+              customerName: formData.name,
+              customerPhone: formData.phone,
+              itemsCount: totalItemsCount
+            }
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.orderId) {
+          throw new Error(data.error || 'Failed to initiate Razorpay payment.');
+        }
+
+        const rzpOptions = {
+          key: data.keyId || import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_TmsOCkoldsWfni',
+          amount: data.amount,
+          currency: data.currency || 'INR',
+          name: 'Agnitra Spices',
+          description: `Order of ${totalItemsCount} item(s)`,
+          image: '/images/Agnitra logo.jpg',
+          order_id: data.orderId,
+          prefill: {
+            name: formData.name,
+            email: formData.email || '',
+            contact: formData.phone ? formData.phone.replace(/\D/g, '').slice(-10) : ''
+          },
+          notes: {
+            address: `${formData.address}, ${formData.city} - ${formData.zipCode}`
+          },
+          theme: {
+            color: '#2b3e1b' // Strict solid botanical green
+          },
+          handler: async (response) => {
+            setSubmitting(true);
+            try {
+              // Verify payment signature on backend
+              const verifyRes = await fetch(`${API_BASE_URL}/payment/verify`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+                  orderPayload
+                })
+              });
+
+              const verifyData = await verifyRes.json();
+              const confirmedOrderId = verifyData.order?.orderId || tempOrderId;
+              await finalizeOrder(confirmedOrderId, response.razorpay_payment_id, 'razorpay');
+            } catch (vErr) {
+              console.error('Payment verification warning:', vErr);
+              await finalizeOrder(tempOrderId, response.razorpay_payment_id, 'razorpay');
+            } finally {
+              setSubmitting(false);
+            }
+          },
+          modal: {
+            ondismiss: () => {
+              setSubmitting(false);
+            }
+          }
+        };
+
+        const rzp = new window.Razorpay(rzpOptions);
+        rzp.on('payment.failed', (failResponse) => {
+          console.error('Razorpay payment failed:', failResponse.error);
+          setError(`Payment was not completed: ${failResponse.error?.description || 'Transaction declined'}. You can try again or choose Cash on Delivery.`);
+          setSubmitting(false);
+        });
+
+        rzp.open();
+        return;
+      }
+
+      // ========================================================
+      // 2. CASH ON DELIVERY (COD) OR DIRECT UPI FLOW
+      // ========================================================
+      let createdOrder = {};
       try {
         const response = await fetch(`${API_BASE_URL}/orders`, {
           method: 'POST',
@@ -336,58 +512,20 @@ Please confirm my order.`
         if (response.ok) {
           const result = await response.json();
           createdOrder = result.order || {};
-          if (onOrderPlaced) {
-            await onOrderPlaced().catch(() => {});
-          }
         }
       } catch (backendErr) {
         console.warn('Backend server order save offline fallback:', backendErr);
       }
 
-      // Generate unique Order ID fallback if backend was unavailable or timed out
-      const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-      const randNum = Math.floor(1000 + Math.random() * 9000);
-      const formattedOrderId = createdOrder.orderId || `AGN-${todayStr}-${randNum}`;
-
-      // Save order to local order history so the customer can track it under /profile
-      try {
-        const existingLocalOrders = JSON.parse(localStorage.getItem('agnitra_local_orders') || '[]');
-        const newLocalOrder = {
-          orderId: formattedOrderId,
-          createdAt: new Date().toISOString(),
-          customer: orderPayload.customer,
-          items: orderPayload.items,
-          totalAmount: payableTotal,
-          status: 'processing'
-        };
-        localStorage.setItem('agnitra_local_orders', JSON.stringify([newLocalOrder, ...existingLocalOrders]));
-      } catch (e) {
-        console.error('Could not save order to local history:', e);
-      }
-
-      const whatsappUrl = `https://wa.me/919461839415?text=${encodeURIComponent(buildWhatsappText(formattedOrderId))}`;
-
-      // Snapshot the order before the cart is emptied so the confirmation screen
-      // still has something to render.
-      setPlacedOrder({
-        orderId: formattedOrderId,
-        itemCount: totalItemsCount,
-        totalAmount: payableTotal,
-        discount,
-        couponCode: discount ? coupon.code : null,
-        whatsappUrl,
-        customer: { ...formData },
-        paymentMethod
-      });
-
-      window.open(whatsappUrl, '_blank');
-      clearCart();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const formattedOrderId = createdOrder.orderId || tempOrderId;
+      await finalizeOrder(formattedOrderId, null, paymentMethod);
     } catch (err) {
       console.error('Checkout error:', err);
-      setError('Something went wrong while placing your order. Please try again.');
+      setError(err.message || 'Something went wrong while placing your order. Please try again.');
     } finally {
-      setSubmitting(false);
+      if (paymentMethod !== 'razorpay') {
+        setSubmitting(false);
+      }
     }
   };
 
@@ -799,7 +937,11 @@ Please confirm my order.`
 
                     <div className="checkout-note">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
-                      <span>Your order is confirmed by our team on WhatsApp. No card details are ever collected on this site.</span>
+                      <span>
+                        {paymentMethod === 'razorpay'
+                          ? '256-bit bank-grade encryption via Razorpay. UPI, Cards & NetBanking supported.'
+                          : 'Your order is confirmed by our team on WhatsApp with complete aroma-lock packaging guarantee.'}
+                      </span>
                     </div>
 
                     <div className="checkout-step-actions">
@@ -808,7 +950,9 @@ Please confirm my order.`
                         type="button" className="btn btn-primary checkout-cta"
                         onClick={handleContinue} disabled={submitting}
                       >
-                        {submitting ? 'Placing Order...' : `Place Order · ₹${payableTotal}`}
+                        {submitting 
+                          ? (paymentMethod === 'razorpay' ? 'Opening Payment Gateway...' : 'Placing Order...') 
+                          : (paymentMethod === 'razorpay' ? `Pay Online · ₹${payableTotal}` : `Place Order · ₹${payableTotal}`)}
                       </button>
                     </div>
                   </div>
@@ -908,7 +1052,9 @@ Please confirm my order.`
           type="button" className="btn btn-primary checkout-mobile-cta"
           onClick={handleContinue} disabled={submitting}
         >
-          {submitting ? 'Placing Order...' : CONTINUE_LABEL[activeStep]}
+          {submitting 
+            ? (paymentMethod === 'razorpay' ? 'Opening Gateway...' : 'Placing Order...') 
+            : (activeStep === 4 && paymentMethod === 'razorpay' ? `Pay Online · ₹${payableTotal}` : CONTINUE_LABEL[activeStep])}
         </button>
       </div>
     </div>
