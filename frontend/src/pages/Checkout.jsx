@@ -74,7 +74,7 @@ function Checkout({ cart, clearCart, navigateTo, onOrderPlaced }) {
   const [activeStep, setActiveStep] = useState(2);
   const [maxStepReached, setMaxStepReached] = useState(2);
   const [errors, setErrors] = useState({});
-  const [paymentMethod, setPaymentMethod] = useState('cod');
+  const [paymentMethod, setPaymentMethod] = useState('razorpay');
   const [saveAddress, setSaveAddress] = useState(true);
   const [placedOrder, setPlacedOrder] = useState(null);
   const [submitting, setSubmitting] = useState(false);
